@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Please_select_location_by_holding_down_finger_on_map">Plase select location by holding down finger on the map.</string>
+    <string name="you_reached_your_job_destination">You reached your work destination! Start work!</string>
+    <string name="about">About</string>
+    <string name="about_locawork">About Locawork</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_job">Add work</string>
+    <string name="all_work">All work</string>
+    <string name="app_name">Locawork</string>
+    <string name="facebook_app_id" translatable="false">436034077547657</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb436034077547657</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="apply">Apply</string>
+    <string name="applyer_contact">Applyer contact:</string>
+    <string name="applyer_email">Applyer email:</string>
+    <string name="are_you_sure_you_want_to_delete_this_job">Are you sure you want to delete this work</string>
+    <string name="ask_permission_before_deling_a_job">Ask permission before deleting a work</string>
+    <string name="available_work">Available work</string>
+    <string name="bottom_sheet_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+    <string name="cannot_fetch_current_location">Cannot fetch current location</string>
+    <string name="cant_go">Can not go</string>
+    <string name="ceo">CEO</string>
+    <string name="character_counter_content_description">Character limit exceeded %1$d of %2$d</string>
+    <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="client_secret" translatable="false">n9GTbIO9Q2jHXLUXkNbHYr2z</string>
+
+    <string name="common_open_on_phone">Open on phone</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
+    <string name="corona_alert">COVID information!</string>
+    <string name="corona_description">To help to prevent a risk of coronavirus infection please wear a mask if you attend to job! This is a very serious problem and hopefully normal approaches can soon be established!</string>
+    <string name="deactivate_account">Remove ads</string>
+    <string name="default_notification_channel_id" translatable="false">default-channel-id</string>
+    <string name="delete">Delete</string>
+    <string name="delete_failue">Work deleting failure</string>
+    <string name="description">Description..</string>
+    <string name="description_of_a_problem">Description of a problem</string>
+    <string name="deveopers">Developers</string>
+    <string name="dont_ask_me_again">Don\'t ask me again</string>
+    <string name="dont_show_information_in_startup">Don\'t show information on startup</string>
+    <string name="earned">Earned:</string>
+    <string name="edit_job">Edit work</string>
+    <string name="email_label">Email</string>
+    <string name="end">End:</string>
+    <string name="error">Error!</string>
+    <string name="fab_transformation_scrim_behavior" translatable="false">com.google.android.material.transformation.FabTransformationScrimBehavior</string>
+    <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
+    <string name="fcm_fallback_notification_channel_label">Miscellaneous</string>
+    <string name="filters">Filters</string>
+    <string name="locawork">Locawork</string>
+    <string name="locawork_mail">andreasplado@gmail.com</string>
+    <string name="locawork_slogan">Locate, click apply and go to help!</string>
+    <string name="getting_jobs">Getting work</string>
+    <string name="go">Go</string>
+    <string name="google_maps_key" translatable="false">AIzaSyAJnoQoIFMEEGnVva7DDnI1FXEC7-TJxQ0</string>
+    <string name="ad_mob_key" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="gps_is_turned_off">GPS is turned off</string>
+    <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
+    <string name="how_we_can_contact_you">How we can contact you?</string>
+    <string name="job_description">Work description</string>
+    <string name="job_description_is_loading">Work description is loading…</string>
+    <string name="job_end_time">Work end time</string>
+    <string name="job_item_title">You title:</string>
+    <string name="job_salary">Work salary</string>
+    <string name="job_starting_time">Work starting time</string>
+    <string name="job_title">Work title</string>
+    <string name="jobs_was_found">%1$d jobs was found</string>
+    <string name="km">km</string>
+    <string name="licence">Licence</string>
+    <string name="licence_content" translatable="false">Icons made by &lt;a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\" style=color: #8c8987&gt;Freepik&lt;/a&gt; from &lt;a href=\"https://www.flaticon.com/\" title=\"Flaticon\" style=color: #8c8987&gt; www.flaticon.com&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/business\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt;</string>
+    <string name="loading_applyer_contact">Loading applyer contact...</string>
+    <string name="loading_applyer_email">Loading applyer email…</string>
+    <string name="loading_job_candidate">Loading work candidate…</string>
+    <string name="loading_job_description">Loading work description....</string>
+    <string name="loading_job_location">Loading work location…</string>
+    <string name="loading_jobs_number">Loading work number</string>
+    <string name="loading_jobs_title">Loading work title…</string>
+    <string name="loading_licence">Loading licence…</string>
+    <string name="loading_lobs">Loading work…</string>
+    <string name="loading_your_provided_contact">Loading your provided contact…</string>
+    <string name="location">Location</string>
+    <string name="location_label">Location</string>
+    <string name="log_out">Log out</string>
+    <string name="login_with_google">Log in with Google</string>
+    <string name="marketer">Marketer</string>
+    <string name="menu_account">Account</string>
+    <string name="menu_add_job">Add work</string>
+    <string name="menu_navigate">Navigate</string>
+    <string name="menu_my_added_jobs">My added work</string>
+    <string name="menu_my_applications">My applications</string>
+    <string name="menu_my_done_work">My done work</string>
+    <string name="message">Message</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="mtrl_chip_close_icon_content_description">Remove %1$s</string>
+    <string name="multiple_jobs_found">Multiple work was found</string>
+    <string name="my_account">My Account</string>
+    <string name="my_added_jobs">My added work</string>
+    <string name="my_candidates">My candidates</string>
+    <string name="my_done_work">My done work</string>
+    <string name="my_provided_contact">My provided contact:</string>
+    <string name="my_upcoming_work">My upcoming work</string>
+    <string name="name_label">Name</string>
+    <string name="name_of_the_ceo">Andreas Plado</string>
+    <string name="name_of_the_marketer">Andreas Plado</string>
+    <string name="names_of_the_developers">Andreas Plado</string>
+    <string name="nav_app_bar_navigate_up_description">Navigate up</string>
+    <string name="nav_app_bar_open_drawer_description">Open navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_subtitle">Undefinded email</string>
+    <string name="nav_header_title">Undefined user</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="network_connection_failed">Network connection failed.</string>
+    <string name="no_gps_error_title">GPS Error</string>
+    <string name="no_job_salary">No work salary…</string>
+    <string name="no_job_selected">No work selected…</string>
+    <string name="no_jobs_found">No work found</string>
+    <string name="no_location_fetched">No location fetched</string>
+    <string name="notification">Notification</string>
+    <string name="oops">Oops!</string>
+    <string name="password_toggle_content_description">Show password</string>
+    <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
+    <string name="path_password_eye_mask_strike_through" translatable="false">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
+    <string name="path_password_eye_mask_visible" translatable="false">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
+    <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
+    <string name="phone_number_missing">Phone number missing</string>
+    <string name="please_allow_requested_permissions">Please allow requested permissions first.</string>
+    <string name="please_fill_in_all_data">Please fill in all data</string>
+    <string name="please_tell_us_why_you_cant_go_to_job">Please tell us why you can\'t go to work?</string>
+    <string name="please_turn_on_your_gps">Please turn on your GPS</string>
+    <string name="posted_job">Posted work</string>
+    <string name="problem_description">Problem description</string>
+    <string name="problem_title">Problem title</string>
+    <string name="provider">Provider</string>
+    <string name="radius">Radius</string>
+    <string name="radius_label">Radius:</string>
+    <string name="reason_to_quit_job">Reason to quit work</string>
+    <string name="report">Report</string>
+    <string name="retry">Retry</string>
+    <string name="s1">Save image</string>
+    <string name="s2">Allow Ad to store image in Picture gallery?</string>
+    <string name="s3">Accept</string>
+    <string name="s4">Decline</string>
+    <string name="s5">Create calendar event</string>
+    <string name="s6">Allow Ad to create a calendar event?</string>
+    <string name="s7">Test Ad</string>
+    <string name="salary">Salary</string>
+    <string name="search">Search…</string>
+    <string name="search_menu_title">Search</string>
+    <string name="seems_that_you_dont_have_any_work_done_here">Seems that you don\'t have any work done here.</string>
+    <string name="server_client_id" translatable="false">995893581065-evjovh93aadqlam7d9oit7kcua2dfrcm.apps.googleusercontent.com</string>
+    <string name="sorry_something_went_wrong_please_check_if_you_have_signal">Sorry something went wrong. Please check if you have signal.</string>
+    <string name="sorry_something_went_wrong_with_our_server_press_to_retry">Sorry! Something went wrong with our server.Press to retry!</string>
+    <string name="start">Start:</string>
+    <string name="start_job">Start work</string>
+    <string name="status_bar_notification_info_overflow" translatable="false">999+</string>
+    <string name="submit">Submit</string>
+    <string name="there_are_currently_no_jobs_found">There are currently no jobs found</string>
+    <string name="there_are_no_jobs_available">km there are no jobs found.</string>
+    <string name="there_was_problem_with_the_server_please_try_again">There was problem with the server! Please try again!</string>
+    <string name="these_permissions_are_mandatory_for_application_please_allow_access">These permissions are mandatory for the application. Please allow access.</string>
+    <string name="title">Title</string>
+    <string name="title_activity_notification">Notification</string>
+    <string name="to_log_in_press_sign_in">To log in press sign in</string>
+    <string name="undefined_location">Undefined location</string>
+    <string name="unfortunately_in_your_radius">Unfortunately in your radius</string>
+    <string name="update">Update</string>
+    <string name="view_added_jobs">My added work</string>
+    <string name="show_first">Show first</string>
+    <string name="we_appreciate_your_help_please_give_us_a_reason_what_happend_during_the_usage_of_an_app">We appreciate your help!Please give us a reason what happened during the usage of an app!</string>
+    <string name="work_offer">Work offer</string>
+    <string name="work_seeker">Work seeker</string>
+    <string name="yes">Yes</string>
+    <string name="you_already_applied_to_this_job">You have been already applied to this work. Press to navigate</string>
+    <string name="you_dont_have_any_added_jobs_start_adding_now">You don\'t have any added jobs.Start adding now!</string>
+    <string name="you_dont_have_any_upcoming_work_feel_free_to_apply">You don\'t have any upcoming work. Feel free to apply.</string>
+    <string name="you_have_been_selected_for_the_job">You have been selected for the job</string>
+    <string name="you_have_no_candidates_right_now">You have no candidates right now!</string>
+    <string name="you_have_not_been_selected_for_the_job">You have been not selected for the job!</string>
+    <string name="you_havent_added_any_jobs_jet">You havn\'t added any work yet</string>
+    <string name="you_havnt_applied_to_any_jobs_yet">You havn\'t applied to any work yet</string>
+    <string name="you_successfully_applyed_to_the_job">You successfully applyed to the job!</string>
+    <string name="your_answer_is_very_important_to_job_seeker">Your answer is very important to work seeker</string>
+
+    <string name="menu_home" translatable="false">Home</string>
+    <string name="menu_gallery" translatable="false">Gallery</string>
+    <string name="menu_slideshow" translatable="false">Slideshow</string>
+    <string name="title_activity_test" translatable="false">test</string>
+    <string name="work_title">Work Title</string>
+    <string name="work_description">Work description</string>
+    <string name="submit_unsuccessful">Submit unsuccessful</string>
+    <string name="you_have_currently_no_appliccations">You have currently no applications. Start applying!</string>
+    <string name="network_error">Network error!</string>
+    <string name="please_report_a_bug">Please report a bug</string>
+    <string name="my_added_work">My added work</string>
+    <string name="do_you_want_to_turn_on_gps">Do you want to turn on GPS?</string>
+    <string name="no">No</string>
+    <string name="my_application_delete_failure">My application delete failure</string>
+    <string name="apply_to_work">Apply to work</string>
+    <string name="loading_job_salary">Loading work salary</string>
+    <string name="job_location">Work location</string>
+    <string name="you_reached_to_jour_job_location">You reached your work location!</string>
+    <string name="no_category_selected">No category selected</string>
+    <string name="global_settings">Global settings</string>
+    <string name="user_settings">User settings</string>
+    <string name="choose_candidate">Choose candidate</string>
+    <string name="candidates">Candidates</string>
+    <string name="upcoming_work">Upcoming work</string>
+    <string name="candidate">Candidate</string>
+    <string name="cant_go_to_work">Can not go to work?</string>
+    <string name="it_seems_like_you_have_blocked_your_content">Seems like you have blocked your content</string>
+    <string name="click_on_aim_to_turn_it_on">Click on aim to turn it on.</string>
+    <string name="please_set_your_radius_in_km">Please set your radius in kilometers</string>
+    <string name="radius_is_global_value_and_is_saved_after_the_app_is_installed">Radius is global value and saved after app is installed</string>
+    <string name="settings_not_set">Settings not set</string>
+    <string name="no_settings_found_please_reload">No settings found, please reload!</string>
+    <string name="remove_adds">Remove adds</string>
+    <string name="my_application_cancel_failue">My application cancel failure</string>
+    <string name="select_a_work">Select a work:</string>
+    <string name="register_locawork_account">Register Locawork account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="password_doesnt_match">Password doesn\'t match</string>
+    <string name="user_failed_to_register">User failed to register</string>
+    <string name="contact">Contact</string>
+    <string name="user_already_exists">User already exists!</string>
+    <string name="user_successfully_registred_now_you_can_log_in">User successfully registred! Now you can log in!</string>
+    <string name="undefined_email">Undefined email</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="please_enter_your_fullname">Please enter your fullname</string>
+    <string name="fullname">Fullname</string>
+    <string name="logout_error_please_try_again">Logout error! Please try again!</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="please_enter_your_email_and_password">Please enter your email and password</string>
+    <string name="please_enter_your_password">Please enter your password</string>
+    <string name="please_enter_your_email">Please enter your email</string>
+    <string name="you_entered_wrong_credentials">You entered wrong credentials!</string>
+    <string name="please_click_back_again_to_exit">Please click BACK again to exit</string>
+    <string name="allow_location">Allow location</string>
+    <string name="please_allow_gps_to_use_this_application">Please allow GPS to use this application</string>
+    <string name="access_denied_cannot_process_further">Acccess denied cannot process further.</string>
+    <string name="register">Register</string>
+    <string name="user_registred_successfully">User registred successfully</string>
+    <string name="email_is_not_in_correct_format">Email is not in correct format</string>
+    <string name="privacy_policy_url">https://locawork.org/privacy-policy/</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="approve">Approve</string>
+    <string name="candidate_chosen">You successfully chose candidate!</string>
+    <string name="you_successfully_choose_the_candidate">You successfully choose the candidate</string>
+    <string name="back">Back</string>
+    <string name="you_succesfully_applied_to_the_work">You successfully applied to the work!</string>
+    <string name="go_back_to_main">Go back to main</string>
+    <string name="euro">€</string>
+    <string name="title_activity_candidate_chosen">Candidate chosen</string>
+    <string name="title_activity_successfully_applied">Successfully applied</string>
+    <string name="title_activity_user_registred">User registred</string>
+    <string name="title_activity_location_permission">Allow location permissions</string>
+    <string name="no_title_defined">No title defined</string>
+    <string name="added_job">Added work</string>
+    <string name="my_applications">My applications</string>
+    <string name="find_work">Find work</string>
+    <string name="offer_work">Offer work</string>
+    <string name="clear_role">Clear role</string>
+    <string name="please_select_your_role_first">Please select your role first</string>
+    <string name="role_label">Role:</string>
+    <string name="role_is_missing">Role is missing</string>
+    <string name="default_role">Default role</string>
+    <string name="change_role">Change role</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="server_error">There is error with the server!</string>
+    <string name="please_allow_camera_to_use_this_application">Allow camera to use this application</string>
+    <string name="allow_camera">Allow camera</string>
+    <string name="allow_location_and_camera">Allow location and camera</string>
+    <string name="work">Work-</string>
+    <string name="the_query_is_not_valid">The query is not valid</string>
+    <string name="radius_not_successfully_updated">Radius successfully updated</string>
+    <string name="event_updated_radius_error">Sorry! Something went wrong with radius update!</string>
+    <string name="sorry_couldnt_fetch_the_data">Sorry! Couldnt fetch the data</string>
+    <string name="update_failed">Update failed</string>
+    <string name="you_successfully_updated_an_app">You successfully updated an app!</string>
+    <string name="radius_update_failed">Radius update failed</string>
+    <string name="you_have_new_candidate">You have new candidate</string>
+    <string name="unfortunately_push_notification_will_be_not_send">Unfortunately push notification will be not send</string>
+    <string name="role_failed_to_select_please_try_again">Role failed to select! Please try again.</string>
+    <string name="this_android_version_does_not_support_fingerprint_authentication">This Android version does not support fingerprint authentication</string>
+    <string name="fingerprint_sensor_not_supported">Fingerprint sensor not supported</string>
+    <string name="lock_screen_security_not_enabled_in_settings">Lock screen security not enabled in settings</string>
+    <string name="fingerprint_authentication_label_not_enabled">Finerprint authentication label not enabled</string>
+    <string name="enable_biometric_authentication">Enable biometric authentication</string>
+    <string name="biometric_not_enabled_please_try_again">Biometric not enabled! Please try again</string>
+    <string name="biometric_security_has_been_enabled">Biometric security has been enabled</string>
+    <string name="login_to_locawork">Login to locawork</string>
+    <string name="login_using_your_biometric_credentials">Login using your biometric credentials</string>
+    <string name="use_password">Use password</string>
+    <string name="try_again">Try again</string>
+    <string name="biometric_authentication_failed">Biometric authentication failed</string>
+    <string name="authenicate" translatable="false">Authenticated!</string>
+    <string name="too_many_failed_authentications">Too many failed authentications</string>
+    <string name="kilometers">Kilometers</string>
+    <string name="close_app">Close app</string>
+    <string name="locawork_protection_is_on">Locawork protection is on</string>
+    <string name="please_log_in_with_phone_password">Please log in with phone password</string>
+    <string name="enter_phone_password">Enter phone password</string>
+    <string name="stripe_publishable_key">pk_test_51ITWSrA3Xw7dP7n9tT6ZBpigjgXBQplNuDQQf2vxQethZ8LvOY8psxrDSoqIyb6WLZ78cKoWUUQm6niYeT8lKk7G00bIkzZE84</string>
+    <string name="unlimited_job_posts">Unlimited job posts</string>
+    <string name="radius_1_km">Radius 1 km</string>
+    <string name="please_select_your_wish">Please select your wish</string>
+    <string name="for_job_seeker">For job seeker</string>
+    <string name="for_job_offer">For job offerer</string>
+    <string name="we_strongly_reccomaand_you_to_change_your_password">We strongly reccomand you to change your passwordd\n over a month, so your account is more secure:</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="store">Store</string>
+    <string name="add_payment_card_method">Add pyament card method</string>
+    <string name="title_activity_welcome_screen">Welcome</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_preloading_screen">PreloadingScreen</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_connect_to_the_internet_please">ConnectToTheInternetPlease</string>
+    <string name="connect_to_the_internet_please">Connect to the internet please</string>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_find_job"
+            android:icon="@drawable/ic_aim"
+            android:title="@string/menu_navigate" />
+        <item
+            android:id="@+id/nav_work_seeker"
+            android:title="@string/work_seeker">
+            <menu>
+                <item
+                    android:id="@+id/nav_my_applications"
+                    android:icon="@drawable/ic_my_applications"
+                    android:title="@string/menu_my_applications"
+                    fancy:actionLayout="@layout/menu_counter" />
+                <item
+                    android:id="@+id/nav_my_upcoming_work"
+                    android:icon="@drawable/ic_my_upcoming_work"
+                    android:title="@string/my_upcoming_work"
+                    fancy:actionLayout="@layout/menu_counter" />
+                <item
+                    android:id="@+id/nav_my_done_work"
+                    android:icon="@drawable/ic_tick"
+                    android:title="@string/menu_my_done_work" />
+            </menu>
+        </item>
+        <item
+            android:id="@+id/nav_work_offer"
+            android:title="@string/work_offer">
+            <menu>
+                <item
+                    android:id="@+id/nav_view_added_jobs"
+                    android:icon="@drawable/ic_my_added_work"
+                    android:title="@string/my_added_jobs" />
+                <item
+                    android:id="@+id/nav_my_candidates"
+                    android:icon="@drawable/ic_candidates"
+                    android:title="@string/my_candidates"
+                    fancy:actionLayout="@layout/menu_counter" />
+            </menu>
+        </item>
+    </group>
+    <item android:title="@string/miscellaneous">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/action_settings" />
+            <item
+                android:id="@+id/nav_report"
+                android:icon="@drawable/ic_report"
+                android:title="@string/report" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_about"
+                android:title="@string/about" />
+        </menu>
+    </item>
+    <item android:title="@string/store">
+        <menu>
+            <item
+                android:id="@+id/nav_subscribe"
+                android:icon="@drawable/ic_shop_white_36dp"
+                android:title="@string/subscribe" />
+        </menu>
+    </item>
+</menu>

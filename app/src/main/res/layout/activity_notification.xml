@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="358dp"
+        android:layout_height="253dp"
+        android:layout_gravity="top|center_vertical|center_horizontal|center"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/ic_corona" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_vertical|center_horizontal|center"
+        android:gravity="center"
+        android:text="@string/corona_description"
+        android:textColor="@color/colorWhite" />
+    <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:background="@drawable/button_tick_light" />
+    </LinearLayout>
+</LinearLayout>
