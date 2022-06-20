@@ -1,4 +1,4 @@
-# LocaWork
+# Locawork
 ## Find a nearest possible work or help and meet up!
 Locawork has found a similarity with an ants and human.
 ants are purposeful for their small and logical movement.
