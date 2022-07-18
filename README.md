@@ -16,7 +16,7 @@ when the help is in progress or finished. Right now these last two stages are
 still in a development.
 
 Regulations:
-Regulations of goverment for the price per help are still in development phase.
+Regulations of government for the price per help are still in development phase.
 
 
 
