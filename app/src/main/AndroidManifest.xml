@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.locawork">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.fingerprint"
         android:required="true" />
-
-    <uses-permission android:name="com.android.vending.BILLING" />
-
-    <queries>
-        <package android:name="com.facebook.katana" />
-    </queries>
 
     <application
         android:allowBackup="true"
@@ -28,33 +28,26 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ActivityPreloader"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true"
-            android:label="@string/title_activity_connect_to_the_internet_please"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:name=".ActivityEndWork"
+            android:exported="false" />
         <activity
-            android:name=".PreloadingScreen"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true"
-            android:label="@string/title_activity_preloading_screen"
-            android:theme="@style/AppTheme.Fullscreen" />
-        <activity
-            android:name=".WelcomeScreen"
+            android:name=".ActivityMain"
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".services.ServiceReachedJob"
-            android:exported="false" />
+            android:exported="true" />
         <service
             android:name=".services.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".services.LocaworkFirebaseMessagingService">
+        <service
+            android:name=".services.LocaworkFirebaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -71,7 +64,7 @@
             android:label="@string/title_activity_candidate_chosen"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".ActivitySuccessfullyApplied"
+            android:name=".ActivitySuccessfullyStartWork"
             android:label="@string/title_activity_successfully_applied"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -84,12 +77,12 @@
             android:label="@string/title_activity_user_registred"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".LocationPermissionActivity"
+            android:name=".ActivityLocationPermission"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_location_permission"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity android:name=".RegisterUserActivity" />
-        <activity android:name=".SetRadiusActivity" />
+        <activity android:name=".ActivitySetRadius" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -99,11 +92,6 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -112,7 +100,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/ad_mob_key" />
+            android:value="ca-app-pub-7811023704360430~7103597495" />
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
@@ -121,8 +109,9 @@
             android:value="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityPreloader"
             android:configChanges="orientation"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -137,17 +126,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.login.LoginActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".ActivityNotification"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".StartJobActivity"
+            android:name=".ActivityWorkReached"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -160,12 +149,14 @@
 
                 <!-- protected-broadcast: Special broadcast that only the system can send -->
                 <!-- Corresponds to: android.net.wifi.WifiManager.NETWORK_STATE_CHANGED_ACTION -->
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".broadcastreciever.GpsReciver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.location.PROVIDERS_CHANGED" />
 

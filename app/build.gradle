@@ -4,69 +4,65 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Andreas\\locawork.jks')
+            storeFile file('C:\\Users\\AP\\.locawork-keystore\\my-release-key.jks')
             storePassword 'LaheKool123'
-            keyAlias 'andreas'
+            keyAlias 'locawork'
             keyPassword 'LaheKool123'
         }
     }
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 34
     defaultConfig {
-        applicationId "org.locawork"
+        applicationId "ee.locawork"
         minSdkVersion 24
-        targetSdkVersion 29
-        versionCode 50
-        versionName "1.5"
+        targetSdkVersion 34
+        versionCode 4
+        versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
     }
     buildTypes {
         release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
-            debuggable true //check true if you want to debug, false for release
+            debuggable false //check true if you want to debug, false for release
         }
         debug {
             debuggable true
         }
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding true
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
     }
+    namespace 'ee.locawork'
 }
 
 dependencies {
-    implementation 'com.google.android.play:core:1.7.2'
-    def nav_version = "2.3.2"
+    implementation 'com.google.android.play:core:1.10.3'
+    def nav_version = "2.7.0"
     def multidex_version = "2.0.1"
     def htextview_version = "0.1.6"
 
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'io.nlopez.smartlocation:library:3.3.3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
@@ -77,36 +73,39 @@ dependencies {
     implementation 'net.sharewire:google-maps-clustering:0.1.3'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.firebase:firebase-ads:19.7.0'
-    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
-    implementation 'com.google.android.material:material:1.4.0-alpha01'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+    implementation 'com.google.firebase:firebase-ads:22.2.0'
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'com.google.android.material:material:1.11.0-alpha02'
+
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
-    implementation "androidx.preference:preference:1.1.1"
-    implementation "com.facebook.android:facebook-android-sdk:5.15.3"
+    implementation "androidx.preference:preference:1.2.1"
     implementation "com.hanks:htextview-base:$htextview_version"        // base library
     implementation "com.hanks:htextview-typer:$htextview_version"       // optional
     implementation 'com.github.mzule.fantasyslide:library:1.0.5'
-
     implementation group: 'com.google.zxing', name: 'android-core', version: '3.3.0'
-    implementation "androidx.biometric:biometric:1.2.0-alpha03"
-
+    implementation "androidx.biometric:biometric:1.2.0-alpha05"
     //push notification
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
-
     // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
-
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
-    implementation 'com.stripe:stripe-android:15.1.0'
     implementation 'com.billy.android:pre-loader:2.1.0'
+    implementation 'androidx.work:work-runtime:2.8.1'
+
+    implementation 'org.springframework.security:spring-security-crypto:5.7.2'
+    implementation 'commons-logging:commons-logging-api:1.1'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+    implementation 'com.stripe:stripe-android:20.28.2'
+
+    implementation 'com.github.kittinunf.fuel:fuel:3.0.0-alpha1'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

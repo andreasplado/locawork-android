@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Please_select_location_by_holding_down_finger_on_map">Plase select location by holding down finger on the map.</string>
-    <string name="you_reached_your_job_destination">You reached your work destination! Start work!</string>
+    <string name="you_reachecd_your_working_destination">You reached your work destination! Start working now!</string>
     <string name="about">About</string>
     <string name="about_locawork">About Locawork</string>
     <string name="action_settings">Settings</string>
@@ -53,7 +53,7 @@
     <string name="locawork_slogan">Locate, click apply and go to help!</string>
     <string name="getting_jobs">Getting work</string>
     <string name="go">Go</string>
-    <string name="google_maps_key" translatable="false">AIzaSyAJnoQoIFMEEGnVva7DDnI1FXEC7-TJxQ0</string>
+    <string name="google_maps_key" translatable="false">AIzaSyDxMp6Y2Hg7KW5RFm5fXrGuNWBN6aN1Elc</string>
     <string name="ad_mob_key" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
     <string name="gps_is_turned_off">GPS is turned off</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
@@ -61,11 +61,12 @@
     <string name="job_description">Work description</string>
     <string name="job_description_is_loading">Work description is loading…</string>
     <string name="job_end_time">Work end time</string>
-    <string name="job_item_title">You title:</string>
+    <string name="job_item_title">Your title:</string>
     <string name="job_salary">Work salary</string>
     <string name="job_starting_time">Work starting time</string>
     <string name="job_title">Work title</string>
-    <string name="jobs_was_found">%1$d jobs was found</string>
+    <string name="n_jobs_was_found_for_working">%1$d jobs was found for working</string>
+    <string name="you_have_posted_n_jobs">You have posted %1$d jobs</string>
     <string name="km">km</string>
     <string name="licence">Licence</string>
     <string name="licence_content" translatable="false">Icons made by &lt;a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\" style=color: #8c8987&gt;Freepik&lt;/a&gt; from &lt;a href=\"https://www.flaticon.com/\" title=\"Flaticon\" style=color: #8c8987&gt; www.flaticon.com&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/business\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt;</string>
@@ -165,7 +166,7 @@
     <string name="title_activity_notification">Notification</string>
     <string name="to_log_in_press_sign_in">To log in press sign in</string>
     <string name="undefined_location">Undefined location</string>
-    <string name="unfortunately_in_your_radius">Unfortunately in your radius</string>
+    <string name="unfortunately_in_your_radius_n_is_no_work_found">Unfortunately in your radius %1$d km there is no work found</string>
     <string name="update">Update</string>
     <string name="view_added_jobs">My added work</string>
     <string name="show_first">Show first</string>
@@ -191,7 +192,7 @@
     <string name="work_title">Work Title</string>
     <string name="work_description">Work description</string>
     <string name="submit_unsuccessful">Submit unsuccessful</string>
-    <string name="you_have_currently_no_appliccations">You have currently no applications. Start applying!</string>
+    <string name="you_have_currently_no_appliccations_start_earning">You have currently no applications. Start applying and earning!</string>
     <string name="network_error">Network error!</string>
     <string name="please_report_a_bug">Please report a bug</string>
     <string name="my_added_work">My added work</string>
@@ -201,7 +202,7 @@
     <string name="apply_to_work">Apply to work</string>
     <string name="loading_job_salary">Loading work salary</string>
     <string name="job_location">Work location</string>
-    <string name="you_reached_to_jour_job_location">You reached your work location!</string>
+    <string name="you_reached_to_your_work_location">You reached your work location!</string>
     <string name="no_category_selected">No category selected</string>
     <string name="global_settings">Global settings</string>
     <string name="user_settings">User settings</string>
@@ -213,7 +214,7 @@
     <string name="it_seems_like_you_have_blocked_your_content">Seems like you have blocked your content</string>
     <string name="click_on_aim_to_turn_it_on">Click on aim to turn it on.</string>
     <string name="please_set_your_radius_in_km">Please set your radius in kilometers</string>
-    <string name="radius_is_global_value_and_is_saved_after_the_app_is_installed">Radius is global value and saved after app is installed</string>
+    <string name="please_select_the_radius_you_are_dealing_the_work_with">Please select the radius you are dealing the work with</string>
     <string name="settings_not_set">Settings not set</string>
     <string name="no_settings_found_please_reload">No settings found, please reload!</string>
     <string name="remove_adds">Remove adds</string>
@@ -252,7 +253,6 @@
     <string name="candidate_chosen">You successfully chose candidate!</string>
     <string name="you_successfully_choose_the_candidate">You successfully choose the candidate</string>
     <string name="back">Back</string>
-    <string name="you_succesfully_applied_to_the_work">You successfully applied to the work!</string>
     <string name="go_back_to_main">Go back to main</string>
     <string name="euro">€</string>
     <string name="title_activity_candidate_chosen">Candidate chosen</string>
@@ -305,26 +305,79 @@
     <string name="locawork_protection_is_on">Locawork protection is on</string>
     <string name="please_log_in_with_phone_password">Please log in with phone password</string>
     <string name="enter_phone_password">Enter phone password</string>
-    <string name="stripe_publishable_key">pk_test_51ITWSrA3Xw7dP7n9tT6ZBpigjgXBQplNuDQQf2vxQethZ8LvOY8psxrDSoqIyb6WLZ78cKoWUUQm6niYeT8lKk7G00bIkzZE84</string>
+    <string name="stripe_publishable_key" translatable="false">pk_test_51MMv4oIgrx0ENKDzWDY21TMQotsF7fUeUOmzxgNHSeskIu70wc5gbgRgWBHNLWr4zTDzBNZVAmioDhFCRQcmKoNu00GXDp3gnI</string>
     <string name="unlimited_job_posts">Unlimited job posts</string>
-    <string name="radius_1_km">Radius 1 km</string>
+    <string name="radius_1_km" translatable="false">Radius 1 km</string>
     <string name="please_select_your_wish">Please select your wish</string>
     <string name="for_job_seeker">For job seeker</string>
     <string name="for_job_offer">For job offerer</string>
-    <string name="we_strongly_reccomaand_you_to_change_your_password">We strongly reccomand you to change your passwordd\n over a month, so your account is more secure:</string>
+    <string name="we_strongly_reccomaand_you_to_change_your_password">We strongly reccomand you to change your password\n over a month, so your account is more secure:</string>
     <string name="subscribe">Subscribe</string>
     <string name="store">Store</string>
-    <string name="add_payment_card_method">Add pyament card method</string>
+    <string name="start_giving_work">Start giving work</string>
     <string name="title_activity_welcome_screen">Welcome</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_preloading_screen">PreloadingScreen</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_connect_to_the_internet_please">ConnectToTheInternetPlease</string>
-    <string name="connect_to_the_internet_please">Connect to the internet please</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_preloading_screen" translatable="false">PreloadingScreen</string>
+    <string name="dummy_button" translatable="false">Dummy Button</string>
+    <string name="dummy_content" translatable="false">DUMMY\nCONTENT</string>
+    <string name="title_activity_connect_to_the_internet_please" translatable="false">ConnectToTheInternetPlease</string>
+    <string name="connect_to_the_internet_please" translatable="false">Connect to the internet please</string>
+    <string name="menu_my_candidates">My candidates</string>
+    <string name="you_have_to_select_one_cancidate_from_my_candidates">You have to select one candidate from my candidates!</string>
+    <string name="to_remove_adds_you_need_to_pay_10_euros">To remove adds you need to pay 10 euros</string>
+    <string name="remove_adds_only_for">Remove adds only for 9.99€</string>
+    <string name="congratulations_you_payed_for_seeing">Congratulations!\nYou have been purchased $9.99\nto not see an add!</string>
+    <string name="start_giving_unlimited_work">Start giving work unlimited times</string>
+    <string name="only_for_2">Only for 2€ each job!</string>
+    <string name="please_enter_your_credit_card_details">Please enter your credit card details</string>
+    <string name="only_for_999">Only for 9.99€</string>
+    <string name="save_card_for_future_automatic_payments">Save card for future automatic payments.</string>
+    <string name="cancel_giving_work">Cancel giving work</string>
+    <string name="please_subscribe_from_store_to_use_this_feature">Please subscribe from store in menu to use this feature</string>
+    <string name="please_enter_correct_credit_card_details">Please enter correct credit card details</string>
+    <string name="please_make_sure_to_save_details_to_add_work">Please make sure to save details to add work</string>
+    <string name="your_data_hold_in_your_responsibility_every_time_you_log_out_data_will_be_removed">Your data hold is your responsibility! Every time you log out your card details will be removed forever.</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="alert">Alert</string>
+    <string name="you_are_going_be_pay_2_euros_after_adding_new_work_every_time_will_you_accept_this">Note that you are going to pay automatically 2 euros after every job post!\nWill you accept this?</string>
+    <string name="customer_id_label">Customer ID:</string>
+    <string name="you_have_no_active_customer_id">You have no active customer id</string>
+    <string name="biometric_security_has_been_disabled">Biometric security has been disabled</string>
+    <string name="you_removed_the_adds">You removed the adds</string>
+    <string name="work_added_succesffully">Work added successfully</string>
+    <string name="you_have_no_access_any_more">You have no access any more</string>
+    <string name="thank_you_for_your_subscription">Thank you for your subscription!</string>
+    <string name="you_have_purchased_forever_for_your_subscription_to_see_this_app_without_an_adds">You have purchased forever to see this app without an adds to this user</string>
+    <string name="dear_user">Dear user!</string>
+    <string name="succees">Success</string>
+    <string name="failed_to_remove_adds_please_try_again">Failed to remove adds. Please try again!</string>
+    <string name="failure">Failure</string>
+    <string name="you_just_posted_a_work_please_check_in_your_added_work_to_see_or_edit_your_posted_work">You just posted a work!\nPlease check your added work to see or edit your posted work.</string>
+    <string name="congratulations_you_just_added_new_work">Congratulations!\nYou just added new work!</string>
+    <string name="your_job_psting_failed_please_check_your_credit_card_details_or_contact_with_support">Your job posting failed! Please check your credit card details or contact with support</string>
+    <string name="you_have_been_logged_out">You have nbeen logged out!</string>
+    <string name="payroll">Payroll</string>
+    <string name="monthly">Monthly</string>
+    <string name="days">Days</string>
+    <string name="hours">Hours</string>
+    <string name="wohooo">Wohoo!</string>
+    <string name="you_just_chose_the_candidate">You just chose the candidate</string>
+    <string name="you_have_been_applied_to_work_please_please_wait_for_confirmation">You have been applied to work. Please wait for confirmation</string>
+    <string name="you_succesfully_applied_to_the_work">You successfully applied to the work!</string>
+    <string name="start_work">Start work</string>
+    <string name="end_work">End work</string>
+    <string name="you_are_going_to_work">You are going to work!</string>
+    <string name="while_you_are_moving_please_be_aware_of_accidents_in_case_anything_happens_please_inform_the_employee">While you are moving please be aware of accidents.\nIn case anything happens, please inform the employee</string>
+    <string name="jobs_was_found">%1$d jobs found</string>
+    <string name="allow_permission">Allow location</string>
+    <string name="r_work_destination">Te jõudsite töö asukohani! Alusta tööd!</string>
+    <string name="hours_to_work">Hours to work</string>
+    <string name="salary_per_hour">Salary per hour</string>
+
 </resources>

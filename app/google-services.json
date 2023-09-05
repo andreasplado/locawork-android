@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "143749087100",
-    "project_id": "locawork-1610465000587",
-    "storage_bucket": "locawork-1610465000587.appspot.com"
+    "project_number": "175324554701",
+    "project_id": "locawork-c0b58",
+    "storage_bucket": "locawork-c0b58.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:143749087100:android:aa41b4b410df4da0ec2ef9",
+        "mobilesdk_app_id": "1:175324554701:android:757aaaec412b25f2fad084",
         "android_client_info": {
-          "package_name": "org.locawork"
+          "package_name": "ee.locawork"
         }
       },
       "oauth_client": [
         {
-          "client_id": "143749087100-5r4a9on4ot3i7794q1a8k8pb7k8i8ul2.apps.googleusercontent.com",
+          "client_id": "175324554701-occljvoamvjpfuei1o5ng5g0d3d36mbt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBgbm-zg9hYEt_K287ETKX8LUC7fNWQGac"
+          "current_key": "AIzaSyDpvdMeiglblvhvnByNyAF40ZKgLjdostI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "143749087100-5r4a9on4ot3i7794q1a8k8pb7k8i8ul2.apps.googleusercontent.com",
+              "client_id": "175324554701-occljvoamvjpfuei1o5ng5g0d3d36mbt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

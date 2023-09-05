@@ -36,6 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             fancy:adSize="BANNER"
-            fancy:adUnitId="ca-app-pub-1108519029729470~7913207864" />
+            fancy:adUnitId="ca-app-pub-7811023704360430/5598944137" />
     </LinearLayout>
 </RelativeLayout>

@@ -40,14 +40,15 @@
                 android:layout_marginTop="-50dp"
                 fancy:bar_color="@color/colorPrimary"
                 fancy:bubble_color="@color/colorAccent"
-                fancy:size="normal" />
+                fancy:size="normal"
+                fancy:initial_position="0.1"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingTop="30dp"
-                android:text="@string/radius_is_global_value_and_is_saved_after_the_app_is_installed"
+                android:text="@string/please_select_the_radius_you_are_dealing_the_work_with"
                 android:textSize="15dp" />
 
             <ImageButton

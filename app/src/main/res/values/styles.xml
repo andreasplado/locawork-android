@@ -34,7 +34,17 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+        <item name="android:spinnerDropDownItemStyle">@style/appSpinner</item>
+    </style>
 
+    <style name="appSpinnerItem">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="appSpinner">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="Checkbox">
@@ -42,6 +52,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="background">@drawable/button_select_box</item>
     </style>
+
+
 
     <style name="FullscreenDialog" parent="AppTheme.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
@@ -71,4 +83,5 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+
 </resources>

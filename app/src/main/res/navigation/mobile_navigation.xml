@@ -4,38 +4,42 @@
     fancy:startDestination="@+id/nav_find_job">
     <fragment
         android:id="@+id/nav_find_job"
-        android:name="org.locawork.ui.findjob.FragmentFindJob"
+        android:name="ee.locawork.ui.findjob.FragmentFindJob"
         android:label="@string/menu_navigate" />
     <fragment
         android:id="@+id/nav_view_added_jobs"
-        android:name="org.locawork.ui.myaddedjob.FragmentAddedJobs"
+        android:name="ee.locawork.ui.myaddedjob.FragmentAddedJobs"
         android:label="@string/menu_my_added_jobs" />
     <fragment
         android:id="@+id/nav_my_applications"
-        android:name="org.locawork.ui.myapplications.FragmentMyApplications"
+        android:name="ee.locawork.ui.myapplications.FragmentMyApplications"
         android:label="@string/menu_my_applications" />
     <fragment
+        android:id="@+id/nav_my_candidates"
+        android:name="ee.locawork.ui.mycandidates.FragmentMyCandidates"
+        android:label="@string/menu_my_candidates" />
+    <fragment
         android:id="@+id/nav_my_upcoming_work"
-        android:name="org.locawork.ui.myupcomingjob.FragmentMyUpcomingWork"
+        android:name="ee.locawork.ui.myupcomingjob.FragmentMyUpcomingWork"
         android:label="@string/my_upcoming_work" />
     <fragment
         android:id="@+id/nav_my_done_work"
-        android:name="org.locawork.ui.mydonejobs.FragmentMyDoneJobs"
+        android:name="ee.locawork.ui.mydonejobs.FragmentMyDoneJobs"
         android:label="@string/my_done_work" />
     <fragment
         android:id="@+id/nav_settings"
-        android:name="org.locawork.ui.settings.FragmentSettings"
+        android:name="ee.locawork.ui.settings.FragmentSettings"
         android:label="@string/action_settings" />
     <fragment
         android:id="@+id/nav_report"
-        android:name="org.locawork.ui.report.FragmentReport"
+        android:name="ee.locawork.ui.report.FragmentReport"
         android:label="@string/report" />
     <fragment
         android:id="@+id/nav_about"
-        android:name="org.locawork.ui.about.FragmentAbout"
+        android:name="ee.locawork.services.about.FragmentAbout"
         android:label="@string/about" />
     <fragment
         android:id="@+id/nav_subscribe"
-        android:name="org.locawork.ui.payformemeber.FragmentPayForMember"
+        android:name="ee.locawork.ui.payformemeber.FragmentPayForMember"
         android:label="@string/subscribe" />
 </navigation>

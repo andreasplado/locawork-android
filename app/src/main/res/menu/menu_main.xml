@@ -37,8 +37,7 @@
                 <item
                     android:id="@+id/nav_my_candidates"
                     android:icon="@drawable/ic_candidates"
-                    android:title="@string/my_candidates"
-                    fancy:actionLayout="@layout/menu_counter" />
+                    android:title="@string/my_candidates" />
             </menu>
         </item>
     </group>

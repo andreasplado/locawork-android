@@ -52,6 +52,7 @@
         <TextView
             android:textColor="@color/colorWhite"
             android:id="@+id/nav_role"
+            android:text="@string/work_seeker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

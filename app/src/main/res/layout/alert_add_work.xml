@@ -56,10 +56,40 @@
                 android:id="@+id/salary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/salary"
+                android:hint="@string/salary_per_hour"
                 android:inputType="numberDecimal"
                 android:textColor="@color/colorTxtShaded"
                 android:textColorHint="@color/colorPrimary" />
+            <EditText
+                android:id="@+id/units_to_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hours_to_work"
+                android:inputType="numberDecimal"
+                android:textColor="@color/colorTxtShaded"
+                android:textColorHint="@color/colorPrimary" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/payroll"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/colorPrimary" />
+                <Spinner
+                    android:id="@+id/payroll"
+                    android:background="@color/colorPrimary"
+                    android:padding="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/payroll"
+                    />
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="358dp"

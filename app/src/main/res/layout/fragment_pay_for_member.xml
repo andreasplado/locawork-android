@@ -5,46 +5,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/server_error_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_nasa_vector_5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/oops"
-            android:textColor="@color/colorWhite"
-            android:textSize="30dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sorry_something_went_wrong_with_our_server_press_to_retry"
-            android:textColor="@color/colorWhite" />
-
-        <ImageButton
-            android:id="@+id/retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:src="@drawable/ic_reload" />
-    </LinearLayout>
-
-    <include
-        layout="@layout/loading_view"
-        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,20 +12,63 @@
         android:text="@string/please_select_your_wish"
         android:textSize="30dp" />
 
+    <TextView
+        android:id="@+id/puchased_add_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/congratulations_you_payed_for_seeing"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/remove_adds_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/only_for_999"
+            android:textSize="30dp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_adds_only_for"
+            android:textSize="12dp" />
+
+
+        <Button
+            android:id="@+id/remove_adds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/remove_adds" />
+    </LinearLayout>
+
     <Button
+        android:id="@+id/start_giving_work"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/add_payment_card_method"
-        android:id="@+id/add_payment_method"
-        android:visibility="gone" />
+        android:text="@string/start_giving_work" />
+
+    <Button
+        android:id="@+id/cancel_giving_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"
+        android:text="@string/cancel_giving_work" />
 
     <LinearLayout
+        android:id="@+id/payment_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:id="@+id/payment_layout"
         android:visibility="gone">
 
         <TextView
@@ -91,10 +94,4 @@
             android:layout_height="wrap_content"
             android:text="@string/unlimited_job_posts" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="50dp"
-        android:text="@string/we_strongly_reccomaand_you_to_change_your_password" />
 </LinearLayout>
