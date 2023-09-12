@@ -38,6 +38,12 @@ public class ServiceReachedJob extends IntentService {
     public static final String KEY_JOB_LONGITUDE = "job_longitude";
     public static final String KEY_JOB_SALARY = "job_salary";
     public static final String KEY_JOB_TITLE = "job_title";
+
+    public static final String KEY_JOB_STATUS = "user_status";
+    public static final String KEY_JOB_START_TIME = "user_work_start_time";
+    public static final String KEY_HOURS_TO_WORK = "hours_to_work";
+    public static final String KEY_APPLIER_ID = "applier_id";
+    public static final String KEY_HOURS_TO_WORK_IN_MILLI = "hours_to_work_in_milli";
     private static final float LOCATION_DISTANCE = 10.0f;
     private static final int LOCATION_INTERVAL = 1000;
     private static final String TAG = "MyLocationService";
@@ -56,6 +62,12 @@ public class ServiceReachedJob extends IntentService {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        //android.os.Debug.waitForDebugger();  // this line is key
+    }
+
+    @Override
     public void onStart(@Nullable Intent intent, int startId) {
         Bundle extras = intent.getExtras();
         this.jobLocation.setLongitude(extras.getDouble(KEY_JOB_LONGITUDE, 0));
@@ -66,10 +78,14 @@ public class ServiceReachedJob extends IntentService {
             this.mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, LOCATION_DISTANCE, new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+
                     if (LocationUtil.isInRadius(location, ServiceReachedJob.this.jobLocation, 10000.0f)) {
                         if (!ServiceReachedJob.this.isNotified) {
                             ServiceReachedJob.this.showNotification();
-                            PreferencesUtil.save(ServiceReachedJob.this, KEY_HAVE_REACHED, 1);
+                            if(PreferencesUtil.readInt(ServiceReachedJob.this, KEY_JOB_ID, 0)!=0){
+                                PreferencesUtil.save(ServiceReachedJob.this, KEY_HAVE_REACHED, 1);
+                            }
+
                         }
                         ServiceReachedJob.this.isNotified = true;
                     }

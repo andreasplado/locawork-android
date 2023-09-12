@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
+
+import ee.locawork.ControllerStartWork;
 import ee.locawork.R;
 import ee.locawork.model.dto.JobDTO;
 import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.model.Job;
+import ee.locawork.ui.myupcomingjob.EventGoingToWork;
 import ee.locawork.util.DialogUtils;
 import ee.locawork.util.LocationUtil;
 import ee.locawork.util.PrefUtil;
@@ -21,6 +24,10 @@ import ee.locawork.util.PreferencesUtil;
 import com.google.android.gms.maps.model.LatLng;
 
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Date;
 
 public class AlertGoToJob {
     public static void init(Activity activity, final Context context, final JobDTO job) {
@@ -41,6 +48,9 @@ public class AlertGoToJob {
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_SALARY, String.valueOf(job.getSalary()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_STATUS, job.getStatus());
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).longValue() * 60 * 60 * 1000);
+
             Intent i = new Intent(context, ServiceReachedJob.class);
             Bundle bundle = new Bundle();
             bundle.putDouble(ServiceReachedJob.KEY_JOB_LONGITUDE, job.getLongitude());
@@ -49,11 +59,12 @@ public class AlertGoToJob {
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_TITLE, job.getTitle());
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_DESCRIPTION, job.getDescription());
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_SALARY, String.valueOf(job.getSalary()));
-            PrefUtil.saveToPrefs(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
-            PrefUtil.saveToPrefs(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
-            PrefUtil.saveToPrefs(context, ServiceReachedJob.KEY_JOB_ID, Integer.valueOf(job.getId()));
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_ID, Integer.valueOf(job.getId()));
             context.startService(i);
             context.startActivity(new Intent("android.intent.action.VIEW", Uri.parse("https://www.google.com/maps/dir/?api=1&destination=" + job.getLatitude() + "," + job.getLongitude() + "&travelmode=driving")));
+            EventBus.getDefault().post(new EventGoingToWork());
         });
 
         dialogView.findViewById(R.id.dismiss).setOnClickListener(v -> AlertCantGo.init(context, job.getId()));

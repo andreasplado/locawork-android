@@ -328,7 +328,7 @@
     <string name="title_activity_connect_to_the_internet_please" translatable="false">ConnectToTheInternetPlease</string>
     <string name="connect_to_the_internet_please" translatable="false">Connect to the internet please</string>
     <string name="menu_my_candidates">My candidates</string>
-    <string name="you_have_to_select_one_cancidate_from_my_candidates">You have to select one candidate from my candidates!</string>
+    <string name="you_have_to_choose_job_executor_from_my_candidates">You have to choose job executor from my candidates!</string>
     <string name="to_remove_adds_you_need_to_pay_10_euros">To remove adds you need to pay 10 euros</string>
     <string name="remove_adds_only_for">Remove adds only for 9.99€</string>
     <string name="congratulations_you_payed_for_seeing">Congratulations!\nYou have been purchased $9.99\nto not see an add!</string>
@@ -379,5 +379,30 @@
     <string name="r_work_destination">Te jõudsite töö asukohani! Alusta tööd!</string>
     <string name="hours_to_work">Hours to work</string>
     <string name="salary_per_hour">Salary per hour</string>
+    <string name="summary">Summary</string>
+    <string name="work_start_time">Work start time</string>
+    <string name="work_end_time">Work end time</string>
+    <string name="earned_salary">Earned salary</string>
+    <string name="to_end_the_work_please_scan_the_code">To end the work please scan the code</string>
+    <string name="when_you_finish_work_ask_your_employer_to_scan_code">When you finish work please ask your empolyer to scan a code</string>
+    <string name="label_title">Title:</string>
+    <string name="title_job_description">Job description:</string>
+    <string name="label_salary">Salary:</string>
+    <string name="label_job_duration">Job duration:</string>
+    <string name="label_selected_job_performer">Selected job performer:</string>
+    <string name="label_job_performer_email">Job performer email:</string>
+    <string name="label_job_permormer_phone">Job performer phone:</string>
+    <string name="label_work_started">Work started:</string>
+    <string name="user_has_not_started_the_work_yet">User has not started the work yet</string>
+    <string name="user_has_not_finished_the_work_yet">User has not finished the work yet</string>
+    <string name="label_work_finished">Work finished:</string>
+    <string name="ask_employer_to_end_the_job">Ask employer to end the job</string>
+    <string name="you_are_currently_working">You are currently working</string>
+    <string name="label_expected_salary">Expected salary:</string>
+    <string name="label_payroll">Payroll:</string>
+    <string name="label_worked_hours">Worked hours:</string>
+    <string name="label_required_working_hours">Required working hours:</string>
+    <string name="per_hour">h</string>
+    <string name="label_why_user_left_earlier">Reason of leaving earlier:</string>
 
 </resources>

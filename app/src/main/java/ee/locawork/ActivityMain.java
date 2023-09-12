@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
@@ -34,13 +35,8 @@ import com.stripe.android.paymentsheet.PaymentSheet;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import ee.locawork.ControllerCheckStatus;
-import ee.locawork.EventCheckIfUserExists;
-import ee.locawork.EventGetMainData;
-import ee.locawork.EventUpdateFirebaseTokenSuccess;
 
 import ee.locawork.alert.AlertAddJob;
-import ee.locawork.alert.AlertGoingToWork;
 import ee.locawork.alert.AlertLocationOff;
 import ee.locawork.alert.AlertPayForRemovingAdds;
 import ee.locawork.alert.AlertPayForRemovingAddsError;
@@ -54,7 +50,6 @@ import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.ui.findjob.EventGPSFailure;
 import ee.locawork.ui.findjob.EventGPSuccess;
 import ee.locawork.ui.login.LoginActivity;
-import ee.locawork.ui.myupcomingjob.EventGoingToWork;
 import ee.locawork.ui.payformemeber.PayForRemovingAdds;
 import ee.locawork.ui.payformemeber.PayForRemovingAddsFailure;
 import ee.locawork.alert.PayForStartGivingWorkFailure;
@@ -137,17 +132,25 @@ public class ActivityMain extends AppCompatActivity {
     private BiometricUtil biometricUtil;
     private AdView adView;
     private LinearLayout adLayout;
+    private SpinKitView loadingViewSmall;
     private Toolbar toolbar;
     private RelativeLayout container;
     private KeyguardManager keyGuardManager;
     private boolean isUnlocked = false;
     private PaymentUtil paymentUtil;
     private PaymentSession paymentSession;
-    private ControllerCheckStatus controllerCheckStatus = new ControllerCheckStatus();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (PreferencesUtil.readInt(this, ServiceReachedJob.KEY_HAVE_REACHED, 0) == 1) {
+            startActivity(new Intent(this, ActivityWorkReached.class));
+        }
+
+        if (PreferencesUtil.readInt(this, PreferencesUtil.KEY_HAVE_STARTED, 0) == 1) {
+            startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
+        }
 
         PaymentConfiguration.init(
                 getApplicationContext(),
@@ -161,6 +164,7 @@ public class ActivityMain extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         cannotFetchCurrentLocation = findViewById(R.id.cannot_fetch_current_location);
         addJob = findViewById(R.id.add_job);
+        loadingViewSmall = findViewById(R.id.loading_small);
         pleaseRetryToGetSettings = findViewById(R.id.please_retry_to_get_settings);
         retry = findViewById(R.id.retry);
         biometricUtil = new BiometricUtil(this);
@@ -182,7 +186,7 @@ public class ActivityMain extends AppCompatActivity {
             adLayout.setVisibility(View.VISIBLE);
         }
 
-        addJob.setOnClickListener(v -> AlertAddJob.init(ActivityMain.this, getApplicationContext()));
+        addJob.setOnClickListener(v -> AlertAddJob.init(ActivityMain.this, getApplicationContext(), addJob, loadingViewSmall));
         AddsUtil.initialzeAdd(this, adView);
         retry.setOnClickListener(v -> {
             AnimationUtil.animateBubble(v);
@@ -381,10 +385,12 @@ public class ActivityMain extends AppCompatActivity {
                 AlertPayForWorkFailure.init(this, getApplicationContext());
                 break;
             case 200:
+                loadingViewSmall.setVisibility(View.GONE);
+                addJob.setVisibility(View.VISIBLE);
                 AlertPayForWork.init(this, getApplicationContext());
                 break;
             case 403:
-                PreferencesUtil.flushData(this);
+                PreferencesUtil.flushDataOnLogout(this);
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.you_have_been_logged_out), Toast.LENGTH_LONG).show();
@@ -563,9 +569,6 @@ public class ActivityMain extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        if (PreferencesUtil.readInt(this, ServiceReachedJob.KEY_HAVE_REACHED, 0) == 1) {
-            startActivity(new Intent(this, ActivityWorkReached.class));
-        }
     }
 
     @Override
@@ -638,7 +641,7 @@ public class ActivityMain extends AppCompatActivity {
 
     @Subscribe
     public void eventLogout(EventLogoutSuccess addedJobsNetSuccess) {
-        PreferencesUtil.flushData(this);
+        PreferencesUtil.flushDataOnLogout(this);
         finish();
         startActivity(new Intent(this, LoginActivity.class));
     }

@@ -14,12 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.stripe.android.ApiResultCallback;
@@ -40,7 +42,7 @@ import ee.locawork.util.PreferencesUtil;
 
 public class AlertAddJob {
 
-    public static void init(final Activity activity, final Context context) {
+    public static void init(final Activity activity, final Context context, final ImageButton addButton, final SpinKitView loadingView) {
         String location;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.FullscreenDialog);
         View dialogView = ((LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.alert_add_work, (ViewGroup) null);
@@ -97,6 +99,8 @@ public class AlertAddJob {
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.show();
         submit.setOnClickListener(v -> {
+            addButton.setVisibility(View.GONE);
+            loadingView.setVisibility(View.VISIBLE);
             if (!jobTitle.getText().toString().isEmpty() || !jobDescription.getText().toString().isEmpty() || !salary.getText().toString().isEmpty()) {
                 AddingJobDTO job = new AddingJobDTO();
                 job.setJobTitle(jobTitle.getText().toString().trim());
@@ -129,6 +133,7 @@ public class AlertAddJob {
 
                             job.setToken(tokenID);
                             controllerPayForRemovingAdds.addJob(context, job);
+
                             alertDialog.cancel();
                         }
 

@@ -17,15 +17,14 @@ import org.greenrobot.eventbus.EventBus;
 import ee.locawork.R;
 import ee.locawork.model.dto.JobDTO;
 import ee.locawork.services.ServiceReachedJob;
-import ee.locawork.model.Job;
-import ee.locawork.model.JobWithCategory;
 import ee.locawork.ui.myupcomingjob.alert.AlertCantGo;
 import ee.locawork.ui.myupcomingjob.alert.AlertGoToJob;
-import ee.locawork.ui.settings.EventUpdateRadiusNotValid;
 import ee.locawork.util.LocationUtil;
 import ee.locawork.util.PreferencesUtil;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AdapterMyUpcomingWork extends RecyclerView.Adapter<AdapterMyUpcomingWork.ViewHolder> {
@@ -56,13 +55,17 @@ public class AdapterMyUpcomingWork extends RecyclerView.Adapter<AdapterMyUpcomin
             bundle.putDouble(ServiceReachedJob.KEY_JOB_LATITUDE, myListData.get(position).getLatitude());
             i.putExtras(bundle);
             JobDTO job = myListData.get(position);
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_ID, job.getId());
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_TITLE, job.getTitle());
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_DESCRIPTION, job.getDescription());
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_SALARY, String.valueOf(job.getSalary()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_STATUS, job.getStatus());
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).longValue() * 60 * 60 * 1000);
             context.startService(i);
             EventBus.getDefault().post(new EventGoingToWork());
+
         });
         holder.location.setText(LocationUtil.fetchLocationData(this.activity, new LatLng(myListData.get(position).getLatitude(), myListData.get(position).getLongitude())));
         holder.jobContent.setOnClickListener(v -> AlertGoToJob.init(activity, context, listdata.get(position)));

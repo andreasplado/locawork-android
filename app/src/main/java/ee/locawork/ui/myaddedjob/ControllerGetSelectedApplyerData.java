@@ -1,4 +1,4 @@
-package ee.locawork;
+package ee.locawork.ui.myaddedjob;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.View;
 import com.google.gson.GsonBuilder;
 
 import org.greenrobot.eventbus.EventBus;
+
+import ee.locawork.EventFailedToGetUserData;
+import ee.locawork.EventGetUserData;
+import ee.locawork.ServiceGetUser;
 import ee.locawork.model.User;
 import ee.locawork.util.AppConstants;
 import ee.locawork.util.PreferencesUtil;

@@ -73,7 +73,7 @@ public class AdapterFoundJobs extends RecyclerView.Adapter<AdapterFoundJobs.View
         if(myRole.equals(AppConstants.ROLE_JOB_SEEKER)){
             holder.btnUpdate.setVisibility(View.GONE);
             holder.btnDelete.setVisibility(View.GONE);
-            if (job.getFkJobApplyer() == 0) {
+            if (job.getApplyerId() == 0) {
                 holder.btnNavigate.setVisibility(View.GONE);
                 holder.btnApply.setVisibility(View.VISIBLE);
             } else {

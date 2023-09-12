@@ -37,7 +37,7 @@ public class MyDoneJobsAdapter extends RecyclerView.Adapter<MyDoneJobsAdapter.Vi
         List<JobDTO> myListData = this.listdata;
         JobDTO job = myListData.get(position);
         holder.titleTv.setText(job.getTitle());
-        holder.salaryTv.setText(Double.toString(job.getSalary()));
+        holder.salaryTv.setText(Double.toString(job.getSalary()) + "/" + context.getString(R.string.per_hour));
         String locationName = LocationUtil.fetchLocationData(this.activity, new LatLng(myListData.get(position).getLatitude(), myListData.get(position).getLongitude()));
         holder.location.setText(locationName);
         holder.itemView.setOnClickListener(v -> MyDoneWorkAlert.init(activity, context, listdata.get(position), locationName));

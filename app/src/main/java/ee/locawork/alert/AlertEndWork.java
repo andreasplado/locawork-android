@@ -7,13 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import ee.locawork.R;
 import ee.locawork.util.DialogUtils;
 
-public class AlertPayForWork {
+public class AlertEndWork {
 
     public static void init(final Activity activity, final Context context) {
         String location;
@@ -25,14 +24,14 @@ public class AlertPayForWork {
         TextView successTitle = dialogView.findViewById(R.id.success_title);
         TextView successText = dialogView.findViewById(R.id.success_text);
 
-        successTitle.setText(context.getResources().getString(R.string.congratulations_you_just_added_new_work));
-        successText.setText(context.getResources().getString(R.string.you_just_posted_a_work_please_check_in_your_added_work_to_see_or_edit_your_posted_work));
+        successTitle.setText(context.getResources().getString(R.string.you_are_going_to_work));
+        successText.setText(context.getResources().getString(R.string.while_you_are_moving_please_be_aware_of_accidents_in_case_anything_happens_please_inform_the_employee));
         title.setText(context.getResources().getString(R.string.succees));
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.show();
         submit.setOnClickListener(v -> {
-                alertDialog.cancel();
 
+                alertDialog.cancel();
                 return;
         });
         back.setOnClickListener(view -> alertDialog.cancel());

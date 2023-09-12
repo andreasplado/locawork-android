@@ -20,7 +20,7 @@ public class ActivityPreloader extends AppCompatActivity {
             if(PreferencesUtil.readInt(getApplicationContext(), PreferencesUtil.KEY_USER_ID, 0) != 0){
                 startActivity(new Intent(getApplicationContext(), ActivityMain.class));
             }else{
-                PreferencesUtil.flushData(getApplicationContext());
+                PreferencesUtil.flushDataOnLogout(getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
 

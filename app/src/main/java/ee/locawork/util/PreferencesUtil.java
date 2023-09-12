@@ -4,6 +4,8 @@ import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
 
 import android.content.Context;
 
+import ee.locawork.services.ServiceReachedJob;
+
 public class PreferencesUtil {
 
     public static final String KEY_USER_ID = "user_id";
@@ -11,7 +13,6 @@ public class PreferencesUtil {
     public static final String KEY_CARD_PARAMS = "card_params";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_RADIUS = "radius";
-
     public static final String KEY_ROLE = "role";
     public static final String KEY_IS_WITHOUT_ADDS = "is_without_adds";
 
@@ -19,6 +20,10 @@ public class PreferencesUtil {
     public static final String KEY_PUSH_NOTIFICATION_TOKEN = "pushnotification_token";
     public static final String KEY_IS_PAYMENT_METHOD = "is_payment_method";
     public static final String KEY_ACCEPT_PAYMENT = "accept_payment";
+    public static final String KEY_HAVE_STARTED = "key_have_started";
+    public static final String KEY_WORK_START_TIME = "key_work_start_time";
+
+    public static final String KEY_WORK_DURATION = "key_work_duration";
 
 
     public static void save(Context context, String valueKey, String value) {
@@ -73,7 +78,7 @@ public static void save(Context context, String valueKey, boolean value) {
         return context.getSharedPreferences(PrefConstants.KEY_LOCAWORK_PREFS, 0).getString(valueKey, valueDefault);
     }
 
-    public static void flushData(Context context){
+    public static void flushDataOnLogout(Context context){
         PreferencesUtil.save(context, KEY_TOKEN, "");
         PreferencesUtil.save(context, KEY_EMAIL, "");
         PreferencesUtil.save(context, KEY_USER_ID, 0);
@@ -81,5 +86,16 @@ public static void save(Context context, String valueKey, boolean value) {
         PreferencesUtil.save(context, KEY_LOCAWORK_PREFS, "");
         PreferencesUtil.save(context, KEY_CARD_PARAMS, "");
         PreferencesUtil.save(context, KEY_RADIUS, 0);
+    }
+
+    public static void flushJobProcess (Context context){
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_TITLE,"");
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_DESCRIPTION, "");
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_SALARY, "");
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, "");
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, "");
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_ID, 0);
+        PreferencesUtil.save(context, PreferencesUtil.KEY_HAVE_STARTED, 0);
+        PreferencesUtil.save(context, ServiceReachedJob.KEY_HAVE_REACHED, 0);
     }
 }

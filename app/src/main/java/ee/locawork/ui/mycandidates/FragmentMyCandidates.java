@@ -92,8 +92,8 @@ public class FragmentMyCandidates extends Fragment {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.recyclerView.setAdapter(this.myCandidatesAdapter);
         int itemCount = this.myCandidatesAdapter.getItemCount();
-        AdapterWorkSpinner adapterWorkSpinner = new AdapterWorkSpinner(addedJobsNetSuccess.getJobApplications().getJobApplications(), getContext());
-        if(adapterWorkSpinner.getCount() > 0) {
+        //AdapterWorkSpinner adapterWorkSpinner = new AdapterWorkSpinner(addedJobsNetSuccess.getJobApplications().getJobApplications(), getContext());
+        if(myCandidatesAdapter.getItemCount() > 0) {
             //this.candidateSpinner.setAdapter(adapterWorkSpinner);
         }
 

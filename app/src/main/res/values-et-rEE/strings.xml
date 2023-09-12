@@ -21,7 +21,7 @@
     <string name="start_giving_work">Hakka tööd andma</string>
     <string name="title_activity_welcome_screen">Tele tulemast</string>
     <string name="menu_my_candidates">Minu kandidaadid</string>
-    <string name="you_have_to_select_one_cancidate_from_my_candidates">Te peate valima ühe kandidaadi kandidaatidest</string>
+    <string name="you_have_to_choose_job_executor_from_my_candidates">Te peate valima ühe kandidaadi kandidaatidest</string>
     <string name="to_remove_adds_you_need_to_pay_10_euros">Et reklaame eemaldada, peate maksma 10 eurot</string>
     <string name="remove_adds_only_for">Eemalda reklaam ainult 9.99€ eest</string>
     <string name="congratulations_you_payed_for_seeing">Õnnitlused!\\nTe maksite 9.99€,\\net eemaldada reklaam</string>

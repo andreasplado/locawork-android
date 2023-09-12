@@ -2,7 +2,6 @@ package ee.locawork.ui.myaddedjob;
 
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,11 +148,14 @@ public class FragmentAddedJobs extends Fragment {
     public void getApplyerData(EventGetUserData eventGetUserData) {
         User selectedApplyer = eventGetUserData.getResponse().body();
         View alertView = eventGetUserData.getView();
-        Log.e("TAG", alertView.toString());
         if(selectedApplyer != null){
-            ((TextView)alertView.findViewById(R.id.my_selected_canditate)).setText(selectedApplyer.getName());
+            ((LinearLayout)alertView.findViewById(R.id.candidates_view)).setVisibility(View.VISIBLE);
+            ((TextView)alertView.findViewById(R.id.no_candidates_view)).setVisibility(View.GONE);
+            ((TextView)alertView.findViewById(R.id.candidate_email)).setText(selectedApplyer.getEmail());
+            ((TextView)alertView.findViewById(R.id.job_performer_phone)).setText(selectedApplyer.getContact());
         }else {
-            ((TextView) alertView.findViewById(R.id.my_selected_canditate)).setText(getResources().getString(R.string.you_have_to_select_one_cancidate_from_my_candidates));
+            ((LinearLayout)alertView.findViewById(R.id.candidates_view)).setVisibility(View.GONE);
+            ((TextView)alertView.findViewById(R.id.no_candidates_view)).setVisibility(View.VISIBLE);
         }
     }
 

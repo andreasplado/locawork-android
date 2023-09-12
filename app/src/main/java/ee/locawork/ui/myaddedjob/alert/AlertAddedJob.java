@@ -17,7 +17,8 @@ import android.widget.TextView;
 import com.google.zxing.WriterException;
 import com.ramotion.fluidslider.FluidSlider;
 
-import ee.locawork.ControllerGetSelectedApplyerData;
+import ee.locawork.ui.myaddedjob.ControllerGetCurrentlyWorkingPersonData;
+import ee.locawork.ui.myaddedjob.ControllerGetSelectedApplyerData;
 import ee.locawork.R;
 import ee.locawork.alert.AlertAskPermissionBeforeDeleting;
 import ee.locawork.model.Job;
@@ -44,19 +45,36 @@ public class AlertAddedJob {
     public static void init(final AdapterAddedJobs adapterAddedJobs, final List<Job> jobList, final int position, final Activity activity, final Context context, String location) {
         AlertDialog alertDialog = new AlertDialog.Builder(activity, R.style.FullscreenDialog).create();
         final Job job = jobList.get(position);
-        url =  Integer.toString(job.getFkJobApplyer());
+        url =  Integer.toString(job.getApplyerId());
         View dialogView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.alert_added_job_detail, null);
         alertDialog.setView(dialogView);
         ((TextView) dialogView.findViewById(R.id.job_title)).setText(jobList.get(position).getTitle());
         ((TextView) dialogView.findViewById(R.id.job_description)).setText(job.getDescription());
+        ((TextView) dialogView.findViewById(R.id.job_duration)).setText(job.getHoursToWork() + "");
         ((TextView) dialogView.findViewById(R.id.location_tv)).setText(location);
         ((TextView) dialogView.findViewById(R.id.title)).setText(context.getResources().getString(R.string.added_job));
+        if(job.getJobStartTime() != null){
+            ((TextView) dialogView.findViewById(R.id.work_started)).setText(job.getJobStartTime().toString());
+        }else{
+            ((TextView) dialogView.findViewById(R.id.work_started)).setText(context.getResources().getString(R.string.user_has_not_started_the_work_yet));
+        }
+        if(job.getJobEndTime() != null){
+            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(job.getJobStartTime().toString());
+        }else{
+            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(context.getResources().getString(R.string.user_has_not_finished_the_work_yet));
+        }
+
+
         ImageView qrCode = dialogView.findViewById(R.id.qr_code);
         ((TextView) dialogView.findViewById(R.id.job_salary)).setText(String.format("%1$,.2f", new Object[]{Double.valueOf(job.getSalary())}));
         ImageButton delete = dialogView.findViewById(R.id.cancel_application);
+        int applyerId = job.getApplyerId();
 
         ControllerGetSelectedApplyerData controllerGetSelectedApplyerData = new ControllerGetSelectedApplyerData();
-        controllerGetSelectedApplyerData.getData(context, job.getFkJobApplyer(), dialogView);
+        controllerGetSelectedApplyerData.getData(context, job.getApplyerId(), dialogView);
+
+        ControllerGetCurrentlyWorkingPersonData controllerGetCurrentlyWorkingPersonData = new ControllerGetCurrentlyWorkingPersonData();
+        controllerGetCurrentlyWorkingPersonData.getData(context, job.getApplyerId(), dialogView);
 
         ImageButton edit = dialogView.findViewById(R.id.edit_job);
         ImageButton back = dialogView.findViewById(R.id.back);

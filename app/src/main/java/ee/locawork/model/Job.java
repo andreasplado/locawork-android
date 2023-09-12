@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.sql.Timestamp;
+
 public class Job implements ClusterItem, net.sharewire.googlemapsclustering.ClusterItem {
     @SerializedName("user_id")
     private String accountGoogleId;
@@ -13,20 +15,23 @@ public class Job implements ClusterItem, net.sharewire.googlemapsclustering.Clus
     private String createdAt;
     @SerializedName("description")
     private String description;
-    @SerializedName("jobApplyer")
-    private int fkJobApplyer;
+    @SerializedName("applyerId")
+    private int applyerId;
     @SerializedName("id")
     private int id;
     @SerializedName("jobEndTime")
-    private String jobEndTime;
+    private Timestamp jobEndTime;
     @SerializedName("jobStartTime")
-    private String jobStartTime;
+    private Timestamp jobStartTime;
     @SerializedName("latitude")
     private double latitude;
     @SerializedName("longitude")
     private double longitude;
     @SerializedName("salary")
     private double salary;
+
+    @SerializedName("hoursToWork")
+    private double hoursToWork;
     @SerializedName("title")
     private String title;
     @SerializedName("updatedAt")
@@ -123,19 +128,19 @@ public class Job implements ClusterItem, net.sharewire.googlemapsclustering.Clus
         this.accountGoogleId = accountGoogleId2;
     }
 
-    public String getJobStartTime() {
+    public Timestamp getJobStartTime() {
         return this.jobStartTime;
     }
 
-    public void setJobStartTime(String jobStartTime2) {
+    public void setJobStartTime(Timestamp jobStartTime2) {
         this.jobStartTime = jobStartTime2;
     }
 
-    public String getJobEndTime() {
+    public Timestamp getJobEndTime() {
         return this.jobEndTime;
     }
 
-    public void setJobEndTime(String jobEndTime2) {
+    public void setJobEndTime(Timestamp jobEndTime2) {
         this.jobEndTime = jobEndTime2;
     }
 
@@ -147,12 +152,19 @@ public class Job implements ClusterItem, net.sharewire.googlemapsclustering.Clus
         this.userId = userId2;
     }
 
-    public int getFkJobApplyer() {
-        return this.fkJobApplyer;
+    public int getApplyerId() {
+        return this.applyerId;
     }
 
-    public void setFkJobApplyer(int fkJobApplyer2) {
-        this.fkJobApplyer = fkJobApplyer2;
+    public void setApplyerId(int fkJobApplyer2) {
+        this.applyerId = fkJobApplyer2;
     }
 
+    public double getHoursToWork() {
+        return hoursToWork;
+    }
+
+    public void setHoursToWork(double hoursToWork) {
+        this.hoursToWork = hoursToWork;
+    }
 }

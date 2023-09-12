@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.concurrent.TimeUnit;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -171,11 +172,17 @@ public class FragmentMyDoneJobs extends Fragment {
         //Collections.sort(jobs, comparator);
         this.recyclerView.setHasFixedSize(true);
         double salarySum = 0.0d;
+        double hourspentOnWork = 0.0d;
         for (int i = 0; i < jobs.size(); i++) {
-            salarySum += jobs.get(i).getSalary();
+            long workStartTime = Long.parseLong(jobs.get(i).getWorkStartTime());
+            long workEndTime = Long.parseLong(jobs.get(i).getWorkEndTime());
+            long hoursSpendOnWork = workEndTime - workStartTime;
+            long actualWorkingTime = TimeUnit.MILLISECONDS.toHours(hoursSpendOnWork * 60);
+            hoursSpendOnWork += actualWorkingTime;
+            salarySum += jobs.get(i).getSalary() * actualWorkingTime;
         }
         TextView textView = this.tvSum;
-        textView.setText(getString(R.string.earned) + salarySum);
+        textView.setText(getString(R.string.earned) + salarySum + "/" + hourspentOnWork + "" + getString(R.string.per_hour));
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.recyclerView.setAdapter(appliedJobAdapter);
         if (appliedJobAdapter.getItemCount() == 0) {

@@ -23,6 +23,15 @@ public class JobDTO implements ClusterItem, net.sharewire.googlemapsclustering.C
 
     private double longitude;
 
+    private String status;
+
+    private String payroll;
+
+    private Double hoursToWork;
+
+    private String workStartTime;
+
+    private String workEndTime;
     private Date createdAt;
 
     private boolean isDone;
@@ -139,5 +148,45 @@ public class JobDTO implements ClusterItem, net.sharewire.googlemapsclustering.C
     @Override
     public double getLongitude() {
         return longitude;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getWorkStartTime() {
+        return workStartTime;
+    }
+
+    public void setWorkStartTime(String workStartTime) {
+        this.workStartTime = workStartTime;
+    }
+
+    public String getWorkEndTime() {
+        return workEndTime;
+    }
+
+    public void setWorkEndTime(String workEndTime) {
+        this.workEndTime = workEndTime;
+    }
+
+    public Double getHoursToWork() {
+        return hoursToWork;
+    }
+
+    public void setHoursToWork(Double hoursToWork) {
+        this.hoursToWork = hoursToWork;
+    }
+
+    public String getPayroll() {
+        return payroll;
+    }
+
+    public void setPayroll(String payroll) {
+        this.payroll = payroll;
     }
 }

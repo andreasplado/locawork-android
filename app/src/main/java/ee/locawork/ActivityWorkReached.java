@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,26 +13,27 @@ import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.zxing.Result;
 import com.ramotion.fluidslider.FluidSlider;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.locawork.EventStartWorkFailure;
 
-import ee.locawork.EventStartWork;
+import ee.locawork.alert.AlertError;
+import ee.locawork.model.dto.StartTimeDTO;
 import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.util.ActivityUtils;
 import ee.locawork.util.AnimationUtil;
 import ee.locawork.util.LocationUtil;
 import ee.locawork.util.PreferencesUtil;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static ee.locawork.services.ServiceReachedJob.KEY_JOB_ID;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
+
+import java.util.Date;
 
 public class ActivityWorkReached extends AppCompatActivity {
     private ImageButton confirm;
@@ -46,7 +48,7 @@ public class ActivityWorkReached extends AppCompatActivity {
 
     private CodeScannerView codeScannerView;
 
-    private CodeScanner codeScanner;
+    private CodeScanner startWorkScanner;
     boolean doubleBackToExitPressedOnce = false;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -68,22 +70,11 @@ public class ActivityWorkReached extends AppCompatActivity {
         this.locationName.setText(LocationUtil.fetchLocationData(this, new LatLng(latitude, longitude)));
         this.jobSalary.setText(PreferencesUtil.readString(getApplicationContext(), ServiceReachedJob.KEY_JOB_SALARY, FluidSlider.TEXT_START));
         this.codeScannerView = findViewById(R.id.scanner_view);
-        this.codeScanner = new CodeScanner(this, codeScannerView);
-        codeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull final Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        int workId = PreferencesUtil.readInt(getApplicationContext(), ServiceReachedJob.KEY_JOB_ID, 0);
-                        new ControllerCheckIfWorkExists().getData(workId);
-
-                        new ControllerStartWork().postData(ActivityWorkReached.this, PreferencesUtil.readInt(ActivityWorkReached.this, KEY_USER_ID, 0));
-                    }
-                });
-            }
-        });
+        this.startWorkScanner = new CodeScanner(this, codeScannerView);
+        startWorkScanner.setDecodeCallback(result -> runOnUiThread(() -> {
+            int jobId = PreferencesUtil.readInt(this, KEY_JOB_ID, 0);
+            new ControllerCheckIfWorkExists().getData(jobId);
+        }));
     }
 
     @Subscribe
@@ -94,13 +85,13 @@ public class ActivityWorkReached extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        codeScanner.startPreview();
+        startWorkScanner.startPreview();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        codeScanner.releaseResources();
+        startWorkScanner.releaseResources();
     }
 
     public void onStart() {
@@ -109,8 +100,13 @@ public class ActivityWorkReached extends AppCompatActivity {
             EventBus.getDefault().register(this);
         }
 
+        StartTimeDTO startTimeDTO = new StartTimeDTO();
+        String startTime = new Date().getTime() + "";
+        startTimeDTO.setStartTime(startTime);
+        startTimeDTO.setApplyerId(PreferencesUtil.readInt(ActivityWorkReached.this, KEY_USER_ID, 0));
+        startTimeDTO.setJobId(PreferencesUtil.readInt(ActivityWorkReached.this, KEY_JOB_ID, 0));
         this.confirm.setOnClickListener(view -> {
-            new ControllerStartWork().postData(this, PreferencesUtil.readInt(ActivityWorkReached.this, KEY_USER_ID, 0));
+            new ControllerStartWork().postData(this, startTimeDTO);
         });
         this.retry.setOnClickListener(view -> {
             AnimationUtil.animateBubble(view);
@@ -141,16 +137,28 @@ public class ActivityWorkReached extends AppCompatActivity {
 
     @Subscribe
     public void workStarted(EventStartWork eventStartWork) {
-        startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
-        this.serverErrorView.setVisibility(View.GONE);
-        this.successView.setVisibility(View.VISIBLE);
-        PreferencesUtil.save(ActivityWorkReached.this, ServiceReachedJob.KEY_HAVE_REACHED, 0);
-        getApplicationContext().stopService(new Intent(ActivityWorkReached.this, ServiceReachedJob.class));
+        if(eventStartWork.getResponse().code() == 200) {
+            this.serverErrorView.setVisibility(View.GONE);
+            this.successView.setVisibility(View.VISIBLE);
+            getApplicationContext().stopService(new Intent(ActivityWorkReached.this, ServiceReachedJob.class));
+            PreferencesUtil.save(ActivityWorkReached.this, ServiceReachedJob.KEY_HAVE_REACHED, 0);
+            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_HAVE_STARTED, 1);
+            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, new Date().getTime());
+            startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
+        }
+        if(eventStartWork.getResponse().code() == 400){
+            AlertError.init(this, getApplicationContext(), getApplicationContext().getString(R.string.server_error));
+        }
     }
 
     @Subscribe
     public void workStarted(EventCheckIfWorkExists eventCheckIfWorkExists) {
-        new ControllerStartWork().postData(ActivityWorkReached.this, PreferencesUtil.readInt(ActivityWorkReached.this, KEY_USER_ID, 0));
+        StartTimeDTO startTimeDTO = new StartTimeDTO();
+        String currentTime = new Date().getTime() + "";
+        startTimeDTO.setStartTime(currentTime);
+        startTimeDTO.setApplyerId(PreferencesUtil.readInt(ActivityWorkReached.this, KEY_USER_ID, 0));
+        startTimeDTO.setJobId(PreferencesUtil.readInt(ActivityWorkReached.this, KEY_JOB_ID, 0));
+        new ControllerStartWork().postData(ActivityWorkReached.this, startTimeDTO);
     }
 
     @Subscribe

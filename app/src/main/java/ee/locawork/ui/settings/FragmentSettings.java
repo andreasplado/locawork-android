@@ -209,12 +209,14 @@ public class FragmentSettings extends Fragment {
         this.contact.setText(settings.getContact());
         Float radiusPosition = settings.getRadius().floatValue() / 100;
         this.radiusSlider.setPosition(radiusPosition);
-        if(settings.getCustomerId().equals("")){
-            customerIdLayout.setVisibility(View.VISIBLE);
-            tvNoCustomer.setVisibility(View.GONE);
-        }else{
-            tvNoCustomer.setVisibility(View.VISIBLE);
+        if(settings.getCustomerId() == null || settings.getCustomerId().equals("")){
             customerIdLayout.setVisibility(View.GONE);
+            tvNoCustomer.setVisibility(View.VISIBLE);
+            copyCustomerId.setVisibility(View.GONE);
+        }else{
+            tvNoCustomer.setVisibility(View.GONE);
+            customerIdLayout.setVisibility(View.VISIBLE);
+            copyCustomerId.setVisibility(View.VISIBLE);
         }
 
 
