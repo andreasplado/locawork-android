@@ -40,6 +40,13 @@
         android:layout_gravity="end"
         android:background="@drawable/button_logout"/>
 
+    <include layout="@layout/loading_view_small"
+        android:id="@+id/logout_loading_view"
+        android:visibility="gone"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

@@ -135,6 +135,8 @@ public class ActivityMain extends AppCompatActivity {
     private SpinKitView loadingViewSmall;
     private Toolbar toolbar;
     private RelativeLayout container;
+
+    private View logoutLoading;
     private KeyguardManager keyGuardManager;
     private boolean isUnlocked = false;
     private PaymentUtil paymentUtil;
@@ -164,6 +166,7 @@ public class ActivityMain extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         cannotFetchCurrentLocation = findViewById(R.id.cannot_fetch_current_location);
         addJob = findViewById(R.id.add_job);
+        addJob = findViewById(R.id.add_job);
         loadingViewSmall = findViewById(R.id.loading_small);
         pleaseRetryToGetSettings = findViewById(R.id.please_retry_to_get_settings);
         retry = findViewById(R.id.retry);
@@ -190,9 +193,8 @@ public class ActivityMain extends AppCompatActivity {
         AddsUtil.initialzeAdd(this, adView);
         retry.setOnClickListener(v -> {
             AnimationUtil.animateBubble(v);
-            Intent intent = getIntent();
             finish();
-            startActivity(intent);
+            startActivity(getIntent());
         });
 
         updateUtil.init(this, getApplicationContext());
@@ -204,8 +206,11 @@ public class ActivityMain extends AppCompatActivity {
             tvRadius = headerView.findViewById(R.id.nav_radius);
             tvrole = headerView.findViewById(R.id.nav_role);
             logout = headerView.findViewById(R.id.logout);
+            logoutLoading = headerView.findViewById(R.id.logout_loading_view);
 
             logout.setOnClickListener(v -> {
+                logoutLoading.setVisibility(View.VISIBLE);
+                logout.setVisibility(View.GONE);
                 new ControllerLogout().postData(this, PreferencesUtil.readInt(this, KEY_USER_ID, 0));
             });
             tvEmail.setText(PreferencesUtil.readString(this, KEY_EMAIL, getResources().getString(R.string.undefined_email)));
@@ -642,12 +647,15 @@ public class ActivityMain extends AppCompatActivity {
     @Subscribe
     public void eventLogout(EventLogoutSuccess addedJobsNetSuccess) {
         PreferencesUtil.flushDataOnLogout(this);
+        logoutLoading.setVisibility(View.GONE);
         finish();
         startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Subscribe
     public void eventLogoutFailure(EventLogoutFailure logoutFailure) {
+        logout.setVisibility(View.VISIBLE);
+        logoutLoading.setVisibility(View.GONE);
         Toast.makeText(this, getResources().getString(R.string.logout_error_please_try_again), Toast.LENGTH_LONG).show();
     }
     public static void snack(HashMap<String, View.OnClickListener> actions, String message, Activity context, View view) {
