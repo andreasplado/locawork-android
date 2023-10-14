@@ -42,7 +42,7 @@ import net.sharewire.googlemapsclustering.ClusterManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import ee.locawork.ActivitySuccessfullyStartWork;
+import ee.locawork.ActivityWorkInProgress;
 import ee.locawork.ControllerUpdateUserRole;
 import ee.locawork.EventRoleFailedToSelect;
 import ee.locawork.EventRoleSelected;
@@ -606,7 +606,7 @@ public class FragmentFindJob extends Fragment implements OnMapReadyCallback {
 
     @Subscribe
     public void goToSuccess(EventSendOffererPushNotification eventSendPushNotificationSuccess) {
-        startActivity(new Intent(getContext(), ActivitySuccessfullyStartWork.class));
+        startActivity(new Intent(getContext(), ActivityWorkInProgress.class));
     }
 
     @Subscribe

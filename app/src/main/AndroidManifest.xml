@@ -64,7 +64,7 @@
             android:label="@string/title_activity_candidate_chosen"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".ActivitySuccessfullyStartWork"
+            android:name=".ActivityWorkInProgress"
             android:label="@string/title_activity_successfully_applied"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

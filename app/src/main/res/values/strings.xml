@@ -404,5 +404,6 @@
     <string name="label_required_working_hours">Required working hours:</string>
     <string name="per_hour">h</string>
     <string name="label_why_user_left_earlier">Reason of leaving earlier:</string>
+    <string name="per_unit">Per unit</string>
 
 </resources>

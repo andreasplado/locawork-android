@@ -28,10 +28,11 @@ import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.util.PreferencesUtil;
 import ee.locawork.util.TimerUtils;
 
-public class ActivitySuccessfullyStartWork extends AppCompatActivity {
+public class ActivityWorkInProgress extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
-    private TextView time;
+    private TextView timeView;
+    private boolean isRunning = false;
     private Button endWithoutScanning, btnEndWork;
     private TextView jobTitle;
     private TextView jobDescription, salary, expectedSalary;
@@ -52,10 +53,12 @@ public class ActivitySuccessfullyStartWork extends AppCompatActivity {
         endWithoutScanning = findViewById(R.id.ask_employer_to_end_the_job);
         btnEndWork = findViewById(R.id.end_work);
         codeScannerView = findViewById(R.id.scanner_view);
+        timeView = findViewById(R.id.time);
+
         salary.setText(PreferencesUtil.readString(this, ServiceReachedJob.KEY_JOB_SALARY, ""));
         jobTitle.setText(PreferencesUtil.readString(this, ServiceReachedJob.KEY_JOB_TITLE, ""));
         jobDescription.setText(PreferencesUtil.readString(this, ServiceReachedJob.KEY_JOB_DESCRIPTION, ""));
-        time = findViewById(R.id.time);
+
         this.endWorkScanner = new CodeScanner(this, codeScannerView);
         endWorkScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             int workId = Integer. parseInt(result.getText());
@@ -64,39 +67,53 @@ public class ActivitySuccessfullyStartWork extends AppCompatActivity {
             EndTimeDTO endTimeDTO = new EndTimeDTO();
             endTimeDTO.setEndTime(endTime);
             endTimeDTO.setApplyerId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, KEY_USER_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, KEY_USER_ID, 0));
             endTimeDTO.setJobId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_JOB_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_JOB_ID, 0));
 
-            new ControllerEndWork().postData(ActivitySuccessfullyStartWork.this, endTimeDTO);
+            new ControllerEndWork().postData(ActivityWorkInProgress.this, endTimeDTO);
         }));
         btnEndWork.setOnClickListener(v -> {
             String endTime = new Date().getTime() + "";
             EndTimeDTO endTimeDTO = new EndTimeDTO();
             endTimeDTO.setEndTime(endTime);
             endTimeDTO.setApplyerId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, KEY_USER_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, KEY_USER_ID, 0));
             endTimeDTO.setJobId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_JOB_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_JOB_ID, 0));
 
-            new ControllerEndWork().postData(ActivitySuccessfullyStartWork.this, endTimeDTO);
+            new ControllerEndWork().postData(ActivityWorkInProgress.this, endTimeDTO);
         });
 
-        long workStartTime = PreferencesUtil
-                .readLong(ActivitySuccessfullyStartWork.this, KEY_WORK_START_TIME,0);
+        if(!isRunning){
+            long workStartTime = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
 
-        long hoursToWork = PreferencesUtil
-                .readLong(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
+            long hoursToWork = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
 
-        long expectedEndTime = workStartTime + hoursToWork;
+            long expectedEndTime = workStartTime + hoursToWork;
 
-        TimerUtils.startCount(this, time, codeScannerView, hoursToWork, expectedEndTime, new Date().getTime(), expectedSalary);
+            TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary);
+            isRunning = true;
+        }
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if(isRunning){
+            long workStartTime = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
+
+            long hoursToWork = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
+
+            long expectedEndTime = workStartTime + hoursToWork;
+
+            TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary);
+        }
         endWorkScanner.startPreview();
     }
     @Override
@@ -104,7 +121,6 @@ public class ActivitySuccessfullyStartWork extends AppCompatActivity {
         super.onPause();
         endWorkScanner.releaseResources();
     }
-
 
     public void onStart() {
         super.onStart();

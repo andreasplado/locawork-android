@@ -151,7 +151,7 @@ public class ActivityMain extends AppCompatActivity {
         }
 
         if (PreferencesUtil.readInt(this, PreferencesUtil.KEY_HAVE_STARTED, 0) == 1) {
-            startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
+            startActivity(new Intent(this, ActivityWorkInProgress.class));
         }
 
         PaymentConfiguration.init(
