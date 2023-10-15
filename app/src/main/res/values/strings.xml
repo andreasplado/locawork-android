@@ -418,5 +418,8 @@
     <string name="company_label">Company:</string>
     <string name="your_user_doesnt_have_company_make_new_user_to_add_work">Your user doesn\'t have company. Make new user to add work.</string>
     <string name="company_reg_number_label">Company registration number:</string>
+=======
+    <string name="per_unit">Per unit</string>
+>>>>>>> 5b394a5d023841bbcfaf3002159bd5b82ef3696b
 
 </resources>

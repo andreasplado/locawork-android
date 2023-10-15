@@ -59,6 +59,7 @@ public class AlertAddJob {
         List<String> payrollValue = new ArrayList<>();
         payrollValue.add(context.getResources().getString(R.string.hours));
         payrollValue.add(context.getResources().getString(R.string.days));
+        payrollValue.add(context.getResources().getString(R.string.per_unit));
 
 
 
