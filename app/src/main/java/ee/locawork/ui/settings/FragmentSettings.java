@@ -39,6 +39,7 @@ import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
+import static ee.locawork.util.PreferencesUtil.KEY_ID_CODE;
 import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
@@ -64,7 +65,7 @@ public class FragmentSettings extends Fragment {
     private TextView customerId;
     private LinearLayout customerIdLayout, companySettingsView;
 
-    private TextView tvNoCustomer;
+    private TextView tvNoCustomer, idCode;
 
     private ImageButton copyCustomerId;
     private RelativeLayout loadingView;
@@ -89,6 +90,7 @@ public class FragmentSettings extends Fragment {
         cbEnableBiometric = root.findViewById(R.id.biometric_auth);
         companySettingsView = root.findViewById(R.id.company_settings_view);
         yourUserDontHaveCompanyView = root.findViewById(R.id.your_user_dont_have_company_view);
+        idCode = root.findViewById(R.id.id_code);
         role = headerView.findViewById(R.id.nav_role);
         this.cbShowInformationOnStartup = root.findViewById(R.id.show_information_in_startup);
         this.cbAskPermissionBeforeDeletingJob = root.findViewById(R.id.ask_permission_before_deleting_job);
@@ -213,6 +215,9 @@ public class FragmentSettings extends Fragment {
         this.settingsView.setVisibility(View.VISIBLE);
         this.name.setText(settings.getFullname());
 
+        String idCodeText = PreferencesUtil.readString(getContext(), KEY_ID_CODE, "");
+        this.idCode.setText(idCodeText);
+
         String companyNameText = PreferencesUtil.readString(getContext(), KEY_COMPANY_NAME, "");
         String companyRegNumberText = PreferencesUtil.readString(getContext(), KEY_COMPANY_REG_NUMBER, "");
         if(!companyNameText.equals("")){
@@ -224,6 +229,8 @@ public class FragmentSettings extends Fragment {
             companySettingsView.setVisibility(View.GONE);
             yourUserDontHaveCompanyView.setVisibility(View.VISIBLE);
         }
+        String idCode = PreferencesUtil.readString(getContext(), KEY_ID_CODE, "");
+        this.idCode.setText(idCode);
         this.email.setText(settings.getEmail());
         this.contact.setText(settings.getContact());
         Float radiusPosition = settings.getRadius().floatValue() / 100;

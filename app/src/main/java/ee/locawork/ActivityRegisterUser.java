@@ -85,12 +85,10 @@ public class ActivityRegisterUser extends AppCompatActivity {
                     user.setContact(contact.getText().toString());
                     user.setCompanyRegNumber(companyRegistrationNumber.getText().toString());
                     user.setCompanyName(companyName.getText().toString());
+                    user.setIdCode(idCode.getText().toString());
                     controllerRegisterUser.signUp(user);
                 }else{
                     email.setError(getResources().getString(R.string.email_is_not_in_correct_format));
-                }
-                if(iWantToOfferWork.isSelected()){
-                    user.setId_code(idCode.getText().toString());
                 }
 
             }else{

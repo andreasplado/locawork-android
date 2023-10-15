@@ -31,6 +31,7 @@ import retrofit2.Response;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
+import static ee.locawork.util.PreferencesUtil.KEY_ID_CODE;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
 import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
@@ -135,8 +136,7 @@ public class ActivityLogin extends Activity {
         String isWithoutAdds = response.headers().get("Is_without_adds");
         String companyRegNumber = response.headers().get("Company_reg_number");
         String companyName = response.headers().get("Company_name");
-
-        PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, "");
+        String idCode = response.headers().get("Id_Code");
 
         if(response.code() == 200) {
             PreferencesUtil.save(this, KEY_USER_ID, Integer.parseInt(userid));
@@ -147,6 +147,7 @@ public class ActivityLogin extends Activity {
             PreferencesUtil.save(this, KEY_COMPANY_REG_NUMBER, companyRegNumber);
             PreferencesUtil.save(this, KEY_COMPANY_NAME, companyName);
             PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, firebaseToken);
+            PreferencesUtil.save(this, KEY_ID_CODE, idCode);
 
             double radiusConverted =  Double.parseDouble(radius);
             if( radiusConverted == 0.0){

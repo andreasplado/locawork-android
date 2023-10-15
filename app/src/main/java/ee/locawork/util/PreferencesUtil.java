@@ -20,6 +20,8 @@ public class PreferencesUtil {
 
     public static final String TAG_RADIUS = "radius";
     public static final String KEY_PUSH_NOTIFICATION_TOKEN = "pushnotification_token";
+
+    public static final String KEY_ID_CODE = "id_code";
     public static final String KEY_IS_PAYMENT_METHOD = "is_payment_method";
     public static final String KEY_ACCEPT_PAYMENT = "accept_payment";
     public static final String KEY_HAVE_STARTED = "key_have_started";

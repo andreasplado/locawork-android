@@ -79,7 +79,7 @@ public class User {
         return id_code;
     }
 
-    public void setId_code(String id_code) {
+    public void setIdCode(String id_code) {
         this.id_code = id_code;
     }
 
