@@ -64,7 +64,7 @@
             android:label="@string/title_activity_candidate_chosen"
             android:theme="@style/AppTheme.Fullscreen" />
         <activity
-            android:name=".ActivitySuccessfullyStartWork"
+            android:name=".ActivityWorkInProgress"
             android:label="@string/title_activity_successfully_applied"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -81,7 +81,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_location_permission"
             android:theme="@style/AppTheme.Fullscreen" />
-        <activity android:name=".RegisterUserActivity" />
+        <activity android:name=".ActivityRegisterUser" />
         <activity android:name=".ActivitySetRadius" />
 
         <meta-data
@@ -129,7 +129,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.login.ActivityLogin"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

@@ -13,6 +13,8 @@ public class PreferencesUtil {
     public static final String KEY_CARD_PARAMS = "card_params";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_RADIUS = "radius";
+    public static final String KEY_COMPANY_REG_NUMBER = "company_reg_number";
+    public static final String KEY_COMPANY_NAME = "company_name";
     public static final String KEY_ROLE = "role";
     public static final String KEY_IS_WITHOUT_ADDS = "is_without_adds";
 
@@ -86,6 +88,8 @@ public static void save(Context context, String valueKey, boolean value) {
         PreferencesUtil.save(context, KEY_LOCAWORK_PREFS, "");
         PreferencesUtil.save(context, KEY_CARD_PARAMS, "");
         PreferencesUtil.save(context, KEY_RADIUS, 0);
+        PreferencesUtil.save(context, KEY_COMPANY_NAME, "");
+        PreferencesUtil.save(context, KEY_COMPANY_REG_NUMBER, "");
     }
 
     public static void flushJobProcess (Context context){

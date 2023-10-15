@@ -28,7 +28,7 @@ import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.util.PreferencesUtil;
 import ee.locawork.util.TimerUtils;
 
-public class ActivitySuccessfullyStartWork extends AppCompatActivity {
+public class ActivityWorkInProgress extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
     private TextView time;
@@ -43,7 +43,7 @@ public class ActivitySuccessfullyStartWork extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_successfully_start_work);
+        setContentView(R.layout.activity_work_in_progress);
 
         jobTitle = findViewById(R.id.job_title);
         jobDescription = findViewById(R.id.job_description);
@@ -64,29 +64,29 @@ public class ActivitySuccessfullyStartWork extends AppCompatActivity {
             EndTimeDTO endTimeDTO = new EndTimeDTO();
             endTimeDTO.setEndTime(endTime);
             endTimeDTO.setApplyerId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, KEY_USER_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, KEY_USER_ID, 0));
             endTimeDTO.setJobId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_JOB_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_JOB_ID, 0));
 
-            new ControllerEndWork().postData(ActivitySuccessfullyStartWork.this, endTimeDTO);
+            new ControllerEndWork().postData(ActivityWorkInProgress.this, endTimeDTO);
         }));
         btnEndWork.setOnClickListener(v -> {
             String endTime = new Date().getTime() + "";
             EndTimeDTO endTimeDTO = new EndTimeDTO();
             endTimeDTO.setEndTime(endTime);
             endTimeDTO.setApplyerId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, KEY_USER_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, KEY_USER_ID, 0));
             endTimeDTO.setJobId(PreferencesUtil
-                    .readInt(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_JOB_ID, 0));
+                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_JOB_ID, 0));
 
-            new ControllerEndWork().postData(ActivitySuccessfullyStartWork.this, endTimeDTO);
+            new ControllerEndWork().postData(ActivityWorkInProgress.this, endTimeDTO);
         });
 
         long workStartTime = PreferencesUtil
-                .readLong(ActivitySuccessfullyStartWork.this, KEY_WORK_START_TIME,0);
+                .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
 
         long hoursToWork = PreferencesUtil
-                .readLong(ActivitySuccessfullyStartWork.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
+                .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
 
         long expectedEndTime = workStartTime + hoursToWork;
 

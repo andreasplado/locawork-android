@@ -10,7 +10,7 @@ android {
             keyPassword 'LaheKool123'
         }
     }
-    compileSdkVersion 34
+    compileSdk 34
     defaultConfig {
         applicationId "ee.locawork"
         minSdkVersion 24
@@ -23,9 +23,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            zipAlignEnabled true
             debuggable false //check true if you want to debug, false for release
         }
         debug {

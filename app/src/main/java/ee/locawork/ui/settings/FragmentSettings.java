@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 import ee.locawork.EventRoleSelected;
 import ee.locawork.ActivityMain;
 import ee.locawork.R;
-import ee.locawork.ui.login.LoginActivity;
+import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.model.Settings;
 import ee.locawork.util.AnimationUtil;
 import ee.locawork.util.AppConstants;
@@ -36,6 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
 
 import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
@@ -49,7 +51,7 @@ public class FragmentSettings extends Fragment {
     private FluidSlider radiusSlider;
     private ImageButton logout, retry;
     private TextView email, contact, name, role;
-    private LinearLayout noSettingsView;
+    private LinearLayout noSettingsView, yourUserDontHaveCompanyView;
     private CircleImageView profileImageView;
     private LinearLayout settingsView, noDataLayout;
     private ControllerUpdateRadius controllerUpdateRadius = new ControllerUpdateRadius();
@@ -60,12 +62,14 @@ public class FragmentSettings extends Fragment {
     private BiometricUtil biometricUtil;
 
     private TextView customerId;
-    private LinearLayout customerIdLayout;
+    private LinearLayout customerIdLayout, companySettingsView;
 
     private TextView tvNoCustomer;
 
     private ImageButton copyCustomerId;
     private RelativeLayout loadingView;
+
+    private TextView companyRegNumber, companyName;
 
 
 
@@ -79,8 +83,12 @@ public class FragmentSettings extends Fragment {
         headerView = navigationView.getHeaderView(0);
         radiusText = headerView.findViewById(R.id.nav_radius);
         logout = root.findViewById(R.id.log_out);
+        companyRegNumber = root.findViewById(R.id.company_registration_number);
+        companyName = root.findViewById(R.id.company_name);
         radiusSlider = root.findViewById(R.id.radius_slider);
         cbEnableBiometric = root.findViewById(R.id.biometric_auth);
+        companySettingsView = root.findViewById(R.id.company_settings_view);
+        yourUserDontHaveCompanyView = root.findViewById(R.id.your_user_dont_have_company_view);
         role = headerView.findViewById(R.id.nav_role);
         this.cbShowInformationOnStartup = root.findViewById(R.id.show_information_in_startup);
         this.cbAskPermissionBeforeDeletingJob = root.findViewById(R.id.ask_permission_before_deleting_job);
@@ -200,11 +208,22 @@ public class FragmentSettings extends Fragment {
 
     @Subscribe
     public void eventSettingsSuccess(EventSettingsEditSuccess eventSettingsEditSuccess) {
-        loadingView.setVisibility(View.GONE);
         Settings settings = eventSettingsEditSuccess.getSettings().body();
         this.noSettingsView.setVisibility(View.GONE);
         this.settingsView.setVisibility(View.VISIBLE);
         this.name.setText(settings.getFullname());
+
+        String companyNameText = PreferencesUtil.readString(getContext(), KEY_COMPANY_NAME, "");
+        String companyRegNumberText = PreferencesUtil.readString(getContext(), KEY_COMPANY_REG_NUMBER, "");
+        if(!companyNameText.equals("")){
+            companyRegNumber.setText(companyRegNumberText);
+            companyName.setText(companyNameText);
+            companySettingsView.setVisibility(View.VISIBLE);
+            yourUserDontHaveCompanyView.setVisibility(View.GONE);
+        }else{
+            companySettingsView.setVisibility(View.GONE);
+            yourUserDontHaveCompanyView.setVisibility(View.VISIBLE);
+        }
         this.email.setText(settings.getEmail());
         this.contact.setText(settings.getContact());
         Float radiusPosition = settings.getRadius().floatValue() / 100;
@@ -237,6 +256,7 @@ public class FragmentSettings extends Fragment {
         }else{
             this.cbEnableBiometric.setChecked(false);
         }
+        loadingView.setVisibility(View.GONE);
     }
 
     @Subscribe
@@ -252,7 +272,7 @@ public class FragmentSettings extends Fragment {
         PreferencesUtil.save(getContext(), KEY_USER_ID, 0);
         PreferencesUtil.save(getContext(), KEY_LOCAWORK_PREFS, "");
         getActivity().finish();
-        startActivity(new Intent(getContext(), LoginActivity.class));
+        startActivity(new Intent(getContext(), ActivityLogin.class));
     }
 
 

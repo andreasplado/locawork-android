@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import ee.locawork.ui.login.LoginActivity;
+import ee.locawork.ui.login.ActivityLogin;
 
 public class ActivityUserRegistred extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class ActivityUserRegistred extends AppCompatActivity {
         login = findViewById(R.id.login);
 
         login.setOnClickListener(v -> {
-          startActivity(new Intent(this, LoginActivity.class));
+          startActivity(new Intent(this, ActivityLogin.class));
         });
     }
 

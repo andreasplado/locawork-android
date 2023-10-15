@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.billy.android.preloader.PreLoader;
 import com.billy.android.preloader.interfaces.DataListener;
 
-import ee.locawork.ui.login.LoginActivity;
+import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.util.BillyPreloader;
 import ee.locawork.util.PreferencesUtil;
 
@@ -21,7 +21,7 @@ public class ActivityPreloader extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ActivityMain.class));
             }else{
                 PreferencesUtil.flushDataOnLogout(getApplicationContext());
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), ActivityLogin.class));
             }
 
         }

@@ -1,23 +1,14 @@
 package ee.locawork.util;
 
-import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
-import static ee.locawork.util.PreferencesUtil.KEY_WORK_START_TIME;
-
 import android.app.Activity;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
-import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import ee.locawork.ActivitySuccessfullyStartWork;
-import ee.locawork.ActivityWorkReached;
 import ee.locawork.services.ServiceReachedJob;
 
 public class TimerUtils {
@@ -33,7 +24,7 @@ public class TimerUtils {
                             TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                    PreferencesUtil.save(activity,  ServiceReachedJob.KEY_HOURS_TO_WORK, millisUntilFinished * 1000);
+                    PreferencesUtil.save(activity,  ServiceReachedJob.KEY_HOURS_TO_WORK, millisUntilFinished);
                     String salary = PreferencesUtil.readString(activity, ServiceReachedJob.KEY_JOB_SALARY, "");
                     salary = salary.replace(".0", "");
                     long hoursToWork = Long.parseLong(salary);

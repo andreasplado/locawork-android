@@ -53,7 +53,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="@string/start_giving_work" />
+        android:text="@string/start_giving_work"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/please_use_company_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:text="@string/please_use_company_account_to_gve_work"
+        android:textColor="@color/colorWhite" />
 
     <Button
         android:id="@+id/cancel_giving_work"

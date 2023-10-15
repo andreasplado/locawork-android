@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -144,7 +143,7 @@ public class ActivityWorkReached extends AppCompatActivity {
             PreferencesUtil.save(ActivityWorkReached.this, ServiceReachedJob.KEY_HAVE_REACHED, 0);
             PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_HAVE_STARTED, 1);
             PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, new Date().getTime());
-            startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
+            startActivity(new Intent(this, ActivityWorkInProgress.class));
         }
         if(eventStartWork.getResponse().code() == 400){
             AlertError.init(this, getApplicationContext(), getApplicationContext().getString(R.string.server_error));

@@ -15,6 +15,15 @@ public class User {
     @SerializedName("id")
     @Expose
     private Integer id;
+
+    @SerializedName("id_code")
+    private String id_code;
+
+    @SerializedName("company_name")
+    private String company_name;
+
+    @SerializedName("company_reg_number")
+    private String company_reg_number;
     @SerializedName("name")
     private String name;
 
@@ -64,5 +73,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getId_code() {
+        return id_code;
+    }
+
+    public void setId_code(String id_code) {
+        this.id_code = id_code;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompanyName(String company_name) {
+        this.company_name = company_name;
+    }
+
+    public String getCompany_reg_number() {
+        return company_reg_number;
+    }
+
+    public void setCompanyRegNumber(String company_reg_number) {
+        this.company_reg_number = company_reg_number;
     }
 }

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.core.content.ContextCompat;
 
@@ -113,7 +114,7 @@ public class LocationUtil {
 
     public void getLastLocation() {
         try {
-            this.lococation = this.locationManager.getLastKnownLocation(this.locationManager.getBestProvider(new Criteria(), false));
+            this.lococation = this.locationManager.getLastKnownLocation(Objects.requireNonNull(this.locationManager.getBestProvider(new Criteria(), false)));
         } catch (SecurityException e) {
             e.printStackTrace();
         }

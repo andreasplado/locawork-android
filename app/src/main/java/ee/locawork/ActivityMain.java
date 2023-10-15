@@ -49,7 +49,7 @@ import ee.locawork.services.LocaworkFirebaseMessagingService;
 import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.ui.findjob.EventGPSFailure;
 import ee.locawork.ui.findjob.EventGPSuccess;
-import ee.locawork.ui.login.LoginActivity;
+import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.ui.payformemeber.PayForRemovingAdds;
 import ee.locawork.ui.payformemeber.PayForRemovingAddsFailure;
 import ee.locawork.alert.PayForStartGivingWorkFailure;
@@ -108,9 +108,7 @@ public class ActivityMain extends AppCompatActivity {
 
     private static final int LOCK_REQUEST_CODE = 317;
     private static Snackbar snackbar = null;
-
     private PaymentSheet paymentSheet;
-
     public NavigationView navigationView;
     private int biometricTries = 0;
     private TextView tvEmail;
@@ -151,7 +149,7 @@ public class ActivityMain extends AppCompatActivity {
         }
 
         if (PreferencesUtil.readInt(this, PreferencesUtil.KEY_HAVE_STARTED, 0) == 1) {
-            startActivity(new Intent(this, ActivitySuccessfullyStartWork.class));
+            startActivity(new Intent(this, ActivityWorkInProgress.class));
         }
 
         PaymentConfiguration.init(
@@ -194,7 +192,7 @@ public class ActivityMain extends AppCompatActivity {
         retry.setOnClickListener(v -> {
             AnimationUtil.animateBubble(v);
             finish();
-            startActivity(getIntent());
+            startActivity(new Intent(this, ActivityMain.class));
         });
 
         updateUtil.init(this, getApplicationContext());
@@ -227,7 +225,6 @@ public class ActivityMain extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         drawer.addDrawerListener(mDrawerToggle);
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
-
 
             public void onDrawerSlide(View drawerView, float slideOffset) {
             }
@@ -397,7 +394,7 @@ public class ActivityMain extends AppCompatActivity {
             case 403:
                 PreferencesUtil.flushDataOnLogout(this);
                 finish();
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, ActivityLogin.class));
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.you_have_been_logged_out), Toast.LENGTH_LONG).show();
                 break;
         }
@@ -445,7 +442,7 @@ public class ActivityMain extends AppCompatActivity {
     private void processHaveReachedJobIntent(Intent intent) {
         boolean haveReachedJob = false;
         if (intent.getExtras() != null) {
-            haveReachedJob = intent.getExtras().getBoolean(ServiceReachedJob.KEY_APPLY_JOB, false);
+            haveReachedJob = intent.getExtras().getBoolean(ServiceReachedJob.KEY_HAVE_REACHED, false);
         }
         if (haveReachedJob) {
             startActivity(new Intent(this, ActivityWorkReached.class));
@@ -478,7 +475,7 @@ public class ActivityMain extends AppCompatActivity {
     public void settingsNotSet(EventSettingsNotSet eventSettingsNotSet) {
         if (PreferencesUtil.readString(this, KEY_TOKEN, "").equals("")) {
             finish();
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, ActivityLogin.class));
         }
     }
 
@@ -538,7 +535,7 @@ public class ActivityMain extends AppCompatActivity {
         }
         if (PreferencesUtil.readString(this, KEY_TOKEN, "").equals("")) {
             finish();
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, ActivityLogin.class));
         }
         startService(new Intent(this, LocaworkFirebaseMessagingService.class));
 
@@ -593,7 +590,6 @@ public class ActivityMain extends AppCompatActivity {
         if (doubleBackToExitPressedOnce) {
             finishAffinity();
             System.exit(0);
-            super.onBackPressed();
             return;
         }
 
@@ -636,7 +632,7 @@ public class ActivityMain extends AppCompatActivity {
     @Subscribe
     public void eventCheckIfUserExists(EventCheckIfUserExists eventCheckIfUserExists) {
         if (eventCheckIfUserExists.getBody() != null && !eventCheckIfUserExists.getBody().booleanValue()) {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, ActivityLogin.class));
         }
         if (!PreferencesUtil.readString(this, ServiceReachedJob.KEY_JOB_TITLE, "").equals("")) {
             startActivity(new Intent(this, ActivityWorkReached.class));
@@ -649,7 +645,7 @@ public class ActivityMain extends AppCompatActivity {
         PreferencesUtil.flushDataOnLogout(this);
         logoutLoading.setVisibility(View.GONE);
         finish();
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, ActivityLogin.class));
     }
 
     @Subscribe

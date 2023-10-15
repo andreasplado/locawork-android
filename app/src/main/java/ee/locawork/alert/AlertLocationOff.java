@@ -17,7 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import ee.locawork.R;
-import ee.locawork.ui.login.LoginActivity;
+import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.util.DialogUtils;
 
 public class AlertLocationOff {
@@ -32,7 +32,7 @@ public class AlertLocationOff {
         logout.setOnClickListener(v -> {
             if(mGoogleSignInClient != null) {
                 mGoogleSignInClient.signOut().addOnCompleteListener(activity, task -> {
-                    activity.startActivity(new Intent(context, LoginActivity.class));
+                    activity.startActivity(new Intent(context, ActivityLogin.class));
                     activity.finish();
                 });
             }

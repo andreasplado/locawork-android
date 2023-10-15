@@ -1,5 +1,6 @@
 package ee.locawork.ui.payformemeber;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
@@ -27,11 +28,15 @@ import ee.locawork.ui.payformemeber.alert.AlertStartGivingWork;
 import ee.locawork.util.ActivityUtils;
 import ee.locawork.util.AppConstants;
 import ee.locawork.util.PreferencesUtil;
+import ee.locawork.util.StringUtil;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
 import static ee.locawork.util.PreferencesUtil.KEY_CARD_PARAMS;
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
 import static ee.locawork.util.PreferencesUtil.KEY_ROLE;
 
@@ -51,15 +56,17 @@ public class FragmentPayForMember extends Fragment {
     private LinearLayout removeAddsLayout;
     private TextView pucrchasedAdd;
 
+    private Context context;
+
     private NavigationView navigationView;
     private View headerView;
+    private TextView pleaseUseCompanyAccount;
 
     private TextView navRole;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //controllerIsMember.getData(getContext(), PreferencesUtil.readInt(getContext(), PreferencesUtil.KEY_USER_ID, 0));
     }
 
 
@@ -73,8 +80,9 @@ public class FragmentPayForMember extends Fragment {
         this.removeAddsLayout = root.findViewById(R.id.remove_adds_layout);
         this.pucrchasedAdd = root.findViewById(R.id.puchased_add_text);
         this.cancelGivingWork = root.findViewById(R.id.cancel_giving_work);
+        this.pleaseUseCompanyAccount = root.findViewById(R.id.please_use_company_account);
 
-        navigationView = Objects.requireNonNull(getActivity()).findViewById(R.id.nav_view);
+        navigationView = requireActivity().findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
         navRole = headerView.findViewById(R.id.nav_role);
 
@@ -85,7 +93,16 @@ public class FragmentPayForMember extends Fragment {
 
     private void validate(){
         if(PreferencesUtil.readString(getContext(), KEY_CARD_PARAMS, "").equals("")){
-            startGivingWork.setVisibility(View.VISIBLE);
+            String companyRegNumber = PreferencesUtil.readString(requireActivity(), KEY_COMPANY_REG_NUMBER, "");
+            String companyName = StringUtil.convertStringToUTF8(PreferencesUtil.readString(requireActivity(), KEY_COMPANY_NAME, ""));
+            if(companyRegNumber.equals("")){
+                startGivingWork.setVisibility(View.GONE);
+                pleaseUseCompanyAccount.setVisibility(View.VISIBLE);
+            }else{
+                startGivingWork.setText(getResources().getString(R.string.start_giving_work_as) + " " + companyName  );
+                startGivingWork.setVisibility(View.VISIBLE);
+                pleaseUseCompanyAccount.setVisibility(View.GONE);
+            }
             cancelGivingWork.setVisibility(View.GONE);
             navRole.setText(getContext().getResources().getString(R.string.work_seeker));
         }else{

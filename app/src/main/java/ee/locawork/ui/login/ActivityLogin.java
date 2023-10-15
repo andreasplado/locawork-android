@@ -10,23 +10,16 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import ee.locawork.ControllerRegisterUser;
 import ee.locawork.EventUserLoggedIn;
 import ee.locawork.ActivityMain;
 import ee.locawork.R;
-import ee.locawork.RegisterUserActivity;
+import ee.locawork.ActivityRegisterUser;
 import ee.locawork.ActivitySetRadius;
 import ee.locawork.alert.AlertPrivacyPolicy;
 import ee.locawork.model.User;
@@ -35,6 +28,8 @@ import ee.locawork.util.PreferencesUtil;
 
 import retrofit2.Response;
 
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
+import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
 import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
@@ -42,7 +37,7 @@ import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 
-public class LoginActivity extends Activity {
+public class ActivityLogin extends Activity {
 
 
     GoogleSignInAccount account;
@@ -99,10 +94,10 @@ public class LoginActivity extends Activity {
 
         });
         this.registerAccount.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterUserActivity.class));
+            startActivity(new Intent(this, ActivityRegisterUser.class));
         });
         privacyPolicy.setOnClickListener(v -> {
-            AlertPrivacyPolicy.init(LoginActivity.this, getApplicationContext());
+            AlertPrivacyPolicy.init(ActivityLogin.this, getApplicationContext());
         });
     }
 
@@ -138,8 +133,8 @@ public class LoginActivity extends Activity {
         String firebaseToken = response.headers().get("Firebase_token");
         String radius = response.headers().get("Radius");
         String isWithoutAdds = response.headers().get("Is_without_adds");
-
-
+        String companyRegNumber = response.headers().get("Company_reg_number");
+        String companyName = response.headers().get("Company_name");
 
         PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, "");
 
@@ -149,7 +144,9 @@ public class LoginActivity extends Activity {
             PreferencesUtil.save(this, KEY_EMAIL, email);
             PreferencesUtil.save(this, KEY_IS_WITHOUT_ADDS, isWithoutAdds.equals("1"));
             PreferencesUtil.save(this, KEY_RADIUS, Double.parseDouble(radius));
-
+            PreferencesUtil.save(this, KEY_COMPANY_REG_NUMBER, companyRegNumber);
+            PreferencesUtil.save(this, KEY_COMPANY_NAME, companyName);
+            PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, firebaseToken);
 
             double radiusConverted =  Double.parseDouble(radius);
             if( radiusConverted == 0.0){

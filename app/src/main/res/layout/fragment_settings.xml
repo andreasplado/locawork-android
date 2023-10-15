@@ -9,9 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/loading_view"
+        <include
             android:id="@+id/loading_view"
-            android:visibility="visible" />
+            layout="@layout/loading_view"
+            android:visibility="gone" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/no_data_found_layout"
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -168,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp" />
+
                 <ImageButton
                     android:id="@+id/copy_customer_id"
                     android:layout_width="wrap_content"
@@ -178,12 +180,12 @@
 
 
             <TextView
+                android:id="@+id/no_active_customer_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/you_have_no_active_customer_id"
                 android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                android:id="@+id/no_active_customer_id"/>
+                android:textSize="15sp" />
 
 
             <TextView
@@ -201,15 +203,6 @@
                 fancy:bar_color="@color/colorPrimary"
                 fancy:bubble_color="@color/colorAccent"
                 fancy:size="small" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="30dp"
-                android:text="@string/global_settings"
-                android:textColor="@color/colorWhite"
-                android:textSize="30dp" />
 
             <CheckBox
                 android:id="@+id/ask_permission_before_deleting_job"
@@ -237,6 +230,59 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/your_user_dont_have_company_view">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_user_doesnt_have_company_make_new_user_to_add_work"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/company_settings_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/company_label"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/company_reg_number_label"
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/company_registration_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </ScrollView>
