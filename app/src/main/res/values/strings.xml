@@ -428,4 +428,6 @@
     <string name="loading_contact">Loading contact...</string>
     <string name="loading_company">Loading company...</string>
     <string name="loading_company_registration_number">Loading company registration number...</string>
+    <string name="please_enable_notifications_in_order_to_stay_updated">Please enable notifications in order to stay updated</string>
+    <string name="enable_notifications">Enable notifications</string>
 </resources>

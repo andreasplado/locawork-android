@@ -71,6 +71,7 @@ import ee.locawork.util.AppConstants;
 import ee.locawork.util.BiometricUtil;
 import ee.locawork.util.Keyboard;
 import ee.locawork.util.LocationUtil;
+import ee.locawork.util.NotificationUtils;
 import ee.locawork.util.PaymentUtil;
 import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
@@ -149,6 +150,12 @@ public class ActivityMain extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        boolean isNotificationEnabled = NotificationUtils.isNotificationEnabled(getApplicationContext());
+
+        if(!isNotificationEnabled){
+            startActivity(new Intent(this, ActivityEnableNotifications.class));
+        }
 
         if (PreferencesUtil.readInt(this, ServiceReachedJob.KEY_HAVE_REACHED, 0) == 1) {
             startActivity(new Intent(this, ActivityWorkReached.class));
@@ -502,6 +509,7 @@ public class ActivityMain extends AppCompatActivity {
         Toast.makeText(this, "Uuendati push notificationi tokenit", Toast.LENGTH_LONG).show();
     }
 
+    @Override
     public void onStop() {
         super.onStop();
         if (EventBus.getDefault().isRegistered(this)) {

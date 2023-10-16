@@ -31,6 +31,9 @@
             android:name=".ActivityEndWork"
             android:exported="false" />
         <activity
+            android:name=".ActivityEnableNotifications"
+            android:exported="false" />
+        <activity
             android:name=".ActivityMain"
             android:label="@string/title_activity_welcome_screen"
             android:theme="@style/AppTheme.NoActionBar" />
