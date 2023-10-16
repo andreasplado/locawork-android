@@ -23,11 +23,11 @@ public class ControllerGetSettings implements Callback<Settings> {
 
     @Override
     public void onResponse(Call<Settings> call, Response<Settings> response) {
-        EventBus.getDefault().post(new EventSettingsSuccess(response));
+        EventBus.getDefault().post(new EventGetSettingsSuccess(response));
     }
 
     @Override
     public void onFailure(Call<Settings> call, Throwable t) {
-        EventBus.getDefault().post(new EventSettingsFailure(t));
+        EventBus.getDefault().post(new EventGetSettingsFailure(t));
     }
 }

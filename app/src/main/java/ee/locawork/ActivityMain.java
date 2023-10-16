@@ -486,7 +486,6 @@ public class ActivityMain extends AppCompatActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        new ControllerGetSettings().getData(this, PreferencesUtil.readInt(this, KEY_USER_ID, 0));
         super.onStart();
     }
 
@@ -496,77 +495,6 @@ public class ActivityMain extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, ActivityLogin.class));
         }
-    }
-
-    @Subscribe
-    public void settingsSuccess(EventSettingsSuccess eventSettingsSuccess) {
-        double radiusConverted = eventSettingsSuccess.getSettings().body().getRadius();
-        String radius = String.valueOf((int) radiusConverted);
-        tvRadius.setText(radius);
-        int hasGPSFineAllowed = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-
-        int hasGPSCoarseAllowed = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION);
-
-
-        assert eventSettingsSuccess.getSettings().body() != null;
-
-        if (eventSettingsSuccess.getSettings().body().isBiometric()) {
-            if (biometricUtil.isBiometricAvailable(this, this)) {
-                if(!isUnlocked) {
-                    executor = ContextCompat.getMainExecutor(this);
-                    showBiometricPrompt();
-                }
-            }
-        }
-        if (eventSettingsSuccess.getSettings().body().getRole() == null) {
-
-        } else {
-            if (navigationView.getHeaderView(0) != null) {
-                String role = eventSettingsSuccess.getSettings().body().getRole();
-                MenuItem navFindJob = this.navigationView.getMenu().findItem(R.id.nav_work_seeker);
-                MenuItem navOfferWork = this.navigationView.getMenu().findItem(R.id.nav_work_offer);
-                String cardparams = PreferencesUtil.readString(this, KEY_CARD_PARAMS, "");
-                String rolePrefs = PreferencesUtil.readString(this, KEY_ROLE, AppConstants.ROLE_JOB_SEEKER);
-                if (cardparams.equals("") && rolePrefs.equals(AppConstants.ROLE_JOB_SEEKER)) {
-                    tvrole.setText(getResources().getString(R.string.work_seeker));
-                    navFindJob.setVisible(true);
-                    navOfferWork.setVisible(false);
-                    addJob.setVisibility(View.GONE);
-                } else if(!cardparams.equals("") && rolePrefs.equals(AppConstants.ROLE_JOB_OFFER)) {
-                    tvrole.setText(getResources().getString(R.string.work_offer));
-                    addJob.setVisibility(View.VISIBLE);
-                    navFindJob.setVisible(false);
-                    navOfferWork.setVisible(true);
-                }
-            }
-        }
-
-        if (eventSettingsSuccess.getSettings().body().getRadius() == null) {
-            finish();
-            startActivity(new Intent(this, ActivitySetRadius.class));
-        }
-        if (PreferencesUtil.readString(this, PrefConstants.TAG_IS_NOTIFICATION, FluidSlider.TEXT_START).equals(FluidSlider.TEXT_START)) {
-            finish();
-            startActivity(new Intent(this, ActivityNotification.class));
-        }
-        if (PreferencesUtil.readString(this, KEY_TOKEN, "").equals("")) {
-            finish();
-            startActivity(new Intent(this, ActivityLogin.class));
-        }
-        startService(new Intent(this, LocaworkFirebaseMessagingService.class));
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
-            String token = instanceIdResult.getToken();
-            if (!PreferencesUtil.readString(this, KEY_PUSH_NOTIFICATION_TOKEN, "").equals(token)) {
-                PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, token);
-                new ControllerUpdateFirebaseToken(this, PreferencesUtil.readInt(this, KEY_USER_ID, 0), token);
-            } else {
-                PreferencesUtil.save(this, KEY_PUSH_NOTIFICATION_TOKEN, token);
-            }
-        });
-
     }
 
     @Subscribe

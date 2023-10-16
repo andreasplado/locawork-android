@@ -1,8 +1,10 @@
 package ee.locawork.ui.settings;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -14,14 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.ramotion.fluidslider.FluidSlider;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import ee.locawork.ActivityNotification;
+import ee.locawork.ActivitySetRadius;
+import ee.locawork.ControllerUpdateFirebaseToken;
 import ee.locawork.EventRoleSelected;
 import ee.locawork.ActivityMain;
 import ee.locawork.R;
 import ee.locawork.event.EventNetOn;
+import ee.locawork.services.LocaworkFirebaseMessagingService;
 import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.model.Settings;
 import ee.locawork.util.AnimationUtil;
@@ -34,17 +42,22 @@ import ee.locawork.util.PreferencesUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
 import retrofit2.Response;
 
 import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
+import static ee.locawork.util.PreferencesUtil.KEY_CARD_PARAMS;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_REG_NUMBER;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_ID_CODE;
+import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
+import static ee.locawork.util.PreferencesUtil.KEY_ROLE;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 
@@ -65,22 +78,18 @@ public class FragmentSettings extends Fragment {
     private NavigationView navigationView;
     private CheckBox cbEnableBiometric;
     private BiometricUtil biometricUtil;
-
     private TextView customerId;
     private LinearLayout customerIdLayout, companySettingsView;
-
     private TextView tvNoCustomer, idCode;
-
     private ImageButton copyCustomerId;
     private RelativeLayout loadingView;
-
     private TextView companyRegNumber, companyName;
     private LinearLayout serverErrorView;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+
     }
 
     @Override
@@ -116,122 +125,19 @@ public class FragmentSettings extends Fragment {
         noSettingsView = root.findViewById(R.id.no_data_found_layout);
         tvNoCustomer = root.findViewById(R.id.no_active_customer_id);
         this.loadingView = root.findViewById(R.id.loading_view);
+        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         return root;
     }
 
-    @Override
     public void onStart() {
+        super.onStart();
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        retry.setOnClickListener(v -> {
-            AnimationUtil.animateBubble(v);
-            FragmentUtils.restartFragment(FragmentSettings.this);
-        });
-
-        cbAskPermissionBeforeDeletingJob.setOnClickListener(v -> {
-            ControllerUpdateAskPermissionBeforeDeletingWork controllerUpdateAskPermissionBeforeDeletingWork = new ControllerUpdateAskPermissionBeforeDeletingWork();
-            if (cbAskPermissionBeforeDeletingJob.isChecked()) {
-                controllerUpdateAskPermissionBeforeDeletingWork.update(getContext(), Integer.valueOf(PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)), true);
-                PreferencesUtil.save(getContext(), PrefConstants.TAG_ASK_PERMISSION_BEFORE_DELETING_JOB, "1");
-
-                return;
-            }
-            controllerUpdateAskPermissionBeforeDeletingWork.update(getContext(), Integer.valueOf(PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)), false);
-            PreferencesUtil.save(getContext(), PrefConstants.TAG_ASK_PERMISSION_BEFORE_DELETING_JOB, FluidSlider.TEXT_START);
-        });
-
-        cbEnableBiometric.setOnClickListener(v -> {
-            ControllerUpdateBiometric controllerUpdateBiometric = new ControllerUpdateBiometric();
-            controllerUpdateBiometric.update(getContext(), Integer.valueOf(PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)), cbEnableBiometric.isChecked());
-        });
-        copyCustomerId.setOnClickListener(v -> {
-            ClickUtils.copyText(getContext(), AppConstants.APP_NAME, customerId.getText().toString());
-        });
-        cbShowInformationOnStartup.setOnClickListener(v -> {
-            ControllerUpdateShowInformationOnStartup controllerUpdateShowInformationOnStartup = new ControllerUpdateShowInformationOnStartup();
-            if (cbShowInformationOnStartup.isChecked()) {
-                controllerUpdateShowInformationOnStartup.update(getContext(), Integer.valueOf(PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)), true);
-                PreferencesUtil.save(getContext(), PrefConstants.TAG_IS_NOTIFICATION, "1");
-
-                return;
-            }
-        });
-
-        this.logout.setOnClickListener(v -> {
-            new ControllerLogout().postData(getContext(), Integer.valueOf(PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)));
-        });
-
-        radiusSlider.setEndTrackingListener(() -> {
-            double converted = radiusSlider.getPosition();
-            PreferencesUtil.save(getContext(), KEY_RADIUS, converted);
-
-            double convertedResult = radiusSlider.getPosition() * 100;
-            controllerUpdateRadius.update(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0), convertedResult);
-
-            return Unit.INSTANCE;
-        });
-
-        super.onStart();
     }
-
     @Subscribe
-    public void settingsFailure(EventSettingsFailure eventSettingsFailure) {
-        serverErrorView.setVisibility(View.VISIBLE);
-    }
-
-    @Subscribe
-    public void eventNetOn(EventNetOn eventNetOn) {
-        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
-        serverErrorView.setVisibility(View.GONE);
-    }
-    /*@Subscribe
-    public void eventSettingsSuccessData(EventSettingsSuccessLoading eventSettingsSuccessLoading){
-        Settings settings = eventSettingsSuccessLoading.getSettings().body();
-        this.email.setText(settings.getEmail());
-        this.name.setText(settings.getFullname());
-
-    }*/
-
-
-
-    @Override
-    public void onStop() {
-        if(EventBus.getDefault().isRegistered(this)){
-            EventBus.getDefault().unregister(this);
-        }
-        super.onStop();
-    }
-
-    @Subscribe
-    public void eventRoleSelected(EventRoleSelected eventRoleSelected){
-        PreferencesUtil.save(getContext(), PrefConstants.KEY_LOCAWORK_PREFS, "");
-        startActivity(new Intent(getContext(), ActivityMain.class));
-    }
-
-    private void setFilters() {
-    }
-
-    @Subscribe
-    public void updateBiometricSuccess(EventUpdateBiometricSuccess eventUpdateBiometricSuccess){
-        startActivity(new Intent(getContext(), ActivityMain.class));
-        Settings settings = eventUpdateBiometricSuccess.getSettingsResponse().body();
-        if(settings.isBiometric()){
-            Toast.makeText(getContext(), getResources().getString(R.string.biometric_security_has_been_enabled), Toast.LENGTH_LONG).show();
-        }else{
-            Toast.makeText(getContext(), getResources().getString(R.string.biometric_security_has_been_disabled), Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-    @Subscribe
-    public void updateBiometricFailure(EventUpdateBiometricFailure eventUpdateBiometricFailure){
-        Toast.makeText(getContext(), getResources().getString(R.string.biometric_not_enabled_please_try_again), Toast.LENGTH_LONG).show();
-    }
-
-    @Subscribe
-    public void eventSettingsSuccess(EventSettingsSuccess eventSettingsEditSuccess) {
-        Settings settings = eventSettingsEditSuccess.getSettings().body();
+    public void settingsSuccess(EventGetSettingsSuccess eventSettingsSuccess) {
+        Settings settings = eventSettingsSuccess.getSettings().body();
         this.noSettingsView.setVisibility(View.GONE);
         this.settingsView.setVisibility(View.VISIBLE);
         this.name.setText(settings.getFullname());
@@ -260,6 +166,7 @@ public class FragmentSettings extends Fragment {
             customerIdLayout.setVisibility(View.GONE);
             tvNoCustomer.setVisibility(View.VISIBLE);
             copyCustomerId.setVisibility(View.GONE);
+            customerId.setText(settings.getCustomerId());
         }else{
             tvNoCustomer.setVisibility(View.GONE);
             customerIdLayout.setVisibility(View.VISIBLE);
@@ -285,6 +192,55 @@ public class FragmentSettings extends Fragment {
             this.cbEnableBiometric.setChecked(false);
         }
         loadingView.setVisibility(View.GONE);
+    }
+
+
+    @Subscribe
+    public void settingsFailure(EventSettingsFailure eventSettingsFailure) {
+        serverErrorView.setVisibility(View.VISIBLE);
+    }
+
+    @Subscribe
+    public void eventNetOn(EventNetOn eventNetOn) {
+        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        serverErrorView.setVisibility(View.GONE);
+    }
+
+
+
+    public void onStop() {
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+        super.onStop();
+    }
+
+    @Subscribe
+    public void eventRoleSelected(EventRoleSelected eventRoleSelected){
+        PreferencesUtil.save(getContext(), PrefConstants.KEY_LOCAWORK_PREFS, "");
+        startActivity(new Intent(getContext(), ActivityMain.class));
+    }
+
+    @Subscribe
+    public void updateBiometricSuccess(EventUpdateBiometricSuccess eventUpdateBiometricSuccess){
+        startActivity(new Intent(getContext(), ActivityMain.class));
+        Settings settings = eventUpdateBiometricSuccess.getSettingsResponse().body();
+        if(settings.isBiometric()){
+            Toast.makeText(getContext(), getResources().getString(R.string.biometric_security_has_been_enabled), Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getContext(), getResources().getString(R.string.biometric_security_has_been_disabled), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Subscribe
+    public void updateBiometricFailure(EventUpdateBiometricFailure eventUpdateBiometricFailure){
+        Toast.makeText(getContext(), getResources().getString(R.string.biometric_not_enabled_please_try_again), Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe
+    public void eventGetSettingsFailure(EventGetSettingsFailure eventGetSettingsFailure) {
+        serverErrorView.setVisibility(View.VISIBLE);
     }
 
     @Subscribe

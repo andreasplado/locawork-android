@@ -178,6 +178,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:text="@string/loading_customer_id"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="20dp"
                     android:textSize="15sp" />
 
                 <ImageButton
