@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
-import ee.locawork.ui.findjob.EventGPSFailure;
-import ee.locawork.ui.findjob.EventGPSuccess;
+import ee.locawork.ui.findwork.EventGPSFailure;
+import ee.locawork.ui.findwork.EventGPSuccess;
 import org.greenrobot.eventbus.EventBus;
 
 public class GpsReciver extends BroadcastReceiver {

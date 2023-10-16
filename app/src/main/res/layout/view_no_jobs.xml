@@ -11,7 +11,8 @@
     <ImageView
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:background="@drawable/ic_no_data"/>
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/search"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -44,7 +44,7 @@
                 android:textSize="10dp" />
 
             <ImageButton
-                android:id="@+id/retry"
+                android:id="@+id/retry_no_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -85,6 +85,12 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/settings"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,7 +116,8 @@
                 <TextView
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading_email"/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +135,8 @@
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading_name"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +154,8 @@
                 <TextView
                     android:id="@+id/contact"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading_contact"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
+                    android:text="@string/loading_customer_id"
                     android:textSize="15sp" />
 
                 <ImageButton
@@ -256,7 +266,8 @@
                 <TextView
                     android:id="@+id/id_code"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading_id_code"/>
             </LinearLayout>
 
             <LinearLayout
@@ -280,7 +291,8 @@
                     <TextView
                         android:id="@+id/company_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading_company"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -298,9 +310,43 @@
                     <TextView
                         android:id="@+id/company_registration_number"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/loading_company_registration_number"/>
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/server_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/moon3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oops"
+                android:textColor="@color/colorWhite"
+                android:textSize="30dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sorry_something_went_wrong_with_our_server_press_to_retry"
+                android:textColor="@color/colorWhite" />
+            <ImageButton
+                android:id="@+id/retry"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_reload" />
         </LinearLayout>
     </FrameLayout>
 </ScrollView>

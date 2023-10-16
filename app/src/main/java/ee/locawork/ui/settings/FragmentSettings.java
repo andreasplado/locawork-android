@@ -21,6 +21,7 @@ import org.greenrobot.eventbus.Subscribe;
 import ee.locawork.EventRoleSelected;
 import ee.locawork.ActivityMain;
 import ee.locawork.R;
+import ee.locawork.event.EventNetOn;
 import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.model.Settings;
 import ee.locawork.util.AnimationUtil;
@@ -31,9 +32,12 @@ import ee.locawork.util.FragmentUtils;
 import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
+import retrofit2.Response;
 
 import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
 import static ee.locawork.util.PreferencesUtil.KEY_COMPANY_NAME;
@@ -71,8 +75,13 @@ public class FragmentSettings extends Fragment {
     private RelativeLayout loadingView;
 
     private TextView companyRegNumber, companyName;
+    private LinearLayout serverErrorView;
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,6 +98,7 @@ public class FragmentSettings extends Fragment {
         radiusSlider = root.findViewById(R.id.radius_slider);
         cbEnableBiometric = root.findViewById(R.id.biometric_auth);
         companySettingsView = root.findViewById(R.id.company_settings_view);
+        serverErrorView = root.findViewById(R.id.server_error_view);
         yourUserDontHaveCompanyView = root.findViewById(R.id.your_user_dont_have_company_view);
         idCode = root.findViewById(R.id.id_code);
         role = headerView.findViewById(R.id.nav_role);
@@ -106,7 +116,6 @@ public class FragmentSettings extends Fragment {
         noSettingsView = root.findViewById(R.id.no_data_found_layout);
         tvNoCustomer = root.findViewById(R.id.no_active_customer_id);
         this.loadingView = root.findViewById(R.id.loading_view);
-
         return root;
     }
 
@@ -119,8 +128,6 @@ public class FragmentSettings extends Fragment {
             AnimationUtil.animateBubble(v);
             FragmentUtils.restartFragment(FragmentSettings.this);
         });
-
-        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
 
         cbAskPermissionBeforeDeletingJob.setOnClickListener(v -> {
             ControllerUpdateAskPermissionBeforeDeletingWork controllerUpdateAskPermissionBeforeDeletingWork = new ControllerUpdateAskPermissionBeforeDeletingWork();
@@ -168,6 +175,26 @@ public class FragmentSettings extends Fragment {
         super.onStart();
     }
 
+    @Subscribe
+    public void settingsFailure(EventSettingsFailure eventSettingsFailure) {
+        serverErrorView.setVisibility(View.VISIBLE);
+    }
+
+    @Subscribe
+    public void eventNetOn(EventNetOn eventNetOn) {
+        new ControllerGetSettings().getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        serverErrorView.setVisibility(View.GONE);
+    }
+    /*@Subscribe
+    public void eventSettingsSuccessData(EventSettingsSuccessLoading eventSettingsSuccessLoading){
+        Settings settings = eventSettingsSuccessLoading.getSettings().body();
+        this.email.setText(settings.getEmail());
+        this.name.setText(settings.getFullname());
+
+    }*/
+
+
+
     @Override
     public void onStop() {
         if(EventBus.getDefault().isRegistered(this)){
@@ -183,12 +210,6 @@ public class FragmentSettings extends Fragment {
     }
 
     private void setFilters() {
-    }
-
-    @Subscribe
-    public void eventSettingsNotSet(EventSettingsNotSet addedJobsNetSuccess) {
-        this.noSettingsView.setVisibility(View.VISIBLE);
-        this.settingsView.setVisibility(View.GONE);
     }
 
     @Subscribe
@@ -209,7 +230,7 @@ public class FragmentSettings extends Fragment {
     }
 
     @Subscribe
-    public void eventSettingsSuccess(EventSettingsEditSuccess eventSettingsEditSuccess) {
+    public void eventSettingsSuccess(EventSettingsSuccess eventSettingsEditSuccess) {
         Settings settings = eventSettingsEditSuccess.getSettings().body();
         this.noSettingsView.setVisibility(View.GONE);
         this.settingsView.setVisibility(View.VISIBLE);
@@ -267,7 +288,7 @@ public class FragmentSettings extends Fragment {
     }
 
     @Subscribe
-    public void eventSettingsFailure(EventSettingsEditFailure eventSettingsSuccess) {
+    public void eventSettingsFailure(EventSettingsEditFailure eventSettingsEditFailure) {
         this.settingsView.setVisibility(View.GONE);
         this.noSettingsView.setVisibility(View.VISIBLE);
     }

@@ -16,8 +16,8 @@ import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.EventNetOff;
 import ee.locawork.event.EventNetOn;
 import ee.locawork.model.Job;
-import ee.locawork.ui.myaddedjob.EventAddedJobsNetFailure;
-import ee.locawork.ui.myaddedjob.EventMyAddedWorkDeleteSuccess;
+import ee.locawork.ui.myaddedwork.EventAddedJobsNetFailure;
+import ee.locawork.ui.myaddedwork.EventMyAddedWorkDeleteSuccess;
 import ee.locawork.util.PreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;

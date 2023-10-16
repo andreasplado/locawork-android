@@ -91,4 +91,12 @@
         android:padding="10dp"
         android:text="@string/privacy_policy"
         android:textColor="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/visit_our_website"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:text="@string/visit_our_website"/>
 </LinearLayout>

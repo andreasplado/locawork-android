@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,6 +24,7 @@ import ee.locawork.R;
 import ee.locawork.ActivityRegisterUser;
 import ee.locawork.ActivitySetRadius;
 import ee.locawork.alert.AlertPrivacyPolicy;
+import ee.locawork.alert.AlertWebsite;
 import ee.locawork.model.User;
 import ee.locawork.model.UserLogin;
 import ee.locawork.util.PreferencesUtil;
@@ -48,6 +51,7 @@ public class ActivityLogin extends Activity {
     private Button registerAccount, login;
     private EditText email, password;
     private Button privacyPolicy;
+    private TextView visitOurWebsite;
     private RelativeLayout loadingLogin;
     boolean doubleBackToExitPressedOnce = false;
 
@@ -76,6 +80,12 @@ public class ActivityLogin extends Activity {
         this.password = findViewById(R.id.password);
         this.login = findViewById(R.id.login);
         this.loadingLogin = findViewById(R.id.loading_view);
+        this.visitOurWebsite = findViewById(R.id.visit_our_website);
+
+        this.visitOurWebsite.setOnClickListener(view -> {
+            AlertWebsite.init(ActivityLogin.this, getApplicationContext());
+        });
+
         this.login.setOnClickListener(v -> {
 
             if(this.email.getText().toString().equals("")){

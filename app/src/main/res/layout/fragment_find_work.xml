@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        fancy:umanoPanelHeight="130dp"
+        fancy:umanoShadowHeight="50dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/map"
+                android:name ="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <include layout="@layout/view_no_jobs" />
+
+            <include layout="@layout/loading_view" />
+
+            <LinearLayout
+                android:id="@+id/server_error_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/wolf2"
+                    android:layout_marginBottom="50dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/oops"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sorry_something_went_wrong_with_our_server_press_to_retry"
+                    android:textColor="@color/colorWhite" />
+
+                <ImageButton
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/retry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/ic_reload" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/clear_role"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_account_circle_white_36dp"
+                android:gravity="left|center_vertical"
+                android:text="@string/clear_role"
+                android:layout_gravity="top|end|center_vertical|center_horizontal|center"/>
+            <LinearLayout
+                android:id="@+id/role_not_selected"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_account_circle_white_36dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/please_select_your_role_first"
+                    android:gravity="center"
+                    android:textSize="15dp"
+                    android:padding="20dp"/>
+
+                <LinearLayout
+                    android:id="@+id/find_job"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/colorPrimary"
+                    android:padding="30dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/find_work" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/offer_job"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:background="@color/colorPrimary">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/offer_work" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <include layout="@layout/job_info_view" />
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+</RelativeLayout>

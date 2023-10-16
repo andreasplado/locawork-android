@@ -22,43 +22,6 @@
         android:fitsSystemWindows="true"
         fancy:headerLayout="@layout/nav_header_main"
         fancy:menu="@menu/menu_main" />
-
-    <LinearLayout
-        android:id="@+id/please_retry_to_get_settings"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_sad" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:text="@string/oops"
-            android:textSize="30dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/sorry_couldnt_fetch_the_data" />
-
-        <ImageButton
-            android:id="@+id/retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@null"
-            android:src="@drawable/ic_reload" />
-    </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
 
 

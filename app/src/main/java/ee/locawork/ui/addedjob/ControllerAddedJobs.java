@@ -3,14 +3,12 @@ package ee.locawork.ui.addedjob;
 import android.content.Context;
 
 import ee.locawork.model.Job;
-import ee.locawork.model.JobWithCategory;
-import ee.locawork.model.dto.JobDTO;
-import ee.locawork.ui.addjobs.ServiceAddJob;
+import ee.locawork.ui.addworks.ServiceAddJob;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.greenrobot.eventbus.EventBus;
-import ee.locawork.ui.myaddedjob.EventAddedJobsNetFailure;
+import ee.locawork.ui.myaddedwork.EventAddedJobsNetFailure;
 import ee.locawork.util.PreferencesUtil;
 
 import java.util.List;

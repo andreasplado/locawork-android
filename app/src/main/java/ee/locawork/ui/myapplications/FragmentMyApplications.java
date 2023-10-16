@@ -1,5 +1,9 @@
 package ee.locawork.ui.myapplications;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +16,13 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import ee.locawork.R;
+import ee.locawork.broadcastreciever.NetworkReciever;
+import ee.locawork.event.EventNetOn;
 import ee.locawork.model.MyApplicationDTO;
 import ee.locawork.util.AnimationUtil;
+import ee.locawork.util.AppConstants;
 import ee.locawork.util.FragmentUtils;
+import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 
 import java.util.List;
@@ -23,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 
 public class FragmentMyApplications extends Fragment {
@@ -34,6 +43,8 @@ public class FragmentMyApplications extends Fragment {
     private ImageButton retry;
     private LinearLayout serverErrorView;
     private RelativeLayout loadingView;
+    private boolean isEventBusRegistred;
+    private BroadcastReceiver networkReceiver;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +52,7 @@ public class FragmentMyApplications extends Fragment {
 
     public void onStart() {
         super.onStart();
+        registerRecievers();
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -56,7 +68,18 @@ public class FragmentMyApplications extends Fragment {
         this.retry = root.findViewById(R.id.retry);
         setOnClickListeners();
         this.controllerMyApplications.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        this.networkReceiver = new NetworkReciever();
         return root;
+    }
+
+    private void registerRecievers() {
+        this.isEventBusRegistred = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            getActivity().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getActivity().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
     }
 
     private void setOnClickListeners() {
@@ -119,8 +142,11 @@ public class FragmentMyApplications extends Fragment {
             }
         }
 
-        //Collections.sort(myApplicaitons, comparator);
+    }
 
+    @Subscribe
+    public void networkOn(EventNetOn eventNetOn){
+        this.controllerMyApplications.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
     }
 
     private void successulLoading(){

@@ -14,7 +14,14 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/coin" />
+            android:src="@drawable/coin"
+            android:layout_marginBottom="50dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oops"
+            android:textColor="@color/colorWhite"
+            android:textSize="30dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,10 +37,10 @@
         android:orientation="vertical"
         android:visibility="gone">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_nasa_vector_5" />
+            android:src="@drawable/wolf" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

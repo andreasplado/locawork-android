@@ -12,7 +12,7 @@ import ee.locawork.R;
 import ee.locawork.model.Job;
 import ee.locawork.model.JobApplicationDTO;
 import ee.locawork.model.MyApplicationDTO;
-import ee.locawork.ui.myaddedjob.ControllerDeleteJob;
+import ee.locawork.ui.myaddedwork.ControllerDeleteJob;
 import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 import com.ramotion.fluidslider.FluidSlider;

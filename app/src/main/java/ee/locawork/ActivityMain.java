@@ -3,9 +3,12 @@ package ee.locawork;
 import android.Manifest;
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,13 +45,13 @@ import ee.locawork.alert.AlertPayForRemovingAdds;
 import ee.locawork.alert.AlertPayForRemovingAddsError;
 import ee.locawork.alert.AlertPayForWork;
 import ee.locawork.alert.AlertPayForWorkFailure;
+import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.LocationAdd;
 import ee.locawork.services.EventRetrieveToken;
 import ee.locawork.services.EventRetrieveTokenFail;
 import ee.locawork.services.LocaworkFirebaseMessagingService;
 import ee.locawork.services.ServiceReachedJob;
-import ee.locawork.ui.findjob.EventGPSFailure;
-import ee.locawork.ui.findjob.EventGPSuccess;
+import ee.locawork.ui.findwork.EventGPSFailure;
 import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.ui.payformemeber.PayForRemovingAdds;
 import ee.locawork.ui.payformemeber.PayForRemovingAddsFailure;
@@ -110,10 +113,11 @@ public class ActivityMain extends AppCompatActivity {
     private static Snackbar snackbar = null;
     private PaymentSheet paymentSheet;
     public NavigationView navigationView;
+    private boolean isEventBusRegistred = false;
     private int biometricTries = 0;
     private TextView tvEmail;
     private TextView tvRadius, tvrole;
-    private LinearLayout findJobButton, offerJoButton, pleaseRetryToGetSettings;
+    private LinearLayout findJobButton, offerJoButton;
     private ImageButton retry;
     private UpdateUtil updateUtil = new UpdateUtil();
     private String firebaseToken = "";
@@ -139,6 +143,8 @@ public class ActivityMain extends AppCompatActivity {
     private boolean isUnlocked = false;
     private PaymentUtil paymentUtil;
     private PaymentSession paymentSession;
+
+    private BroadcastReceiver networkReceiver;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,12 +172,11 @@ public class ActivityMain extends AppCompatActivity {
         addJob = findViewById(R.id.add_job);
         addJob = findViewById(R.id.add_job);
         loadingViewSmall = findViewById(R.id.loading_small);
-        pleaseRetryToGetSettings = findViewById(R.id.please_retry_to_get_settings);
         retry = findViewById(R.id.retry);
         biometricUtil = new BiometricUtil(this);
         container = findViewById(R.id.main_container);
         keyGuardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-
+        this.networkReceiver = new NetworkReciever();
 
         adView.setAdListener(new AdListener() {
             @Override
@@ -382,6 +387,7 @@ public class ActivityMain extends AppCompatActivity {
 
     @Subscribe
     public void payForStartGivingWork(PayForStartingGivingWork payForStartingGivingWork){
+        int kood = payForStartingGivingWork.getBody().code();
         switch(payForStartingGivingWork.getBody().code()){
             case 500:
                 AlertPayForWorkFailure.init(this, getApplicationContext());
@@ -462,8 +468,21 @@ public class ActivityMain extends AppCompatActivity {
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), this.appBarConfiguration) || super.onSupportNavigateUp();
     }
 
+    private void registerRecievers() {
+        this.isEventBusRegistred = true;
+        new IntentFilter("android.location.PROVIDERS_CHANGED").addAction("android.intent.action.PROVIDER_CHANGED");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+
     @Override
     public void onStart() {
+        registerRecievers();
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
@@ -484,7 +503,6 @@ public class ActivityMain extends AppCompatActivity {
         double radiusConverted = eventSettingsSuccess.getSettings().body().getRadius();
         String radius = String.valueOf((int) radiusConverted);
         tvRadius.setText(radius);
-        pleaseRetryToGetSettings.setVisibility(View.GONE);
         int hasGPSFineAllowed = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
 
@@ -556,12 +574,6 @@ public class ActivityMain extends AppCompatActivity {
         Toast.makeText(this, "Uuendati push notificationi tokenit", Toast.LENGTH_LONG).show();
     }
 
-
-    @Subscribe
-    public void settingsFailure(EventSettingsFailure eventSettingsFailure) {
-        pleaseRetryToGetSettings.setVisibility(View.VISIBLE);
-    }
-
     public void onStop() {
         super.onStop();
         if (EventBus.getDefault().isRegistered(this)) {
@@ -597,11 +609,6 @@ public class ActivityMain extends AppCompatActivity {
         Toast.makeText(this, getResources().getString(R.string.please_click_back_again_to_exit), Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
-    }
-
-    @Subscribe
-    public void gpsSuccess(EventGPSuccess eventGPSuccess) {
-
     }
 
     @Subscribe
@@ -664,9 +671,5 @@ public class ActivityMain extends AppCompatActivity {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
-    }
-
-    public void onPaymentSheetResult(){
-
     }
 }

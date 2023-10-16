@@ -153,7 +153,7 @@
     <string name="seems_that_you_dont_have_any_work_done_here">Seems that you don\'t have any work done here.</string>
     <string name="server_client_id" translatable="false">995893581065-evjovh93aadqlam7d9oit7kcua2dfrcm.apps.googleusercontent.com</string>
     <string name="sorry_something_went_wrong_please_check_if_you_have_signal">Sorry something went wrong. Please check if you have signal.</string>
-    <string name="sorry_something_went_wrong_with_our_server_press_to_retry">Sorry! Something went wrong with our server.Press to retry!</string>
+    <string name="sorry_something_went_wrong_with_our_server_press_to_retry">Sorry! Something went wrong with our server. Press to retry!</string>
     <string name="start">Start:</string>
     <string name="start_job">Start work</string>
     <string name="status_bar_notification_info_overflow" translatable="false">999+</string>
@@ -418,8 +418,14 @@
     <string name="company_label">Company:</string>
     <string name="your_user_doesnt_have_company_make_new_user_to_add_work">Your user doesn\'t have company. Make new user to add work.</string>
     <string name="company_reg_number_label">Company registration number:</string>
-=======
     <string name="per_unit">Per unit</string>
->>>>>>> 5b394a5d023841bbcfaf3002159bd5b82ef3696b
-
+    <string name="visit_our_website"><a href="https://www.locawork.ee">Visit our website</a></string>
+    <string name="locawork_web">Locawork web</string>
+    <string name="loading_email">Loading email...</string>
+    <string name="loading_name">Loading name...</string>
+    <string name="loading_customer_id">Loading customer ID</string>
+    <string name="loading_id_code">Loading ID code...</string>
+    <string name="loading_contact">Loading contact...</string>
+    <string name="loading_company">Loading company...</string>
+    <string name="loading_company_registration_number">Loading company registration number...</string>
 </resources>
