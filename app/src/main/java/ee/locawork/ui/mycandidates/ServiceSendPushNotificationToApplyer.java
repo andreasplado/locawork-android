@@ -6,7 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface ServiceSendPushNotification {
+public interface ServiceSendPushNotificationToApplyer {
     @POST("notification/send-notification")
     Call<String> send(@Header("Authorization") String auth, @Body PushNotificationRequest pushNotificationRequest);
 }

@@ -18,7 +18,7 @@ public class ControllerSendNotificationToApplyer implements Callback<String> {
 
     public void postData(PushNotificationRequest pushNotificationRequest, Context context2) {
         this.context = context2;
-        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceSendPushNotification.class).send(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, "") ,pushNotificationRequest).enqueue(this);
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceSendPushNotificationToApplyer.class).send(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, "") ,pushNotificationRequest).enqueue(this);
     }
 
     public void onResponse(Call<String> call, Response<String> response) {

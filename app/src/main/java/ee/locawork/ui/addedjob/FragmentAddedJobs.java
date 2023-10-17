@@ -51,8 +51,6 @@ public class FragmentAddedJobs extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
-
         ((ActivityMain) getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.my_added_jobs));
 
     }
@@ -66,6 +64,7 @@ public class FragmentAddedJobs extends Fragment {
         serverErrorView = root.findViewById(R.id.server_error_view);
         loadingView = root.findViewById(R.id.loading_view);
 
+        controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         return root;
     }
 

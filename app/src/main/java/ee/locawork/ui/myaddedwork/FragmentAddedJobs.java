@@ -67,6 +67,7 @@ public class FragmentAddedJobs extends Fragment {
             AnimationUtil.animateBubble(view);
             this.controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         });
+        this.controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
 
         return root;
     }
