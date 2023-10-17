@@ -79,7 +79,7 @@ public class ServiceReachedJob extends IntentService {
                 @Override
                 public void onLocationChanged(Location location) {
 
-                    if (LocationUtil.isInRadius(location, ServiceReachedJob.this.jobLocation, 60000.0f)) {
+                    if (LocationUtil.isInRadius(location, ServiceReachedJob.this.jobLocation, 100000.0f)) {
                         if (!ServiceReachedJob.this.isNotified) {
                             ServiceReachedJob.this.showNotification();
                             if(PreferencesUtil.readInt(ServiceReachedJob.this, KEY_JOB_ID, 0)!=0){

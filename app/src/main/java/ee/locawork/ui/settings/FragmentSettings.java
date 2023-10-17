@@ -171,6 +171,7 @@ public class FragmentSettings extends Fragment {
             tvNoCustomer.setVisibility(View.GONE);
             customerIdLayout.setVisibility(View.VISIBLE);
             copyCustomerId.setVisibility(View.VISIBLE);
+            customerId.setText(settings.getCustomerId());
         }
 
 

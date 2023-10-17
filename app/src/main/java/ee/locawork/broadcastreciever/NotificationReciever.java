@@ -6,15 +6,23 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkRequest;
-import ee.locawork.event.EventNetOff;
-import ee.locawork.event.EventNetOn;
+
 import org.greenrobot.eventbus.EventBus;
 
-public class NetworkReciever extends BroadcastReceiver {
+import ee.locawork.event.EventNetOff;
+import ee.locawork.event.EventNetOn;
+import ee.locawork.event.EventNotificationOff;
+import ee.locawork.event.EventNotificationOn;
+import ee.locawork.util.NotificationUtils;
+
+public class NotificationReciever extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")) {
-            checkConnectivity(context);
+        boolean isNotificationOn = NotificationUtils.isNotificationEnabled(context);
+        if (isNotificationOn) {
+            EventBus.getDefault().post(new EventNotificationOn());
+        }else{
+            EventBus.getDefault().post(new EventNotificationOff());
         }
     }
 
