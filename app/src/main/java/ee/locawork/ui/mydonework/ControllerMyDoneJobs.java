@@ -32,12 +32,14 @@ public class ControllerMyDoneJobs implements Callback<List<JobDTO>> {
     }
 
     public void getTodaysData(Context context, Integer userId) {
-        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceMyDoneJobs.class).getMyDoneWork(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceMyDoneJobs.class).getMyDoneWorkToday(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
     }
 
     public void getThisWeekData(Context context, Integer userId) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceMyDoneJobs.class).getMyDoneWorkThisWeek(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
     }
 
     public void getThisMonth(Context context, Integer userId) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceMyDoneJobs.class).getMyDoneWorkThisMonth(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
     }
 }

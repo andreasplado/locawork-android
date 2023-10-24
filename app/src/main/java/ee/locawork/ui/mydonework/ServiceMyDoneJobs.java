@@ -16,6 +16,9 @@ public interface ServiceMyDoneJobs {
     @GET("jobs/getmydonework/today")
     Call<List<JobDTO>> getMyDoneWorkToday(@Header("Authorization") String auth, @Query("userId") Integer num);
 
-    @GET("jobs/getmydonework/thisWeek")
-    Call<List<JobDTO>> getMyDoneWorkToday(@Header("Authorization") String auth, @Query("userId") Integer num);
+    @GET("jobs/getmydonework/this-week")
+    Call<List<JobDTO>> getMyDoneWorkThisWeek(@Header("Authorization") String auth, @Query("userId") Integer num);
+
+    @GET("jobs/getmydonework/this-month")
+    Call<List<JobDTO>> getMyDoneWorkThisMonth(@Header("Authorization") String auth, @Query("userId") Integer num);
 }

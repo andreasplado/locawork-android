@@ -271,8 +271,10 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         String role = PreferencesUtil.readString(getContext(), PrefConstants.KEY_LOCAWORK_PREFS, "");
         int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
         int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
-        LocationUtil locationUtil = new LocationUtil(getActivity(), context);
-        locationUtil.init();
+        locationUtil = new LocationUtil(getActivity(), context);
+        do{
+            locationUtil.init();
+        }while (locationUtil.location == null);
         if(role.equals(AppConstants.ROLE_JOB_SEEKER) || role.equals("")) {
             controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
         }
