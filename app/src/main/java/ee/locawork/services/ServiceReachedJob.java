@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import ee.locawork.R;
+import ee.locawork.broadcastreciever.EventWorkReached;
 import ee.locawork.util.LocationUtil;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import org.greenrobot.eventbus.EventBus;
 
 import ee.locawork.ActivityMain;
 import ee.locawork.util.PreferencesUtil;
@@ -57,6 +60,8 @@ public class ServiceReachedJob extends IntentService {
     private double longitude;
     private LocationManager mLocationManager;
 
+    private  boolean reachedLocation = false;
+
     public ServiceReachedJob() {
         super("ServiceReachedJob");
     }
@@ -79,11 +84,15 @@ public class ServiceReachedJob extends IntentService {
                 @Override
                 public void onLocationChanged(Location location) {
 
-                    if (LocationUtil.isInRadius(location, ServiceReachedJob.this.jobLocation, 100000.0f)) {
+                    if (LocationUtil.isInRadius(location, ServiceReachedJob.this.jobLocation, 50.0f)) {
                         if (!ServiceReachedJob.this.isNotified) {
                             ServiceReachedJob.this.showNotification();
                             if(PreferencesUtil.readInt(ServiceReachedJob.this, KEY_JOB_ID, 0)!=0){
-                                PreferencesUtil.save(ServiceReachedJob.this, KEY_HAVE_REACHED, 1);
+                                if(!reachedLocation) {
+                                    PreferencesUtil.save(ServiceReachedJob.this, KEY_HAVE_REACHED, 1);
+                                    EventBus.getDefault().post(new EventWorkReached());
+                                    reachedLocation = true;
+                                }
                             }
 
                         }

@@ -25,6 +25,7 @@ import ee.locawork.ui.addworks.EventAddJobNetSuccess;
 import ee.locawork.util.AnimationUtil;
 import ee.locawork.util.PreferencesUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
@@ -38,7 +39,7 @@ public class FragmentAddedJobs extends Fragment {
     private AdapterAddedJobs adapterAddedJobs;
     private ControllerAddedJobs controllerAddedJobs = new ControllerAddedJobs();
     private boolean isEventBusRegistred = false;
-    private List<Job> jobs;
+    private List<Job> jobs = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
     private RelativeLayout loadingView;
     private NetworkReciever networkReciever;

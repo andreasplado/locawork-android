@@ -142,7 +142,7 @@ public class ActivityWorkReached extends AppCompatActivity {
             getApplicationContext().stopService(new Intent(ActivityWorkReached.this, ServiceReachedJob.class));
             PreferencesUtil.save(ActivityWorkReached.this, ServiceReachedJob.KEY_HAVE_REACHED, 0);
             PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_HAVE_STARTED, 1);
-            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, new Date().getTime());
+            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, (int)new Date().getTime());
             startActivity(new Intent(this, ActivityWorkInProgress.class));
         }
         if(eventStartWork.getResponse().code() == 400){

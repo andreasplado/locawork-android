@@ -8,12 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -28,8 +28,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.ramotion.fluidslider.FluidSlider;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.PaymentSession;
 import com.stripe.android.PaymentSessionConfig;
@@ -45,13 +43,14 @@ import ee.locawork.alert.AlertPayForRemovingAdds;
 import ee.locawork.alert.AlertPayForRemovingAddsError;
 import ee.locawork.alert.AlertPayForWork;
 import ee.locawork.alert.AlertPayForWorkFailure;
+import ee.locawork.broadcastreciever.GpsReciver;
 import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.LocationAdd;
 import ee.locawork.services.EventRetrieveToken;
 import ee.locawork.services.EventRetrieveTokenFail;
-import ee.locawork.services.LocaworkFirebaseMessagingService;
 import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.ui.findwork.EventGPSFailure;
+import ee.locawork.ui.findwork.EventGPSuccess;
 import ee.locawork.ui.login.ActivityLogin;
 import ee.locawork.ui.payformemeber.PayForRemovingAdds;
 import ee.locawork.ui.payformemeber.PayForRemovingAddsFailure;
@@ -62,18 +61,14 @@ import ee.locawork.ui.pushnotification.EventSusbscribeSuccess;
 import ee.locawork.ui.settings.ControllerLogout;
 import ee.locawork.ui.settings.EventLogoutFailure;
 import ee.locawork.ui.settings.EventLogoutSuccess;
-import ee.locawork.ui.settings.EventSettingsFailure;
 import ee.locawork.ui.settings.EventSettingsNotSet;
-import ee.locawork.ui.settings.EventSettingsSuccess;
 import ee.locawork.util.AddsUtil;
 import ee.locawork.util.AnimationUtil;
-import ee.locawork.util.AppConstants;
 import ee.locawork.util.BiometricUtil;
 import ee.locawork.util.Keyboard;
 import ee.locawork.util.LocationUtil;
 import ee.locawork.util.NotificationUtils;
 import ee.locawork.util.PaymentUtil;
-import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 import ee.locawork.util.UpdateUtil;
 
@@ -91,7 +86,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.biometric.BiometricPrompt;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -101,11 +95,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import static ee.locawork.permission.GPSPFingerprintAndCameraPermission.PERMISSION_TAG_GPS_AND_CAMERA;
-import static ee.locawork.util.PreferencesUtil.KEY_CARD_PARAMS;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
-import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
-import static ee.locawork.util.PreferencesUtil.KEY_ROLE;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 import static ee.locawork.util.UpdateUtil.APP_UPDATE_REQUEST_CODE;
@@ -146,8 +137,9 @@ public class ActivityMain extends AppCompatActivity {
     private boolean isUnlocked = false;
     private PaymentUtil paymentUtil;
     private PaymentSession paymentSession;
+    private LocationUtil locationUtil;
 
-    private BroadcastReceiver networkReceiver;
+    private BroadcastReceiver networkReceiver, gpsReciever;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,13 +171,14 @@ public class ActivityMain extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         cannotFetchCurrentLocation = findViewById(R.id.cannot_fetch_current_location);
         addJob = findViewById(R.id.add_job);
-        addJob = findViewById(R.id.add_job);
         loadingViewSmall = findViewById(R.id.loading_small);
         retry = findViewById(R.id.retry);
         biometricUtil = new BiometricUtil(this);
         container = findViewById(R.id.main_container);
         keyGuardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         this.networkReceiver = new NetworkReciever();
+        this.gpsReciever = new GpsReciver();
+        locationUtil = new LocationUtil(this, getApplicationContext());
 
         adView.setAdListener(new AdListener() {
             @Override
@@ -255,13 +248,15 @@ public class ActivityMain extends AppCompatActivity {
             public void onDrawerStateChanged(int newState) {
             }
         });
-        LocationUtil locationUtil = new LocationUtil(this, getApplicationContext());
-        locationUtil.init();
+       locationUtil = new LocationUtil(this, getApplicationContext());
+       locationUtil.init();
 
-        if (locationUtil.lococation == null) {
+        if (locationUtil.location == null) {
             this.addJob.setVisibility(View.GONE);
             this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
-            return;
+        }else{
+            this.addJob.setVisibility(View.VISIBLE);
+            this.cannotFetchCurrentLocation.setVisibility(View.GONE);
         }
         this.cannotFetchCurrentLocation.setVisibility(View.GONE);
 
@@ -445,8 +440,14 @@ public class ActivityMain extends AppCompatActivity {
             int len = grantResults.length;
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                this.addJob.setVisibility(View.VISIBLE);
-                this.cannotFetchCurrentLocation.setVisibility(View.GONE);
+                if(locationUtil.location == null){
+                    this.addJob.setVisibility(View.GONE);
+                    this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
+                }else{
+                    this.addJob.setVisibility(View.VISIBLE);
+                    this.cannotFetchCurrentLocation.setVisibility(View.GONE);
+                }
+
 
             } else {
                 AlertLocationOff.init(this, this);
@@ -482,9 +483,11 @@ public class ActivityMain extends AppCompatActivity {
         new IntentFilter("android.location.PROVIDERS_CHANGED").addAction("android.intent.action.PROVIDER_CHANGED");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            registerReceiver(gpsReciever, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+            registerReceiver(gpsReciever, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
         }
     }
 
@@ -504,6 +507,28 @@ public class ActivityMain extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, ActivityLogin.class));
         }
+    }
+
+    @Subscribe
+    public void gpsSuccess(EventGPSuccess eventSettingsNotSet) {
+        if(locationUtil.location == null) {
+            addJob.setVisibility(View.VISIBLE);
+            cannotFetchCurrentLocation.setVisibility(View.GONE);
+        }else{
+            cannotFetchCurrentLocation.setVisibility(View.GONE);
+            addJob.setVisibility(View.VISIBLE);
+        }
+    }
+    @Subscribe
+    public void setEventGPSFailure(EventGPSFailure eventGPSFailure) {
+        if(locationUtil.location == null){
+            cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
+            addJob.setVisibility(View.GONE);
+        }else{
+            cannotFetchCurrentLocation.setVisibility(View.GONE);
+            addJob.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Subscribe

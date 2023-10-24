@@ -172,7 +172,7 @@
     <string name="search_menu_title">Otsi</string>
     <string name="seems_that_you_dont_have_any_work_done_here">Tundub, et teil pole siin ühtegi tööd tehtud.</string>
     <string name="sorry_something_went_wrong_please_check_if_you_have_signal">Vabandust, midagi läks valesti. Palun kontrollige, kas teil on signaali.</string>
-    <string name="sorry_something_went_wrong_with_our_server_press_to_retry">Vabandust! Midagi läks meie serveris valesti. \\nVajutage uuesti proovimiseks!</string>
+    <string name="sorry_something_went_wrong_with_fetching_data_switch_on_newtork_to_see_data">Vabandust!\nMidagi läks andmete laadimisega valesti. \\nPalun lülitage võrk sisse, et näha andmeid!</string>
     <string name="start">Alusta:</string>
     <string name="start_job">Alusta tööd</string>
     <string name="submit">Esita</string>

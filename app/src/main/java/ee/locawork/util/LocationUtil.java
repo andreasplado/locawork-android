@@ -10,9 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import ee.locawork.R;
@@ -35,12 +32,12 @@ public class LocationUtil {
     private Context context;
     private boolean isGPS;
     private boolean isNetworkProvider;
-    public Location lococation;
+    public Location location;
 
     private LocationListener locationChangeListener = new LocationListener() {
         public void onLocationChanged(Location l) {
             if (l != null) {
-                LocationUtil.this.lococation = l;
+                LocationUtil.this.location = l;
             }
         }
 
@@ -96,16 +93,16 @@ public class LocationUtil {
             if (this.isGPS) {
                 this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 10.0f, this.locationChangeListener);
                 if (this.locationManager != null) {
-                    this.lococation = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    this.location = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 }
             } else if (this.isNetworkProvider) {
                 this.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10.0f, this.locationChangeListener);
                 if (this.locationManager != null) {
-                    this.lococation = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    this.location = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 }
             } else {
-                this.lococation.setLatitude(0.0d);
-                this.lococation.setLongitude(0.0d);
+                this.location.setLatitude(0.0d);
+                this.location.setLongitude(0.0d);
             }
         } catch (SecurityException e) {
             e.printStackTrace();
@@ -114,7 +111,7 @@ public class LocationUtil {
 
     public void getLastLocation() {
         try {
-            this.lococation = this.locationManager.getLastKnownLocation(Objects.requireNonNull(this.locationManager.getBestProvider(new Criteria(), false)));
+            this.location = this.locationManager.getLastKnownLocation(Objects.requireNonNull(this.locationManager.getBestProvider(new Criteria(), false)));
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -129,10 +126,10 @@ public class LocationUtil {
     }
 
     public LatLng getLatLng(){
-        return new LatLng(lococation.getLatitude(), lococation.getLongitude());
+        return new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     public Location getLocationClass(){
-        return lococation;
+        return location;
     }
 }

@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\AP\\.locawork-keystore\\my-release-key.jks')
+            storeFile file('C:\\Users\\Andunatasha\\Desktop\\.locawork-keystore.jks')
             storePassword 'LaheKool123'
             keyAlias 'locawork'
             keyPassword 'LaheKool123'
@@ -15,7 +15,7 @@ android {
         applicationId "ee.locawork"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 6
+        versionCode 8
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

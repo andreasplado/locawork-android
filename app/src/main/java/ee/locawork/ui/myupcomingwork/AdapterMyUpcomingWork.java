@@ -1,6 +1,7 @@
 package ee.locawork.ui.myupcomingwork;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -60,7 +61,7 @@ public class AdapterMyUpcomingWork extends RecyclerView.Adapter<AdapterMyUpcomin
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_STATUS, job.getStatus());
-            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).longValue() * 60 * 60 * 1000);
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).intValue() * 60 * 60 * 1000);
             context.startService(i);
             EventBus.getDefault().post(new EventGoingToWork());
 
@@ -70,6 +71,9 @@ public class AdapterMyUpcomingWork extends RecyclerView.Adapter<AdapterMyUpcomin
     }
 
     public int getItemCount() {
+        if(listdata == null){
+            return 0;
+        }
         return this.listdata.size();
     }
 

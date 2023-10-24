@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/please_set_your_radius_in_km"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <com.ramotion.fluidslider.FluidSlider
                 android:id="@+id/radius_slider"

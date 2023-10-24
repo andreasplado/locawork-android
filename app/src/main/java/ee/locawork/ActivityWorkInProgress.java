@@ -40,6 +40,8 @@ public class ActivityWorkInProgress extends AppCompatActivity {
     private CodeScannerView codeScannerView;
     private CodeScanner endWorkScanner;
 
+    private int hoursToWorkInMillis = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +88,11 @@ public class ActivityWorkInProgress extends AppCompatActivity {
         });
 
         if(!isRunning){
-            long workStartTime = PreferencesUtil
-                    .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
+            int workStartTime = PreferencesUtil
+                    .readInt(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
 
-            long hoursToWork = PreferencesUtil
-                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
-
+            int hoursToWork = PreferencesUtil
+                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
             long expectedEndTime = workStartTime + hoursToWork;
 
             TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary);
@@ -103,23 +104,24 @@ public class ActivityWorkInProgress extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(isRunning){
+        /*if(!isRunning){
             long workStartTime = PreferencesUtil
                     .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
 
             long hoursToWork = PreferencesUtil
-                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
+                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0) + 1;
 
             long expectedEndTime = workStartTime + hoursToWork;
 
             TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary);
         }
-        endWorkScanner.startPreview();
+        endWorkScanner.startPreview();*/
     }
     @Override
     protected void onPause() {
         super.onPause();
         endWorkScanner.releaseResources();
+
     }
 
     public void onStart() {
@@ -152,9 +154,9 @@ public class ActivityWorkInProgress extends AppCompatActivity {
     @Subscribe
     public void endWork(EventEndWork eventEndWork){
         if(eventEndWork.getResponse().code() == 200){
-            AlertEndWork.init(this, getApplicationContext());
+            startActivity(new Intent(this, ActivityEndWork.class));
             PreferencesUtil.flushJobProcess(getApplicationContext());
-            new Intent(this, ActivityMain.class);
+            new Intent(this, ActivityEndWork.class);
         }
     }
 

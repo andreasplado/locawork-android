@@ -27,11 +27,12 @@ public class TimerUtils {
                             TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
                             TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                    PreferencesUtil.save(activity,  ServiceReachedJob.KEY_HOURS_TO_WORK, millisUntilFinished);
+
                     String salary = PreferencesUtil.readString(activity, ServiceReachedJob.KEY_JOB_SALARY, "");
                     long expectedSalaryLong = (TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 360) * ((expectedEndTime- currentDate)/(60*60*1000));
                     long roundedUp = Math.round(expectedSalaryLong/10.0) * 10;
                     expectedSalary.setText(roundedUp + "");
+                    PreferencesUtil.save(activity,  ServiceReachedJob.KEY_HOURS_TO_WORK, millisUntilFinished);
                 }
 
                 public void onFinish() {

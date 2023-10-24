@@ -1,6 +1,7 @@
 package ee.locawork.ui.myupcomingwork;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -14,8 +15,11 @@ import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import ee.locawork.ActivityWorkReached;
 import ee.locawork.R;
 import ee.locawork.alert.AlertGoingToWork;
+import ee.locawork.broadcastreciever.EventWorkReached;
 import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.EventNetOn;
 import ee.locawork.model.dto.JobDTO;
@@ -41,6 +45,8 @@ public class FragmentMyUpcomingWork extends Fragment {
     private LinearLayout serverErrorView;
     private RelativeLayout loadingView;
     private BroadcastReceiver networkReceiver;
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,7 @@ public class FragmentMyUpcomingWork extends Fragment {
 
     private void registerRecievers() {
         this.isEventBusRegistred = true;
+        getActivity().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         new IntentFilter("android.location.PROVIDERS_CHANGED").addAction("android.intent.action.PROVIDER_CHANGED");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             getActivity().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
@@ -128,5 +135,10 @@ public class FragmentMyUpcomingWork extends Fragment {
             this.noCandidatesView.setVisibility(View.VISIBLE);
             this.recyclerView.setVisibility(View.GONE);
         }
+    }
+
+    @Subscribe
+    public void workReached(EventWorkReached eventWorkReached){
+        startActivity(new Intent(getActivity(), ActivityWorkReached.class));
     }
 }

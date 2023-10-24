@@ -10,7 +10,7 @@ import ee.locawork.event.EventNetOff;
 import ee.locawork.event.EventNetOn;
 import org.greenrobot.eventbus.EventBus;
 
-public class NetworkReciever extends BroadcastReceiver {
+public class NetworkRecieverOnMain extends BroadcastReceiver {
     static final /* synthetic */ boolean $assertionsDisabled = false;
 
     public void onReceive(Context context, Intent intent) {

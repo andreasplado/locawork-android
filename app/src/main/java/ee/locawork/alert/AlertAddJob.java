@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,8 +90,8 @@ public class AlertAddJob {
         jobDescription.setRawInputType(1);
         final LocationUtil locationUtil = new LocationUtil(activity, activity.getApplicationContext());
         locationUtil.init();
-        if (locationUtil.lococation != null) {
-            location = LocationUtil.fetchLocationData(activity, new LatLng(locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude()));
+        if (locationUtil.location != null) {
+            location = LocationUtil.fetchLocationData(activity, new LatLng(locationUtil.location.getLatitude(), locationUtil.location.getLongitude()));
         } else {
             location = context.getResources().getString(R.string.undefined_location);
         }
@@ -107,8 +106,8 @@ public class AlertAddJob {
                 job.setJobTitle(jobTitle.getText().toString().trim());
                 job.setDescription(jobDescription.getText().toString());
                 job.setCategoryId(2);
-                job.setLatitude(locationUtil.lococation.getLatitude());
-                job.setLongitude(locationUtil.lococation.getLongitude());
+                job.setLatitude(locationUtil.location.getLatitude());
+                job.setLongitude(locationUtil.location.getLongitude());
                 job.setPayroll(String.valueOf(payroll.getSelectedItem()));
                 job.setSalary(Double.valueOf(salary.getText().toString()).doubleValue());
                 job.setHoursToWork(Double.parseDouble(unitsToWork.getText().toString()));

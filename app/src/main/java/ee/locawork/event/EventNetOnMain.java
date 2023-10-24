@@ -1,4 +1,4 @@
 package ee.locawork.event;
 
-public class EventNetOn {
+public class EventNetOnMain {
 }

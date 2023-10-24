@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import ee.locawork.R;
 import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.EventNetOn;
@@ -25,6 +26,7 @@ import ee.locawork.util.FragmentUtils;
 import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +39,7 @@ import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 public class FragmentMyApplications extends Fragment {
     private AdapterMyApplications adapterMyApplications;
     private ControllerMyApplications controllerMyApplications = new ControllerMyApplications();
-    private List<MyApplicationDTO> myApplications;
+    private List<MyApplicationDTO> myApplications = new ArrayList<>();
     private LinearLayout noCandidatesView;
     private RecyclerView recyclerView;
     private ImageButton retry;
@@ -48,12 +50,13 @@ public class FragmentMyApplications extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.controllerMyApplications.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
     }
 
     public void onStart() {
         super.onStart();
         registerRecievers();
-        if(!EventBus.getDefault().isRegistered(this)) {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
@@ -67,7 +70,6 @@ public class FragmentMyApplications extends Fragment {
         this.serverErrorView = root.findViewById(R.id.server_error_view);
         this.retry = root.findViewById(R.id.retry);
         setOnClickListeners();
-        this.controllerMyApplications.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         this.networkReceiver = new NetworkReciever();
         return root;
     }
@@ -90,7 +92,7 @@ public class FragmentMyApplications extends Fragment {
     }
 
     public void onStop() {
-        if(EventBus.getDefault().isRegistered(this)){
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
         super.onStop();
@@ -127,29 +129,25 @@ public class FragmentMyApplications extends Fragment {
     @Subscribe
     public void fillRecycleView(EventMyApplicationsNetSuccess addedJobsNetSuccess) {
         this.myApplications = addedJobsNetSuccess.getMyApplications().getMyApplications();
-        if(this.myApplications == null){
-            successulLoading();
-        }else{
-            successulLoading();
-            this.adapterMyApplications = new AdapterMyApplications(this.myApplications, getActivity(), getContext());
-            this.recyclerView.setHasFixedSize(true);
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            this.recyclerView.setAdapter(this.adapterMyApplications);
-            int itemCount = this.adapterMyApplications.getItemCount();
-            if (this.adapterMyApplications.getItemCount() == 0) {
-                this.noCandidatesView.setVisibility(View.VISIBLE);
-                this.recyclerView.setVisibility(View.GONE);
-            }
+        successulLoading();
+        this.adapterMyApplications = new AdapterMyApplications(this.myApplications, getActivity(), getContext());
+        this.recyclerView.setHasFixedSize(true);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        this.recyclerView.setAdapter(this.adapterMyApplications);
+        int itemCount = this.adapterMyApplications.getItemCount();
+        if (this.adapterMyApplications.getItemCount() == 0) {
+            this.noCandidatesView.setVisibility(View.VISIBLE);
+            this.recyclerView.setVisibility(View.GONE);
         }
 
     }
 
     @Subscribe
-    public void networkOn(EventNetOn eventNetOn){
+    public void networkOn(EventNetOn eventNetOn) {
         this.controllerMyApplications.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
     }
 
-    private void successulLoading(){
+    private void successulLoading() {
         this.serverErrorView.setVisibility(View.GONE);
         this.loadingView.setVisibility(View.GONE);
     }

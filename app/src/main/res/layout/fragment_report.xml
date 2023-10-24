@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:paddingBottom="50dp"
             android:text="@string/please_report_a_bug"
-            android:textSize="30dp"
+            android:textSize="30sp"
             app:charIncrease="3"
             app:typerSpeed="80" />
 

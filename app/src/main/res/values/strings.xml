@@ -153,7 +153,7 @@
     <string name="seems_that_you_dont_have_any_work_done_here">Seems that you don\'t have any work done here.</string>
     <string name="server_client_id" translatable="false">995893581065-evjovh93aadqlam7d9oit7kcua2dfrcm.apps.googleusercontent.com</string>
     <string name="sorry_something_went_wrong_please_check_if_you_have_signal">Sorry something went wrong. Please check if you have signal.</string>
-    <string name="sorry_something_went_wrong_with_our_server_press_to_retry">Sorry! Something went wrong with our server. Press to retry!</string>
+    <string name="sorry_something_went_wrong_with_fetching_data_switch_on_newtork_to_see_data">Sorry!\nSomething went wrong with fetching data.\nSwitch on the network, to see data!</string>
     <string name="start">Start:</string>
     <string name="start_job">Start work</string>
     <string name="status_bar_notification_info_overflow" translatable="false">999+</string>
@@ -192,7 +192,7 @@
     <string name="work_title">Work Title</string>
     <string name="work_description">Work description</string>
     <string name="submit_unsuccessful">Submit unsuccessful</string>
-    <string name="you_have_currently_no_appliccations_start_earning">You have currently no applications. Start applying and earning!</string>
+    <string name="you_have_currently_no_appliccations_start_earning">You have currently no applications.\nStart applying and earning!</string>
     <string name="network_error">Network error!</string>
     <string name="please_report_a_bug">Please report a bug</string>
     <string name="my_added_work">My added work</string>
@@ -430,4 +430,7 @@
     <string name="loading_company_registration_number">Loading company registration number...</string>
     <string name="please_enable_notifications_in_order_to_stay_updated">Please enable notifications in order to stay updated</string>
     <string name="enable_notifications">Enable notifications</string>
+    <string name="thank_you_with_working_with_us">Thank you for working with us!</string>
+    <string name="please_give_employer_the_five_stars">Please give employer the five stars!</string>
+    <string name="exit_to_main">Exit to main</string>
 </resources>

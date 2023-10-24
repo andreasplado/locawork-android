@@ -22,7 +22,7 @@
                 android:paddingBottom="50dp"
                 android:text="@string/you_reached_to_your_work_location"
                 android:textColor="@color/colorWhite"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,12 +100,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/oops"
                 android:textColor="@color/colorWhite"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sorry_something_went_wrong_with_our_server_press_to_retry"
+                android:textAlignment="center"
+                android:text="@string/sorry_something_went_wrong_with_fetching_data_switch_on_newtork_to_see_data"
                 android:textColor="@color/colorWhite" />
 
             <ImageButton

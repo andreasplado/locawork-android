@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="@string/no_jobs_found"
         android:textColor="@color/colorWhite"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/no_jobs_found_info"

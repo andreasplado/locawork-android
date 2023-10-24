@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/please_select_your_wish"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/puchased_add_text"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/only_for_999"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:layout_marginTop="15dp"/>
 
         <TextView

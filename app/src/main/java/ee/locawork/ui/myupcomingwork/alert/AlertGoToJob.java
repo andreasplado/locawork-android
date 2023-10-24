@@ -41,7 +41,7 @@ public class AlertGoToJob {
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_STATUS, job.getStatus());
-            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).longValue() * 60 * 60 * 1000);
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).intValue() * 60 * 60 * 1000);
 
             Intent i = new Intent(context, ServiceReachedJob.class);
             Bundle bundle = new Bundle();

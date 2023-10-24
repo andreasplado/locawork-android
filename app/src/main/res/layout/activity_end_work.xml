@@ -6,99 +6,49 @@
     tools:context=".ActivityEndWork"
     android:orientation="vertical"
     android:padding="50dp">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/thanks_wolf"/>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/summary"
+        android:text="@string/thank_you_with_working_with_us"
         android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/please_give_employer_the_five_stars"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="center"/>
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleSmall"
+        android:numStars="5"
+        android:scaleX="3"
+        android:scaleY="3"
+        android:stepSize="0.1"
+        android:layout_gravity="center"
+        android:isIndicator="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/work_title"
-            android:layout_marginEnd="20dp"/>
-        <TextView
-            android:id="@+id/work_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/work_description"
-            android:layout_marginEnd="20dp"/>
-        <TextView
-            android:id="@+id/work_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/work_start_time"
-            android:layout_marginEnd="20dp"/>
-        <TextView
-            android:id="@+id/work_start_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/work_end_time"
-            android:layout_marginEnd="20dp"/>
-        <TextView
-            android:id="@+id/work_end_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/earned_salary"
-            android:layout_marginEnd="20dp"/>
-        <TextView
-            android:id="@+id/earned_salary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal">
+        android:orientation="horizontal"/>
 
-        <com.budiyev.android.codescanner.CodeScannerView
-            android:id="@+id/scanner_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
     <Button
-        android:id="@+id/end_work"
+        android:id="@+id/exit_to_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/end_work" />
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:text="@string/exit_to_main" />
 </LinearLayout>

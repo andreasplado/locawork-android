@@ -54,6 +54,7 @@ import ee.locawork.ActivityMain;
 import ee.locawork.R;
 import ee.locawork.alert.AlertAppliedToWork;
 import ee.locawork.broadcastreciever.NetworkReciever;
+import ee.locawork.event.EventNetOff;
 import ee.locawork.event.EventNetOn;
 import ee.locawork.model.Job;
 import ee.locawork.model.pushnotification.NotificationRequestDto;
@@ -133,7 +134,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
     private View headerView;
     private TextView navRole;
     private ImageButton addJob;
-
+    private TextView radiusText;
     private BroadcastReceiver networkReceiver;
 
     public Location loc;
@@ -237,7 +238,8 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
                         Toast.LENGTH_LONG).show();
             });
         }else{
-            offerJobLayout.setOnClickListener(v -> controllerUpdateUserRole.postData(getContext(), AppConstants.ROLE_JOB_OFFER, PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)));
+            offerJobLayout.setOnClickListener(v ->
+                    controllerUpdateUserRole.postData(getContext(), AppConstants.ROLE_JOB_OFFER, PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)));
         }
 
         String token = PreferencesUtil.readString(getContext(), PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN, "");
@@ -315,12 +317,11 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
 
     @Subscribe
     public void eventRoleSelected(EventRoleSelected eventRoleSelected) {
-        FragmentUtils.restartFragment(this);
-        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0) * 100;
-        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
-        controllerFindJob.getData(getContext(), locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude(), radius, userId);
         roleNotSelected.setVisibility(View.GONE);
+        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
         if (headerView != null) {
+            radiusText = headerView.findViewById(R.id.nav_radius);
+            radiusText.setText(radius);
             MenuItem navFindJob = this.navigationView.getMenu().findItem(R.id.nav_work_seeker);
             MenuItem navOfferWork = this.navigationView.getMenu().findItem(R.id.nav_work_offer);
             MenuItem navigate = this.navigationView.getMenu().findItem(R.id.nav_find_job);
@@ -346,6 +347,10 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
                 addJob.setVisibility(View.GONE);
             }
         }
+
+        FragmentUtils.restartFragment(this);
+        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
+        controllerFindJob.getData(getContext(), locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
     }
 
     @Subscribe
@@ -540,12 +545,18 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
 
         if(role.equals(AppConstants.ROLE_JOB_SEEKER)) {
-            controllerFindJob.getData(context, locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude(), radius, userId);
+            controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
         }
         if(role.equals(AppConstants.ROLE_JOB_OFFER)) {
             controllerFindMyJobs.getData(getContext(), PreferencesUtil.readInt(context, KEY_USER_ID, 0));
         }
 
+    }
+
+    @Subscribe
+    public void networkOn(EventNetOff eventNetOff){
+        serverErrorView.setVisibility(View.VISIBLE);
+        loadingView.setVisibility(View.GONE);
     }
 
     private void getAvailableJobsData() {
@@ -560,15 +571,15 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
 
                 if (networkDialog != null) {
                     networkDialog.cancel();
-                    if (locationUtil.lococation == null) {
+                    if (locationUtil.location == null) {
                         loadingView.setVisibility(View.VISIBLE);
                         return;
                     }
                     loadingView.setVisibility(View.VISIBLE);
-                    controllerFindJob.getData(context, locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude(), radius, userId);
+                    controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
                     return;
                 }
-                controllerFindJob.getData(context, locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude(), radius, userId);
+                controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
                 getLastLocationPermissionCheck();
             });
         }
@@ -597,7 +608,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
                     networkDialog.cancel();
                     LocationUtil locationUtil = new LocationUtil(activity, context);
                     locationUtil.init();
-                    if (locationUtil.lococation != null) {
+                    if (locationUtil.location != null) {
                         loadingView.setVisibility(View.GONE);
                         controllerFindMyJobs.getData(getContext(), PreferencesUtil.readInt(context, KEY_USER_ID, 0));
                         return;
@@ -696,7 +707,10 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         this.jobsList = eventFindJobNetSuccess.getJobDTO().body();
         this.loadingView.setVisibility(View.GONE);
         this.serverErrorView.setVisibility(View.GONE);
-        if (eventFindJobNetSuccess.getJobDTO().body().size() < 1) {
+        if (eventFindJobNetSuccess == null) {
+            this.noJobsFoundLayout.setVisibility(View.GONE);
+            this.noJobsFoundInfo.setVisibility(View.GONE);
+        }else if (eventFindJobNetSuccess.getJobDTO().body().size() < 1) {
             this.noJobsFoundLayout.setVisibility(View.VISIBLE);
             this.noJobsFoundInfo.setVisibility(View.VISIBLE);
             int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 1);
@@ -807,7 +821,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
             while (it.hasNext()) {
                 builder.include(it.next().getPosition());
             }
-            builder.include(new LatLng(locationUtil.lococation.getLatitude(), locationUtil.lococation.getLongitude()));
+            builder.include(new LatLng(locationUtil.location.getLatitude(), locationUtil.location.getLongitude()));
 
             LatLngBounds bounds = builder.build();
             int padding = 150; // offset from edges of the map in pixels
