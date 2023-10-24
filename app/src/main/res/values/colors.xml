@@ -36,6 +36,7 @@
     <color name="colorPrimaryDark">#2e2e2e</color>
     <color name="colorPrimaryLight">#b3ededed</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorYellow">#FFFF00</color>
     <color name="colorTxtShaded">#e6ebe7</color>
     <color name="color_button_on_click">#b3b6daf6</color>
     <color name="color_hide">#b3a9a9a9</color>

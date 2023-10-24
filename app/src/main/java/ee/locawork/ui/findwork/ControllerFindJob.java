@@ -23,7 +23,6 @@ public class ControllerFindJob implements Callback<List<Job>> {
     public void getData(Context context, double latitude, double longitude, int radius, Integer userId) {
         Gson gson = new GsonBuilder().setLenient().create();
         new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(gson)).build().create(ServiceFindJob.class).getAvailableJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), latitude, longitude, radius, userId).enqueue(this);
-        EventBus.getDefault().post(new EventNetConnection());
     }
 
     public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {

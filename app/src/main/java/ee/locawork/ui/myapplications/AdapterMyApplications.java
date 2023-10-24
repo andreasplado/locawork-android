@@ -37,12 +37,11 @@ public class AdapterMyApplications extends RecyclerView.Adapter<AdapterMyApplica
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final List<MyApplicationDTO> myListData = this.listdata;
         MyApplicationDTO myApplicationDTO = myListData.get(position);
-        holder.jobDescription.setText(myApplicationDTO.getDescription());
         holder.jobTitle.setText(myApplicationDTO.getTitle());
         holder.jobSalary.setText(String.valueOf(myApplicationDTO.getSalary()));
         holder.location.setText(LocationUtil.fetchLocationData(this.activity, new LatLng(myApplicationDTO.getLatitude().doubleValue(), myApplicationDTO.getLongitude().doubleValue())));
         holder.cancelApplication.setOnClickListener(v -> new ControllerCancelApplication().cancelApplication(context, myListData.get(position).getId()));
-        holder.jobCandidateContent.setOnClickListener(v -> AlertViewMyApplication.init(context, myListData.get(position)));
+        holder.jobCandidateContent.setOnClickListener(v -> AlertViewMyApplication.init(activity, context, myListData.get(position)));
     }
 
     public int getItemCount() {
@@ -53,7 +52,6 @@ public class AdapterMyApplications extends RecyclerView.Adapter<AdapterMyApplica
         public ImageButton cancelApplication;
         public LinearLayout jobCandidateContent;
         public LinearLayout jobContent;
-        public TextView jobDescription;
         public TextView jobSalary;
         public TextView jobTitle;
         public TextView location;
@@ -65,7 +63,6 @@ public class AdapterMyApplications extends RecyclerView.Adapter<AdapterMyApplica
             this.jobContent = itemView.findViewById(R.id.job_content);
             this.jobSalary = itemView.findViewById(R.id.tv_salary);
             this.cancelApplication = itemView.findViewById(R.id.cancel_application);
-            this.jobDescription = itemView.findViewById(R.id.job_description);
             this.location = itemView.findViewById(R.id.location);
         }
     }

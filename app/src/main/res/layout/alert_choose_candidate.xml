@@ -49,7 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="@string/no_job_salary"
-                    android:textSize="15dp" />
+                    android:textSize="30dp"
+                    android:textColor="@color/colorWhite"/>
             </LinearLayout>
 
             <TextView

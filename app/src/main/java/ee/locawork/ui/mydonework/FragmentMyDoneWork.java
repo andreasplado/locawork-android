@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -54,6 +55,7 @@ public class FragmentMyDoneWork extends Fragment {
     private LinearLayout noAddedJobsView;
     private RecyclerView recyclerView;
     private ImageButton retry;
+    private Button today, thisWeek, thisMonth;
     private LinearLayout serverErrorView;
     private RelativeLayout loadingView;
     private TextView tvCurrency;
@@ -71,6 +73,9 @@ public class FragmentMyDoneWork extends Fragment {
         this.serverErrorView = root.findViewById(R.id.server_error_view);
         this.retry = root.findViewById(R.id.retry);
         this.tvCurrency = root.findViewById(R.id.currency);
+        this.today = root.findViewById(R.id.today);
+        this.thisWeek = root.findViewById(R.id.this_week);
+        this.thisMonth = root.findViewById(R.id.this_month);
         this.networkReceiver = new NetworkReciever();
         setCurrency();
         setOnClickListeners();
@@ -138,6 +143,15 @@ public class FragmentMyDoneWork extends Fragment {
         this.retry.setOnClickListener(view -> {
             AnimationUtil.animateBubble(view);
             this.controllerMyDoneJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
+        this.today.setOnClickListener(v -> {
+            this.controllerMyDoneJobs.getTodaysData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
+        this.thisWeek.setOnClickListener(v ->{
+            this.controllerMyDoneJobs.getThisWeekData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
+        this.thisMonth.setOnClickListener(v -> {
+            this.controllerMyDoneJobs.getThisMonth(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         });
     }
 

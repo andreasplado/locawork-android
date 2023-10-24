@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="15dp"
-                    android:text="@string/label_why_user_left_earlier" />
+                    android:text="@string/label_reason_of_leaving_earlier" />
 
                 <TextView
                     android:id="@+id/reason_why_user_left_earlier"
@@ -129,6 +129,14 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="15dp" />
             </LinearLayout>
+            <ImageButton
+                android:id="@+id/translate"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="end"
+                android:src="@drawable/translate" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

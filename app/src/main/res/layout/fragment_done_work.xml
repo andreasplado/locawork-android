@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/no_candidates_view"
         android:layout_width="match_parent"
@@ -11,23 +12,27 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
+
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/business"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/business" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="@string/oops" />
+            android:text="@string/oops"
+            android:textSize="30sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/seems_that_you_dont_have_any_work_done_here" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/server_error_view"
         android:layout_width="match_parent"
@@ -36,39 +41,71 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
+
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/moon"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/moon" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/oops"
             android:textColor="@color/colorWhite"
             android:textSize="30sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="@string/sorry_something_went_wrong_with_fetching_data_switch_on_newtork_to_see_data"
+            android:textAlignment="center"
             android:textColor="@color/colorWhite" />
+
         <ImageButton
             android:id="@+id/retry"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:background="@null"
             android:src="@drawable/ic_reload" />
     </LinearLayout>
+
     <include layout="@layout/loading_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:paddingTop="25dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite">
+
+        <Button
+            android:id="@+id/today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today"/>
+        <Button
+            android:id="@+id/this_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_week"/>
+        <Button
+            android:id="@+id/this_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_month"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:textColor="@color/colorWhite">
+
         <TextView
             android:id="@+id/sum"
             android:layout_width="match_parent"
@@ -76,6 +113,7 @@
             android:layout_margin="30dp"
             android:layout_marginStart="30sp"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/currency"
             android:layout_width="match_parent"
@@ -83,6 +121,7 @@
             android:layout_margin="30dp"
             android:textSize="15sp" />
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/done_work_view"
         android:layout_width="match_parent"

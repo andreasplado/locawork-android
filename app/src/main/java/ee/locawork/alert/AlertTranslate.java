@@ -1,4 +1,4 @@
-package ee.locawork.ui.findwork.alert;
+package ee.locawork.alert;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,12 +10,14 @@ import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ee.locawork.R;
 import ee.locawork.util.DialogUtils;
 
 public class AlertTranslate {
 
-    public static void init(final Activity activity, final Context context, String title, String description) {
+    public static void init(final Activity activity, final Context context, ArrayList<String> data) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.FullscreenDialog);
         View dialogView = ((LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.alert_privacy_policy, (ViewGroup) null);
@@ -23,7 +25,11 @@ public class AlertTranslate {
         ((TextView) dialogView.findViewById(R.id.title)).setText(context.getResources().getString(R.string.locawork_web));
         final WebView content = dialogView.findViewById(R.id.content);
         content.getSettings().setJavaScriptEnabled(true);
-        content.loadUrl("https://translate.google.com/?sl=en&tl=et&text=" + title + "%0A%0A" + description +"%0A%0A&op=translate");
+        String dataWithEscapes = "";
+        for (String dataItem :data) {
+            dataWithEscapes += dataItem + "%0A%0A";
+        }
+        content.loadUrl("https://translate.google.com/?sl=en&tl=et&text=" + dataWithEscapes +"%0A%0A&op=translate");
         ImageButton back = dialogView.findViewById(R.id.back);
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.show();

@@ -403,7 +403,7 @@
     <string name="label_worked_hours">Worked hours:</string>
     <string name="label_required_working_hours">Required working hours:</string>
     <string name="per_hour">h</string>
-    <string name="label_why_user_left_earlier">Reason of leaving earlier:</string>
+    <string name="label_reason_of_leaving_earlier">Reason of leaving earlier:</string>
     <string name="company_name">Company name</string>
     <string name="company_registration_number">Company registration number</string>
     <string name="i_also_want_to_offer_work">I also want to offer work</string>
@@ -433,4 +433,9 @@
     <string name="thank_you_with_working_with_us">Thank you for working with us!</string>
     <string name="please_give_employer_the_five_stars">Please give employer the five stars!</string>
     <string name="exit_to_main">Exit to main</string>
+    <string name="my_work_title_label">Work title:</string>
+    <string name="my_work_description">Work description:</string>
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="this_month">This month</string>
 </resources>

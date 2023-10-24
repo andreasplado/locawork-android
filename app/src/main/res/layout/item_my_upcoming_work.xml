@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/salary"
-                        android:textSize="15dp"
+                        android:textSize="20sp"
                         android:textColor="@color/colorWhite"/>
                 </LinearLayout>
 
@@ -81,6 +81,7 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
                         android:text="@string/location" />
                 </LinearLayout>
             </LinearLayout>

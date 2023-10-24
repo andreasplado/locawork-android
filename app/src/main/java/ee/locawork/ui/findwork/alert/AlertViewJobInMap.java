@@ -12,6 +12,7 @@ import com.ramotion.fluidslider.FluidSlider;
 
 import ee.locawork.R;
 import ee.locawork.alert.AlertAskPermissionBeforeDeleting;
+import ee.locawork.alert.AlertTranslate;
 import ee.locawork.model.Job;
 import ee.locawork.model.JobApplication;
 import ee.locawork.ui.findwork.ControllerApplyToJob;
@@ -24,13 +25,15 @@ import ee.locawork.util.PreferencesUtil;
 
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 
+import java.util.ArrayList;
+
 public class AlertViewJobInMap {
     public static void init(final Activity activity, final Context context, final Job job) {
         final AlertDialog jobDialog = new AlertDialog.Builder(activity,  R.style.FullscreenDialog).create();
         View dialogApplyJob = activity.getLayoutInflater().inflate(R.layout.alert_apply_work, null);
+
         View dialogPostedJob = activity.getLayoutInflater().inflate(R.layout.alert_posted_job_view, null);
         String myJobs = PreferencesUtil.readString(context, PrefConstants.KEY_LOCAWORK_PREFS, "");
-
 
             if (AppConstants.ROLE_JOB_OFFER.equals(myJobs)) {
                 ((TextView) dialogPostedJob.findViewById(R.id.job_title)).setText(job.getTitle());
@@ -79,6 +82,15 @@ public class AlertViewJobInMap {
                 locationName.setText(LocationUtil.fetchLocationData(activity, new LatLng(job.getLatitude(), job.getLongitude())));
             }
 
+        ((ImageButton) dialogApplyJob.findViewById(R.id.translate)).setOnClickListener(v -> {
+            String jobTitle = ((TextView)dialogApplyJob.findViewById(R.id.job_title)).getText().toString();
+            String jobDescription = ((TextView)dialogApplyJob.findViewById(R.id.job_description)).getText().toString();
+            ArrayList data = new ArrayList();
+            data.add(jobTitle);
+            data.add(jobDescription);
+            AlertTranslate.init(activity, context, data);
+
+        });
         DialogUtils.setDialogOnTopOfScreen(jobDialog);
         jobDialog.show();
 

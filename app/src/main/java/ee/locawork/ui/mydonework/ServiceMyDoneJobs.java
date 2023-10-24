@@ -12,4 +12,10 @@ import retrofit2.http.Query;
 public interface ServiceMyDoneJobs {
     @GET("jobs/getmydonework")
     Call<List<JobDTO>> getMyDoneWork(@Header("Authorization") String auth, @Query("userId") Integer num);
+
+    @GET("jobs/getmydonework/today")
+    Call<List<JobDTO>> getMyDoneWorkToday(@Header("Authorization") String auth, @Query("userId") Integer num);
+
+    @GET("jobs/getmydonework/thisWeek")
+    Call<List<JobDTO>> getMyDoneWorkToday(@Header("Authorization") String auth, @Query("userId") Integer num);
 }

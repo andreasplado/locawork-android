@@ -62,6 +62,14 @@
             android:text="@string/no_location_fetched"
             android:textColor="@color/colorWhite" />
 
+            <ImageButton
+                android:id="@+id/translate"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:layout_gravity="end"
+                android:src="@drawable/translate" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

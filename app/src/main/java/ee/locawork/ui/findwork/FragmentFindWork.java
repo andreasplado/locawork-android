@@ -162,15 +162,16 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         context = getContext();
-
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-
         isGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkProvider = this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         permissionsToRequest = findUnAskedPermissions(this.permissions);
         googlemapUtil = new GooglemapUtil(locationUtil);
+
+
     }
 
     @Override
@@ -184,8 +185,6 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         this.navRole = headerView.findViewById(R.id.nav_role);
 
         setInitialTilte();
-        LocationUtil locationUtil = new LocationUtil(getActivity(), context);
-        locationUtil.init();
         isNetOn = NetworkUtil.isNetworkAvailable(context);
         networkDialog = new AlertDialog.Builder(getContext()).create();
         gpsDialog = new AlertDialog.Builder(this.context).create();
@@ -270,6 +269,16 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
 
     private void setViews() {
         String role = PreferencesUtil.readString(getContext(), PrefConstants.KEY_LOCAWORK_PREFS, "");
+        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
+        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
+        LocationUtil locationUtil = new LocationUtil(getActivity(), context);
+        locationUtil.init();
+        if(role.equals(AppConstants.ROLE_JOB_SEEKER) || role.equals("")) {
+            controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
+        }
+        if(role.equals(AppConstants.ROLE_JOB_OFFER)) {
+            controllerFindMyJobs.getData(getContext(), PreferencesUtil.readInt(context, KEY_USER_ID, 0));
+        }
         if (navigationView != null) {
             if (role.equals(AppConstants.ROLE_JOB_SEEKER)) {
                 jobSeekerActions();
@@ -319,6 +328,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
     public void eventRoleSelected(EventRoleSelected eventRoleSelected) {
         roleNotSelected.setVisibility(View.GONE);
         int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
+        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
         if (headerView != null) {
             radiusText = headerView.findViewById(R.id.nav_radius);
             radiusText.setText(radius);
@@ -349,7 +359,6 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         }
 
         FragmentUtils.restartFragment(this);
-        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
         controllerFindJob.getData(getContext(), locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
     }
 

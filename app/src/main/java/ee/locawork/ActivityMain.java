@@ -95,6 +95,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import static ee.locawork.permission.GPSPFingerprintAndCameraPermission.PERMISSION_TAG_GPS_AND_CAMERA;
+import static ee.locawork.util.PreferencesUtil.KEY_CARD_PARAMS;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
@@ -251,14 +252,16 @@ public class ActivityMain extends AppCompatActivity {
        locationUtil = new LocationUtil(this, getApplicationContext());
        locationUtil.init();
 
-        if (locationUtil.location == null) {
-            this.addJob.setVisibility(View.GONE);
-            this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
-        }else{
-            this.addJob.setVisibility(View.VISIBLE);
+        if(!PreferencesUtil.readString(this, KEY_CARD_PARAMS, "").equals("")) {
+            if (locationUtil.location == null) {
+                this.addJob.setVisibility(View.GONE);
+                this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
+            } else {
+                this.addJob.setVisibility(View.VISIBLE);
+                this.cannotFetchCurrentLocation.setVisibility(View.GONE);
+            }
             this.cannotFetchCurrentLocation.setVisibility(View.GONE);
         }
-        this.cannotFetchCurrentLocation.setVisibility(View.GONE);
 
     }
 
@@ -440,12 +443,14 @@ public class ActivityMain extends AppCompatActivity {
             int len = grantResults.length;
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if(locationUtil.location == null){
-                    this.addJob.setVisibility(View.GONE);
-                    this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
-                }else{
-                    this.addJob.setVisibility(View.VISIBLE);
-                    this.cannotFetchCurrentLocation.setVisibility(View.GONE);
+                if(!PreferencesUtil.readString(this, KEY_CARD_PARAMS, "").equals("")) {
+                    if (locationUtil.location == null) {
+                        this.addJob.setVisibility(View.GONE);
+                        this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
+                    } else {
+                        this.addJob.setVisibility(View.VISIBLE);
+                        this.cannotFetchCurrentLocation.setVisibility(View.GONE);
+                    }
                 }
 
 

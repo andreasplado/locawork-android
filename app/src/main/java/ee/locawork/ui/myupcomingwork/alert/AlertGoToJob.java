@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 
 import ee.locawork.R;
 import ee.locawork.model.dto.JobDTO;
 import ee.locawork.services.ServiceReachedJob;
+import ee.locawork.alert.AlertTranslate;
 import ee.locawork.ui.myupcomingwork.EventGoingToWork;
 import ee.locawork.util.DialogUtils;
 import ee.locawork.util.LocationUtil;
@@ -21,11 +23,21 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 public class AlertGoToJob {
     public static void init(Activity activity, final Context context, final JobDTO job) {
         AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.FullscreenDialog).create();
         View dialogView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.alert_go_to_job, null);
         alertDialog.setView(dialogView);
+        ((ImageButton) dialogView.findViewById(R.id.translate)).setOnClickListener(v -> {
+            String jobTitle = ((TextView)dialogView.findViewById(R.id.job_title)).getText().toString();
+            String jobDescription = ((TextView)dialogView.findViewById(R.id.job_description)).getText().toString();
+            ArrayList data = new ArrayList();
+            data.add(jobTitle);
+            data.add(jobDescription);
+            AlertTranslate.init(activity, context, data);
+        });
         ((TextView) dialogView.findViewById(R.id.job_title)).setText(job.getTitle());
         ((TextView) dialogView.findViewById(R.id.job_description)).setText(job.getDescription());
         ((TextView) dialogView.findViewById(R.id.job_salary)).setText(String.format("%1$,.2f", new Object[]{Double.valueOf(job.getSalary())}));

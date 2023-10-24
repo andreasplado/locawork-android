@@ -48,8 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:text="@string/no_job_salary"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="15dp" />
+                    android:textSize="30dp"
+                    android:textColor="@color/colorWhite"/>
             </LinearLayout>
 
             <TextView
@@ -83,6 +83,14 @@
                     android:layout_marginLeft="20dp"
                     android:text="@string/location" />
             </LinearLayout>
+            <ImageButton
+                android:id="@+id/translate"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="end"
+                android:src="@drawable/translate" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
