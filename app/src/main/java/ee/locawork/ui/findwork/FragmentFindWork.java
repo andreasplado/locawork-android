@@ -134,7 +134,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
     private View headerView;
     private TextView navRole;
     private ImageButton addJob;
-    private TextView radiusText;
+
     private BroadcastReceiver networkReceiver;
 
     public Location loc;
@@ -162,16 +162,15 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         activity = getActivity();
         context = getContext();
+
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+
         isGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworkProvider = this.locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
         permissionsToRequest = findUnAskedPermissions(this.permissions);
         googlemapUtil = new GooglemapUtil(locationUtil);
-
-
     }
 
     @Override
@@ -185,6 +184,8 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         this.navRole = headerView.findViewById(R.id.nav_role);
 
         setInitialTilte();
+        LocationUtil locationUtil = new LocationUtil(getActivity(), context);
+        locationUtil.init();
         isNetOn = NetworkUtil.isNetworkAvailable(context);
         networkDialog = new AlertDialog.Builder(getContext()).create();
         gpsDialog = new AlertDialog.Builder(this.context).create();
@@ -237,8 +238,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
                         Toast.LENGTH_LONG).show();
             });
         }else{
-            offerJobLayout.setOnClickListener(v ->
-                    controllerUpdateUserRole.postData(getContext(), AppConstants.ROLE_JOB_OFFER, PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)));
+            offerJobLayout.setOnClickListener(v -> controllerUpdateUserRole.postData(getContext(), AppConstants.ROLE_JOB_OFFER, PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0)));
         }
 
         String token = PreferencesUtil.readString(getContext(), PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN, "");
@@ -269,18 +269,6 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
 
     private void setViews() {
         String role = PreferencesUtil.readString(getContext(), PrefConstants.KEY_LOCAWORK_PREFS, "");
-        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
-        int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
-        locationUtil = new LocationUtil(getActivity(), context);
-        do{
-            locationUtil.init();
-        }while (locationUtil.location == null);
-        if(role.equals(AppConstants.ROLE_JOB_SEEKER) || role.equals("")) {
-            controllerFindJob.getData(context, locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
-        }
-        if(role.equals(AppConstants.ROLE_JOB_OFFER)) {
-            controllerFindMyJobs.getData(getContext(), PreferencesUtil.readInt(context, KEY_USER_ID, 0));
-        }
         if (navigationView != null) {
             if (role.equals(AppConstants.ROLE_JOB_SEEKER)) {
                 jobSeekerActions();
@@ -328,12 +316,12 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
 
     @Subscribe
     public void eventRoleSelected(EventRoleSelected eventRoleSelected) {
-        roleNotSelected.setVisibility(View.GONE);
-        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0);
+        FragmentUtils.restartFragment(this);
+        int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 0) * 100;
         int userId = PreferencesUtil.readInt(context, KEY_USER_ID, 0);
+        controllerFindJob.getData(getContext(), locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
+        roleNotSelected.setVisibility(View.GONE);
         if (headerView != null) {
-            radiusText = headerView.findViewById(R.id.nav_radius);
-            radiusText.setText(radius);
             MenuItem navFindJob = this.navigationView.getMenu().findItem(R.id.nav_work_seeker);
             MenuItem navOfferWork = this.navigationView.getMenu().findItem(R.id.nav_work_offer);
             MenuItem navigate = this.navigationView.getMenu().findItem(R.id.nav_find_job);
@@ -359,9 +347,6 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
                 addJob.setVisibility(View.GONE);
             }
         }
-
-        FragmentUtils.restartFragment(this);
-        controllerFindJob.getData(getContext(), locationUtil.location.getLatitude(), locationUtil.location.getLongitude(), radius, userId);
     }
 
     @Subscribe
@@ -718,10 +703,7 @@ public class FragmentFindWork extends Fragment implements OnMapReadyCallback {
         this.jobsList = eventFindJobNetSuccess.getJobDTO().body();
         this.loadingView.setVisibility(View.GONE);
         this.serverErrorView.setVisibility(View.GONE);
-        if (eventFindJobNetSuccess == null) {
-            this.noJobsFoundLayout.setVisibility(View.GONE);
-            this.noJobsFoundInfo.setVisibility(View.GONE);
-        }else if (eventFindJobNetSuccess.getJobDTO().body().size() < 1) {
+        if (eventFindJobNetSuccess.getJobDTO().body().size() < 1) {
             this.noJobsFoundLayout.setVisibility(View.VISIBLE);
             this.noJobsFoundInfo.setVisibility(View.VISIBLE);
             int radius = (int)PreferencesUtil.readDouble(getContext(), KEY_RADIUS, 1);

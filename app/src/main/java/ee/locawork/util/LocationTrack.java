@@ -62,7 +62,7 @@ public class LocationTrack extends Service implements LocationListener {
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!checkGPS && !checkNetwork) {
-                Toast.makeText(mContext, "No Service Provider is available", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, getResources().getString(R.string.no_service_provider_available), Toast.LENGTH_SHORT).show();
             } else {
                 this.canGetLocation = true;
 

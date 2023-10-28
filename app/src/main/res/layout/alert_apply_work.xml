@@ -16,58 +16,114 @@
             android:orientation="vertical"
             android:padding="30dp">
 
-        <TextView
-            android:id="@+id/job_provider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/job_provider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/job_title"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15dp" />
+
+                <View
+                    android:id="@+id/divider9"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null" />
+
+                <TextView
+                    android:id="@+id/salary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salary"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="30sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/job_title"
+                android:id="@+id/job_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/job_title"
-                android:textColor="@color/colorWhite"
-                android:textSize="15dp" />
+                android:text="@string/job_description" />
 
-            <View
-                android:id="@+id/divider9"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/divider10"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null" />
+
+                <TextView
+                    android:id="@+id/job_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/job_duration" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expected_salary_label" />
+
+                <TextView
+                    android:id="@+id/expected_salary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/salary" />
-        </LinearLayout>
+                android:text="@string/work_added_label" />
 
-        <TextView
-            android:id="@+id/job_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/job_description" />
+            <TextView
+                android:id="@+id/work_added"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
 
-        <TextView
-            android:id="@+id/location_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="50dp"
-            android:text="@string/no_location_fetched"
-            android:textColor="@color/colorWhite" />
+            <TextView
+                android:id="@+id/location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:text="@string/no_location_fetched"
+                android:textColor="@color/colorWhite" />
 
             <ImageButton
                 android:id="@+id/translate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@null"
                 android:layout_gravity="end"
+                android:background="@null"
                 android:src="@drawable/translate" />
 
         </LinearLayout>

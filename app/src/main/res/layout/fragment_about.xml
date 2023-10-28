@@ -6,9 +6,12 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingTop="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="100dp">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -25,7 +28,8 @@
             android:text="@string/about_locawork"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="50sp" />
+            android:textSize="50sp"
+            android:paddingBottom="20dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +42,19 @@
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             android:text="@string/name_of_the_ceo" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="@string/website"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:id="@+id/website"
+            android:text="" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +79,19 @@
             android:layout_height="wrap_content"
             android:text="@string/names_of_the_developers"
             android:paddingBottom="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:text="" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

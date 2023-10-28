@@ -19,10 +19,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ControllerAddedJobs implements Callback<List<Job>> {
-    public void getData(Context context, Integer userId) {
-        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceAddJob.class).getUserJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
+    public void getUndonePostedJobsData(Context context, Integer userId) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceAddJob.class).getUndonePostedJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
     }
-
+    public void getDonePostedJobsData(Context context, Integer userId) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceAddJob.class).getDonePostedJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
+    }
+    public void getAllPostedJobsData(Context context, Integer userId) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceAddJob.class).getAllPostedJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), userId).enqueue(this);
+    }
     public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
         EventBus.getDefault().post(new EventAddedJobsNetSuccess(response.body()));
     }

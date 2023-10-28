@@ -61,7 +61,7 @@ public class AdapterMyUpcomingWork extends RecyclerView.Adapter<AdapterMyUpcomin
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LATITUDE, String.valueOf(job.getLatitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_LONGITUDE, String.valueOf(job.getLongitude()));
             PreferencesUtil.save(context, ServiceReachedJob.KEY_JOB_STATUS, job.getStatus());
-            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).intValue() * 60 * 60 * 1000);
+            PreferencesUtil.save(context, ServiceReachedJob.KEY_HOURS_TO_WORK, (job.getHoursToWork()).longValue() * 60 * 60 * 1000);
             context.startService(i);
             EventBus.getDefault().post(new EventGoingToWork());
 

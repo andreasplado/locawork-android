@@ -9,5 +9,5 @@ import retrofit2.http.Query;
 
 public interface ServiceGetUser {
     @GET("users/get-user")
-    Call<User> getuser(@Header("authorization") String auth, @Query("id") Integer id);
+    Call<User> getuser(@Header("authorization") String auth, @Query("userId") Integer id);
 }

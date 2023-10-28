@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,8 +27,11 @@ import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.PaymentSession;
 import com.stripe.android.PaymentSessionConfig;
@@ -98,6 +102,7 @@ import static ee.locawork.permission.GPSPFingerprintAndCameraPermission.PERMISSI
 import static ee.locawork.util.PreferencesUtil.KEY_CARD_PARAMS;
 import static ee.locawork.util.PreferencesUtil.KEY_EMAIL;
 import static ee.locawork.util.PreferencesUtil.KEY_IS_WITHOUT_ADDS;
+import static ee.locawork.util.PreferencesUtil.KEY_RADIUS;
 import static ee.locawork.util.PreferencesUtil.KEY_TOKEN;
 import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 import static ee.locawork.util.UpdateUtil.APP_UPDATE_REQUEST_CODE;
@@ -140,11 +145,20 @@ public class ActivityMain extends AppCompatActivity {
     private PaymentSession paymentSession;
     private LocationUtil locationUtil;
 
+    private LinearLayout noAddsToShowLayout;
+    private Button removeAdds;
+
     private BroadcastReceiver networkReceiver, gpsReciever;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this, instanceIdResult -> {
+            String token = instanceIdResult.getToken();
+            ControllerUpdateFirebaseToken controllerUpdateFirebaseToken = new ControllerUpdateFirebaseToken();
+            controllerUpdateFirebaseToken.init(getApplicationContext(), PreferencesUtil.readInt(getApplicationContext(), PreferencesUtil.KEY_USER_ID, 0), token);
+        });
 
         boolean isNotificationEnabled = NotificationUtils.isNotificationEnabled(getApplicationContext());
 
@@ -172,7 +186,9 @@ public class ActivityMain extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         cannotFetchCurrentLocation = findViewById(R.id.cannot_fetch_current_location);
         addJob = findViewById(R.id.add_job);
+        noAddsToShowLayout = findViewById(R.id.no_adds_to_show_layout);
         loadingViewSmall = findViewById(R.id.loading_small);
+        removeAdds = findViewById(R.id.remove_adds);
         retry = findViewById(R.id.retry);
         biometricUtil = new BiometricUtil(this);
         container = findViewById(R.id.main_container);
@@ -180,18 +196,26 @@ public class ActivityMain extends AppCompatActivity {
         this.networkReceiver = new NetworkReciever();
         this.gpsReciever = new GpsReciver();
         locationUtil = new LocationUtil(this, getApplicationContext());
+        noAddsToShowLayout.setVisibility(View.GONE);
+        adView.setVisibility(View.VISIBLE);
+
+        removeAdds.setOnClickListener(view -> ee.locawork.ui.payformemeber.alert.AlertPayForRemovingAdds.init(ActivityMain.this, getApplicationContext()));
 
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(LoadAdError loadAdError) {
+                noAddsToShowLayout.setVisibility(View.VISIBLE);
+                adView.setVisibility(View.GONE);
             }
         });
 
         Boolean isWithoutAdds = PreferencesUtil.readBoolean(this, KEY_IS_WITHOUT_ADDS, false);
 
         if(isWithoutAdds){
+            container.setPadding(0,100,0,0);
             adLayout.setVisibility(View.GONE);
         }else{
+            container.setPadding(0,100,0,50);
             adLayout.setVisibility(View.VISIBLE);
         }
 
@@ -219,6 +243,8 @@ public class ActivityMain extends AppCompatActivity {
                 logout.setVisibility(View.GONE);
                 new ControllerLogout().postData(this, PreferencesUtil.readInt(this, KEY_USER_ID, 0));
             });
+            Double radius = new Double(PreferencesUtil.readDouble(this, KEY_RADIUS, 0));
+            tvRadius.setText(radius.intValue() + "");
             tvEmail.setText(PreferencesUtil.readString(this, KEY_EMAIL, getResources().getString(R.string.undefined_email)));
         }
         drawer = findViewById(R.id.drawer_layout);
@@ -262,7 +288,6 @@ public class ActivityMain extends AppCompatActivity {
             }
             this.cannotFetchCurrentLocation.setVisibility(View.GONE);
         }
-
     }
 
     private void showBiometricPrompt() {
@@ -427,23 +452,20 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     @Subscribe
-    public void retrievePushNotificationToken(EventRetrieveToken eventRetrieveToken) {
-        //Toast.makeText(this, "Token retrieved", Toast.LENGTH_LONG).show();
-    }
-
-    @Subscribe
     public void retrievePushNotificationTokenFailure(EventRetrieveTokenFail eventRetrieveTokenFail) {
         //Toast.makeText(this, "Token failed to retrieve", Toast.LENGTH_LONG).show();
     }
 
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_TAG_GPS_AND_CAMERA) {
             int len = grantResults.length;
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if(!PreferencesUtil.readString(this, KEY_CARD_PARAMS, "").equals("")) {
+                if (!PreferencesUtil.readString(this, KEY_CARD_PARAMS, "").equals("")) {
                     if (locationUtil.location == null) {
                         this.addJob.setVisibility(View.GONE);
                         this.cannotFetchCurrentLocation.setVisibility(View.VISIBLE);
@@ -538,7 +560,7 @@ public class ActivityMain extends AppCompatActivity {
 
     @Subscribe
     public void eventUpdateFirebaseTokenSuccess(EventUpdateFirebaseTokenSuccess eventUpdateFirebaseTokenSuccess) {
-        Toast.makeText(this, "Uuendati push notificationi tokenit", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Uuendati push notificationi tokenit", Toast.LENGTH_LONG).show();
     }
 
     @Override

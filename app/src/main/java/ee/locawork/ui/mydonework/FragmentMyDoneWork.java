@@ -10,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,7 +59,7 @@ public class FragmentMyDoneWork extends Fragment {
     private LinearLayout noAddedJobsView;
     private RecyclerView recyclerView;
     private ImageButton retry;
-    private Button today, thisWeek, thisMonth;
+    private RadioButton today, thisWeek, thisMonth;
     private LinearLayout serverErrorView;
     private RelativeLayout loadingView;
     private TextView tvCurrency;
@@ -77,6 +81,7 @@ public class FragmentMyDoneWork extends Fragment {
         this.thisWeek = root.findViewById(R.id.this_week);
         this.thisMonth = root.findViewById(R.id.this_month);
         this.networkReceiver = new NetworkReciever();
+        today.setChecked(true);
         setCurrency();
         setOnClickListeners();
         return root;
@@ -96,7 +101,7 @@ public class FragmentMyDoneWork extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String userEmail = GoogleUserData.getUserEmail(getActivity());
-        this.controllerMyDoneJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        this.controllerMyDoneJobs.getTodaysData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
     }
 
     public String getCurrencyCode(String countryCode) {
@@ -149,6 +154,7 @@ public class FragmentMyDoneWork extends Fragment {
         });
         this.thisWeek.setOnClickListener(v ->{
             this.controllerMyDoneJobs.getThisWeekData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+
         });
         this.thisMonth.setOnClickListener(v -> {
             this.controllerMyDoneJobs.getThisMonth(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
@@ -168,7 +174,8 @@ public class FragmentMyDoneWork extends Fragment {
 
     @Subscribe
     public void networkOn(EventNetOn eventNetOn){
-        this.controllerMyDoneJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        this.controllerMyDoneJobs.getTodaysData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        this.today.setChecked(true);
     }
 
 
@@ -223,6 +230,9 @@ public class FragmentMyDoneWork extends Fragment {
         if (appliedJobAdapter.getItemCount() == 0) {
             this.noAddedJobsView.setVisibility(View.VISIBLE);
             this.recyclerView.setVisibility(View.GONE);
+        }else {
+            this.noAddedJobsView.setVisibility(View.GONE);
+            this.recyclerView.setVisibility(View.VISIBLE);
         }
     }
 }

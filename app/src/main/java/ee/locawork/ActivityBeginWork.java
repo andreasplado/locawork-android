@@ -13,7 +13,7 @@ public class ActivityBeginWork extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_work);
+        setContentView(R.layout.activity_work_reached);
         back = findViewById(R.id.back_to_the_search);
         back.setOnClickListener(v -> {
             finish();

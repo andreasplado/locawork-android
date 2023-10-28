@@ -23,19 +23,42 @@
             android:layout_alignParentTop="true"
             fancy:navGraph="@navigation/mobile_navigation" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/ad_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        >
+        android:background="@color/colorPrimary">
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             fancy:adSize="BANNER"
+            android:visibility="gone"
             fancy:adUnitId="ca-app-pub-7811023704360430/5598944137" />
+
+        <LinearLayout
+            android:id="@+id/no_adds_to_show_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/no_adds_to_show_label"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/there_are_currently_no_adds_to_show"
+                android:paddingEnd="15dp" />
+
+            <Button
+                android:id="@+id/remove_adds"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/remove_add_bar" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

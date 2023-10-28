@@ -4,7 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -14,9 +18,9 @@ public class TimerUtils {
 
     public static void startCount(Activity activity, TextView timeView,
                                   CodeScannerView codeScannerView, long expectedEndTime,
-                                  TextView expectedSalary){
+                                  TextView expectedSalary, CodeScanner codeScanner, Button endWorkBtn, FrameLayout scannerLayout){
         long timer = 0;
-        long currentDate= new Date().getTime();
+        long currentDate= System.currentTimeMillis();
         if(expectedEndTime > currentDate){
             timer = expectedEndTime - currentDate;
             new CountDownTimer(timer, 1000) { // adjust the milli seconds here
@@ -38,11 +42,16 @@ public class TimerUtils {
                 public void onFinish() {
                     timeView.setText("done!");
                     codeScannerView.setVisibility(View.VISIBLE);
+                    codeScanner.startPreview();
+                    endWorkBtn.setVisibility(View.VISIBLE);
+                    scannerLayout.setVisibility(View.VISIBLE);
                 }
             }.start();
         }else{
             timeView.setText("done!");
             codeScannerView.setVisibility(View.VISIBLE);
+            scannerLayout.setVisibility(View.VISIBLE);
+            codeScanner.startPreview();
         }
     }
 }

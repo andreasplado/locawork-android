@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,10 @@ import android.widget.TextView;
 import com.google.zxing.WriterException;
 import com.ramotion.fluidslider.FluidSlider;
 
+import ee.locawork.ActivityWorkInProgress;
+import ee.locawork.ControllerEndWork;
+import ee.locawork.model.dto.EndTimeDTO;
+import ee.locawork.services.ServiceReachedJob;
 import ee.locawork.ui.myaddedwork.ControllerGetCurrentlyWorkingPersonData;
 import ee.locawork.ui.myaddedwork.ControllerGetSelectedApplyerData;
 import ee.locawork.R;
@@ -29,12 +34,15 @@ import ee.locawork.util.DialogUtils;
 import ee.locawork.util.PrefConstants;
 import ee.locawork.util.PreferencesUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
+import ee.locawork.util.TimeUtil;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 
 
 public class AlertAddedJob {
@@ -52,16 +60,28 @@ public class AlertAddedJob {
         ((TextView) dialogView.findViewById(R.id.job_description)).setText(job.getDescription());
         ((TextView) dialogView.findViewById(R.id.job_duration)).setText(job.getHoursToWork() + "");
         ((TextView) dialogView.findViewById(R.id.location_tv)).setText(location);
+        dialogView.findViewById(R.id.end_user_work).setOnClickListener(view -> {
+            String endTime = new Date().getTime() + "";
+            EndTimeDTO endTimeDTO = new EndTimeDTO();
+            endTimeDTO.setEndTime(endTime);
+            endTimeDTO.setApplyerId(jobList.get(position).getApplyerId());
+            endTimeDTO.setJobId(jobList.get(position).getId());
+
+            new ControllerEndWork().postData(context, endTimeDTO);
+            alertDialog.cancel();
+        });
         ((TextView) dialogView.findViewById(R.id.title)).setText(context.getResources().getString(R.string.added_job));
-        if(job.getJobStartTime() != null){
-            ((TextView) dialogView.findViewById(R.id.work_started)).setText(job.getJobStartTime().toString());
+        if(job.getWorkStartTime() != null){
+            ((TextView) dialogView.findViewById(R.id.work_started)).setText(TimeUtil.dayStringFormat(Long.parseLong(job.getWorkStartTime().toString()), context));
         }else{
             ((TextView) dialogView.findViewById(R.id.work_started)).setText(context.getResources().getString(R.string.user_has_not_started_the_work_yet));
         }
-        if(job.getJobEndTime() != null){
-            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(job.getJobStartTime().toString());
+        if(job.getWorkEndTime() != null){
+            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(TimeUtil.dayStringFormat(Long.parseLong(job.getWorkStartTime().toString()), context));
+            ((TextView) dialogView.findViewById(R.id.end_user_work)).setVisibility(View.GONE);
         }else{
             ((TextView) dialogView.findViewById(R.id.work_finished)).setText(context.getResources().getString(R.string.user_has_not_finished_the_work_yet));
+            ((TextView) dialogView.findViewById(R.id.end_user_work)).setVisibility(View.VISIBLE);
         }
 
 

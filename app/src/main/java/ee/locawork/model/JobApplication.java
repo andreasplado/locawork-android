@@ -17,6 +17,9 @@ public class JobApplication {
     @SerializedName("userId")
     private Integer user;
 
+    @SerializedName("reason_quitting_job")
+    private String reasonQuittingJob;
+
     public Integer getId() {
         return this.id;
     }
@@ -63,5 +66,13 @@ public class JobApplication {
 
     public void setUser(Integer user2) {
         this.user = user2;
+    }
+
+    public String getReasonQuittingJob() {
+        return reasonQuittingJob;
+    }
+
+    public void setReasonQuittingJob(String reasonQuittingJob) {
+        this.reasonQuittingJob = reasonQuittingJob;
     }
 }

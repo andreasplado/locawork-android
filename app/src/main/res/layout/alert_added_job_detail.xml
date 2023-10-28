@@ -180,6 +180,13 @@
                         android:layout_marginTop="20dp"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/end_user_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/end_work" />
             </LinearLayout>
             <TextView
                 android:id="@+id/no_candidates_view"

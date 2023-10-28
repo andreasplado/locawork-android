@@ -22,10 +22,9 @@ public class ControllerSendNotificationToApplyer implements Callback<String> {
     }
 
     public void onResponse(Call<String> call, Response<String> response) {
-        Toast.makeText(this.context, "Success", 1).show();
     }
 
     public void onFailure(Call<String> call, Throwable t) {
-        Toast.makeText(this.context, "failure", 1).show();
+
     }
 }

@@ -54,7 +54,7 @@
     <string name="getting_jobs">Getting work</string>
     <string name="go">Go</string>
     <string name="google_maps_key" translatable="false">AIzaSyDxMp6Y2Hg7KW5RFm5fXrGuNWBN6aN1Elc</string>
-    <string name="ad_mob_key" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="ad_mob_key" translatable="false">ca-app-pub-7811023704360430/5598944137</string>
     <string name="gps_is_turned_off">GPS is turned off</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="how_we_can_contact_you">How we can contact you?</string>
@@ -69,6 +69,8 @@
     <string name="you_have_posted_n_jobs">You have posted %1$d jobs</string>
     <string name="km">km</string>
     <string name="licence">Licence</string>
+    <string name="website_link" translatable="false">Visit us in &lt;a href="" title=\"Locawork.ee\" style=color: #8c8987&gt;Locawork&lt;&lt;/a&gt;</string>
+    <string name="privacy_policy_link" translatable="false">Read more about privacy policy &lt;a href=\"" title=\"Privacy policy\" style=color: #8c8987&gt;privacy policy&lt;&lt;/a&gt;</string>
     <string name="licence_content" translatable="false">Icons made by &lt;a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\" style=color: #8c8987&gt;Freepik&lt;/a&gt; from &lt;a href=\"https://www.flaticon.com/\" title=\"Flaticon\" style=color: #8c8987&gt; www.flaticon.com&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/business\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt;</string>
     <string name="loading_applyer_contact">Loading applyer contact...</string>
     <string name="loading_applyer_email">Loading applyer email…</string>
@@ -438,4 +440,19 @@
     <string name="today">Today</string>
     <string name="this_week">This week</string>
     <string name="this_month">This month</string>
+    <string name="website">Website</string>
+    <string name="there_are_currently_no_adds_to_show">There are currently no adds to show</string>
+    <string name="remove_add_bar">Remove add</string>
+    <string name="job_date">Job date</string>
+    <string name="customer_id_copied">Customer ID copied</string>
+    <string name="plase_scan_the_correct_qr_code_for_locawork">Please scan the correct QR code for locawork</string>
+    <string name="job_duration">Job duration</string>
+    <string name="work_added_label">Work added:</string>
+    <string name="expected_salary_label">Expected salary:</string>
+    <string name="we_will_let_employer_know_that_you_cancelled">We will let employer know that you cancelled</string>
+    <string name="call_employer">Call employer</string>
+    <string name="failed_to_fetch_employer_data">Failed to fetch employer data</string>
+    <string name="no_service_provider_available">No service provider available</string>
+    <string name="undone_work">Undone work</string>
+    <string name="done_work">Done work</string>
 </resources>

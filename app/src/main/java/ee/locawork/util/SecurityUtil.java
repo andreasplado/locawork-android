@@ -3,6 +3,7 @@ package ee.locawork.util;
 import android.content.Context;
 import android.widget.Toast;
 import ee.locawork.PostClient;
+import ee.locawork.R;
 import ee.locawork.model.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,12 +18,12 @@ public class SecurityUtil {
                 if (response.isSuccessful()) {
                     PreferencesUtil.save(context, "login_data", response.body().getToken());
                 } else if (response.code() == 400) {
-                    Toast.makeText(context, "Invalid username or password", 1).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.invalid_credentials), 1).show();
                 }
             }
 
             public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(context, "Error happened maybe network", 1).show();
+                Toast.makeText(context, context.getResources().getString(R.string.server_error), 1).show();
             }
         });
     }

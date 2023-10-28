@@ -19,10 +19,10 @@ public class Job implements ClusterItem, net.sharewire.googlemapsclustering.Clus
     private int applyerId;
     @SerializedName("id")
     private int id;
-    @SerializedName("jobEndTime")
-    private Timestamp jobEndTime;
-    @SerializedName("jobStartTime")
-    private Timestamp jobStartTime;
+    @SerializedName("workEndTime")
+    private String workEndTime;
+    @SerializedName("workStartTime")
+    private String workStartTime;
     @SerializedName("latitude")
     private double latitude;
     @SerializedName("longitude")
@@ -128,20 +128,20 @@ public class Job implements ClusterItem, net.sharewire.googlemapsclustering.Clus
         this.accountGoogleId = accountGoogleId2;
     }
 
-    public Timestamp getJobStartTime() {
-        return this.jobStartTime;
+    public String getWorkStartTime() {
+        return this.workStartTime;
     }
 
-    public void setJobStartTime(Timestamp jobStartTime2) {
-        this.jobStartTime = jobStartTime2;
+    public void setWorkStartTime(String workStartTime) {
+        this.workStartTime = workStartTime;
     }
 
-    public Timestamp getJobEndTime() {
-        return this.jobEndTime;
+    public String getWorkEndTime() {
+        return this.workEndTime;
     }
 
-    public void setJobEndTime(Timestamp jobEndTime2) {
-        this.jobEndTime = jobEndTime2;
+    public void setWorkEndTime(String workEndTime) {
+        this.workEndTime = workEndTime;
     }
 
     public int getUserId() {

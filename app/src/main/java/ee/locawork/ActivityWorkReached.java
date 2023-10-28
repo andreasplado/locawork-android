@@ -26,6 +26,7 @@ import ee.locawork.util.ActivityUtils;
 import ee.locawork.util.AnimationUtil;
 import ee.locawork.util.LocationUtil;
 import ee.locawork.util.PreferencesUtil;
+import ee.locawork.util.StringUtil;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,7 +53,7 @@ public class ActivityWorkReached extends AppCompatActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_work);
+        setContentView(R.layout.activity_work_reached);
         this.jobTitle = findViewById(R.id.job_title);
         this.pm = getPackageManager();
         this.jobDescription = findViewById(R.id.job_description);
@@ -72,7 +73,12 @@ public class ActivityWorkReached extends AppCompatActivity {
         this.startWorkScanner = new CodeScanner(this, codeScannerView);
         startWorkScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             int jobId = PreferencesUtil.readInt(this, KEY_JOB_ID, 0);
-            new ControllerCheckIfWorkExists().getData(jobId);
+            if(StringUtil.isNumeric(result.getText())){
+                new ControllerCheckIfWorkExists().getData(Integer.parseInt(result.getText()));
+            }else{
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.plase_scan_the_correct_qr_code_for_locawork), Toast.LENGTH_LONG).show();
+            }
+
         }));
     }
 
@@ -142,7 +148,7 @@ public class ActivityWorkReached extends AppCompatActivity {
             getApplicationContext().stopService(new Intent(ActivityWorkReached.this, ServiceReachedJob.class));
             PreferencesUtil.save(ActivityWorkReached.this, ServiceReachedJob.KEY_HAVE_REACHED, 0);
             PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_HAVE_STARTED, 1);
-            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, (int)new Date().getTime());
+            PreferencesUtil.save(ActivityWorkReached.this, PreferencesUtil.KEY_WORK_START_TIME, System.currentTimeMillis());
             startActivity(new Intent(this, ActivityWorkInProgress.class));
         }
         if(eventStartWork.getResponse().code() == 400){

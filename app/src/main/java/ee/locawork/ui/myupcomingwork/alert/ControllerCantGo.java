@@ -17,8 +17,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ControllerCantGo implements Callback<Job> {
-    public void postData(Context context, Integer jobApplicationId) {
-        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceCantGo.class).postCantGo(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), jobApplicationId).enqueue(this);
+    public void putData(Context context, Integer jobId, String reason) {
+        new Retrofit.Builder().baseUrl(AppConstants.BASE_URL).addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create())).build().create(ServiceCantGo.class).putCantGoToWork(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""),jobId, reason).enqueue(this);
     }
 
     public void onResponse(Call<Job> call, Response<Job> response) {

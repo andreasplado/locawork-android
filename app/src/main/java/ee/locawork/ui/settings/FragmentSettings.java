@@ -47,6 +47,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 import retrofit2.Response;
 
 import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
@@ -68,13 +69,12 @@ public class FragmentSettings extends Fragment {
     private RadioGroup filterGroup;
     private FluidSlider radiusSlider;
     private ImageButton logout, retry;
-    private TextView email, contact, name, role;
+    private TextView email, contact, name, role, radius;
     private LinearLayout noSettingsView, yourUserDontHaveCompanyView;
     private CircleImageView profileImageView;
     private LinearLayout settingsView, noDataLayout;
     private ControllerUpdateRadius controllerUpdateRadius = new ControllerUpdateRadius();
     private View headerView;
-    private TextView radiusText;
     private NavigationView navigationView;
     private CheckBox cbEnableBiometric;
     private BiometricUtil biometricUtil;
@@ -100,7 +100,6 @@ public class FragmentSettings extends Fragment {
 
         navigationView = getActivity().findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
-        radiusText = headerView.findViewById(R.id.nav_radius);
         logout = root.findViewById(R.id.log_out);
         companyRegNumber = root.findViewById(R.id.company_registration_number);
         companyName = root.findViewById(R.id.company_name);
@@ -111,6 +110,7 @@ public class FragmentSettings extends Fragment {
         yourUserDontHaveCompanyView = root.findViewById(R.id.your_user_dont_have_company_view);
         idCode = root.findViewById(R.id.id_code);
         role = headerView.findViewById(R.id.nav_role);
+
         this.cbShowInformationOnStartup = root.findViewById(R.id.show_information_in_startup);
         this.cbAskPermissionBeforeDeletingJob = root.findViewById(R.id.ask_permission_before_deleting_job);
         this.settingsView = root.findViewById(R.id.settings_view);
@@ -162,6 +162,12 @@ public class FragmentSettings extends Fragment {
         this.contact.setText(settings.getContact());
         Float radiusPosition = settings.getRadius().floatValue() / 100;
         this.radiusSlider.setPosition(radiusPosition);
+        radiusSlider.setEndTrackingListener(() -> {
+            double position = radiusSlider.getPosition() * 100;
+            controllerUpdateRadius.update(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0), position);
+            return Unit.INSTANCE;
+        });
+
         if(settings.getCustomerId() == null || settings.getCustomerId().equals("")){
             customerIdLayout.setVisibility(View.GONE);
             tvNoCustomer.setVisibility(View.VISIBLE);
@@ -173,6 +179,11 @@ public class FragmentSettings extends Fragment {
             copyCustomerId.setVisibility(View.VISIBLE);
             customerId.setText(settings.getCustomerId());
         }
+
+        copyCustomerId.setOnClickListener(view -> {
+            ClickUtils.copyText(getContext(),getContext().getResources().getString(R.string.customer_id_label), customerId.getText().toString());
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.customer_id_copied), Toast.LENGTH_LONG).show();
+        });
 
 
 
@@ -268,7 +279,8 @@ public class FragmentSettings extends Fragment {
     @Subscribe
     public void eventUpdateRadiusSuccess(EventUpdateRadiusSuccess eventUpdateRadiusSuccess){
         int radiusRounded = new Double(eventUpdateRadiusSuccess.getResponse().body().getRadius()).intValue();
-        radiusText.setText(String.valueOf(radiusRounded));
+
+        ((TextView)headerView.findViewById(R.id.nav_radius)).setText(radiusRounded);
         PreferencesUtil.save(getContext(), KEY_RADIUS, eventUpdateRadiusSuccess.getResponse().body().getRadius());
         Toast.makeText(getContext(), getResources().getString(R.string.radius_not_successfully_updated), Toast.LENGTH_LONG).show();
     }

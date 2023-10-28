@@ -61,7 +61,11 @@ public class AdapterAddedJobs extends RecyclerView.Adapter<AdapterAddedJobs.View
 
     public int getItemCount() {
         EventBus.getDefault().post(new EventEmptyList(this.myListData));
-        return this.myListData.size();
+        if(myListData == null){
+            return 0;
+        }else{
+            return this.myListData.size();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

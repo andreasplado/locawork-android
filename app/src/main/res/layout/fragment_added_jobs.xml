@@ -4,6 +4,69 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="25dp"
+        android:textColor="@color/colorWhite">
+
+        <RadioGroup
+            android:id="@+id/RadioGroup01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:orientation="horizontal"
+            android:layout_span="3"
+            android:checked="true"
+            android:paddingLeft="16dp"
+            android:paddingTop="3dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="3dp">
+
+            <RadioButton
+                android:id="@+id/done_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:freezesText="true"
+                android:checked="true"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:textColor="@color/radio_flat_text_selector"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/undone_work" />
+
+            <RadioButton
+                android:id="@+id/undone_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/radio_flat_text_selector"
+                android:text="@string/done_work" />
+            <RadioButton
+                android:id="@+id/all_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:textColor="@color/radio_flat_text_selector"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/all_work"/>
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/server_error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,7 +112,15 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_no_data" />
+            android:src="@drawable/add"
+            android:layout_marginBottom="50dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oops"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

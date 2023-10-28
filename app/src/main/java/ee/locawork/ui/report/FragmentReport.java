@@ -28,12 +28,11 @@ public class FragmentReport extends Fragment {
         imageButton.setOnClickListener(v -> {
             if (FragmentReport.this.title.getText().equals("") || FragmentReport.this.content.getText().equals("")) {
                 Toast.makeText(FragmentReport.this.getContext(), FragmentReport.this.getResources().getString(R.string.please_fill_in_all_data), Toast.LENGTH_LONG).show();
-                return;
+            } else {
+                FragmentReport.this.sendMail();
+                FragmentReport.this.title.setText("");
+                FragmentReport.this.content.setText("");
             }
-            FragmentReport.this.sendMail();
-
-            FragmentReport.this.title.setText("");
-            FragmentReport.this.content.setText("");
         });
         return root;
     }

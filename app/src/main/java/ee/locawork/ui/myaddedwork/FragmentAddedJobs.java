@@ -1,5 +1,6 @@
 package ee.locawork.ui.myaddedwork;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,12 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import ee.locawork.ActivityEndWork;
+import ee.locawork.EventEndWork;
+import ee.locawork.EventEndWorkFailure;
 import ee.locawork.EventFailedToGetUserData;
 import ee.locawork.EventGetUserData;
 import ee.locawork.ActivityMain;
@@ -47,6 +53,7 @@ public class FragmentAddedJobs extends Fragment {
     private RecyclerView recyclerView;
     private ImageButton retry;
     private LinearLayout serverErrorView;
+    private RadioButton doneWork, unDoneWork, allWork;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -62,13 +69,26 @@ public class FragmentAddedJobs extends Fragment {
         this.noAddedJobsView = root.findViewById(R.id.no_added_jobs_view);
         this.serverErrorView = root.findViewById(R.id.server_error_view);
         this.loadingView = root.findViewById(R.id.loading_view);
+        this.allWork = root.findViewById(R.id.all_work);
+        this.unDoneWork = root.findViewById(R.id.undone_work);
+        this.doneWork = root.findViewById(R.id.done_work);
         ImageButton imageButton = root.findViewById(R.id.retry);
         this.retry = imageButton;
         imageButton.setOnClickListener(view -> {
             AnimationUtil.animateBubble(view);
-            this.controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+            this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         });
-        this.controllerAddedJobs.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+
+        this.doneWork.setOnClickListener(view -> {
+            this.controllerAddedJobs.getDonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
+        this.unDoneWork.setOnClickListener(view -> {
+            this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
+        this.allWork.setOnClickListener(view -> {
+            this.controllerAddedJobs.getAllPostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        });
 
         return root;
     }
@@ -162,9 +182,20 @@ public class FragmentAddedJobs extends Fragment {
     }
 
     @Subscribe
+    public void endWork(EventEndWork eventEndWork){
+        if(eventEndWork.getResponse().code() == 200){
+            this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+        }
+    }
+
+    @Subscribe
+    public void endWork(EventEndWorkFailure eventEndWorkFailure){
+        Toast.makeText(getContext(), getResources().getString(R.string.network_error), Toast.LENGTH_LONG).show();
+    }
+    @Subscribe
     public void getAplyerData(EventFailedToGetUserData eventGetUserData) {
         Throwable mainData = eventGetUserData.getT();
-        Toast.makeText(getContext(), "Neti error!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.network_error), Toast.LENGTH_LONG).show();
     }
 
 

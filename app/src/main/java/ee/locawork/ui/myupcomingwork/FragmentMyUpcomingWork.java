@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,6 +24,8 @@ import ee.locawork.broadcastreciever.EventWorkReached;
 import ee.locawork.broadcastreciever.NetworkReciever;
 import ee.locawork.event.EventNetOn;
 import ee.locawork.model.dto.JobDTO;
+import ee.locawork.ui.myupcomingwork.alert.EventCantGoNetFailure;
+import ee.locawork.ui.myupcomingwork.alert.EventCantGoNetSuccess;
 import ee.locawork.util.AnimationUtil;
 import ee.locawork.util.FragmentUtils;
 import ee.locawork.util.GoogleUserData;
@@ -135,6 +138,17 @@ public class FragmentMyUpcomingWork extends Fragment {
             this.noCandidatesView.setVisibility(View.VISIBLE);
             this.recyclerView.setVisibility(View.GONE);
         }
+    }
+
+    @Subscribe
+    public void eventCantGoNetSuccess(EventCantGoNetSuccess eventCantGoNetSuccess) {
+        Toast.makeText(getContext(), getResources().getString(R.string.we_will_let_employer_know_that_you_cancelled), Toast.LENGTH_LONG).show();
+        this.controllerUpcomingWork.getData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
+    }
+
+    @Subscribe
+    public void eventCantGoNetFailure(EventCantGoNetFailure eventCantGoNetFailure) {
+        Toast.makeText(getContext(), getResources().getString(R.string.we_will_let_employer_know_that_you_cancelled), Toast.LENGTH_LONG).show();
     }
 
     @Subscribe

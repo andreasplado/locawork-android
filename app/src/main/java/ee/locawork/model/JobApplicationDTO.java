@@ -24,6 +24,9 @@ public class JobApplicationDTO {
     @SerializedName("user_id")
     private Integer userId;
 
+    @SerializedName("reason_quitting_job")
+    private String reasonQuittingJob;
+
     public Integer getId() {
         return this.id;
     }
@@ -102,5 +105,13 @@ public class JobApplicationDTO {
 
     public void setContact(String contact2) {
         this.contact = contact2;
+    }
+
+    public String getReasonQuittingJob() {
+        return reasonQuittingJob;
+    }
+
+    public void setReasonQuittingJob(String reasonQuittingJob) {
+        this.reasonQuittingJob = reasonQuittingJob;
     }
 }

@@ -15,6 +15,12 @@ public interface ServiceAddJob {
     @POST("/jobs")
     Call<Job> addJob(@Header("Authorization") String auth, @Body Job job);
 
-    @GET("jobs/getjobsbyaccount")
-    Call<List<Job>> getUserJobs(@Header("Authorization") String auth, @Query("userId") Integer num);
+    @GET("jobs/get-undone-posted-jobs")
+    Call<List<Job>> getUndonePostedJobs(@Header("Authorization") String auth, @Query("userId") Integer num);
+
+    @GET("jobs/get-done-posted-jobs")
+    Call<List<Job>> getDonePostedJobs(@Header("Authorization") String auth, @Query("userId") Integer num);
+
+    @GET("jobs/get-all-posted-jobs")
+    Call<List<Job>> getAllPostedJobs(@Header("Authorization") String auth, @Query("userId") Integer num);
 }

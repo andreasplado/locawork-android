@@ -4,12 +4,15 @@ import static ee.locawork.util.PreferencesUtil.KEY_USER_ID;
 import static ee.locawork.util.PreferencesUtil.KEY_WORK_START_TIME;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +24,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Date;
 
-import ee.locawork.alert.AlertEndWork;
 import ee.locawork.alert.AlertError;
 import ee.locawork.model.dto.EndTimeDTO;
 import ee.locawork.services.ServiceReachedJob;
@@ -33,12 +35,14 @@ public class ActivityWorkInProgress extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
     private TextView timeView;
     private boolean isRunning = false;
-    private Button endWithoutScanning, btnEndWork;
+    private Button callEmployer, btnEndWork;
     private TextView jobTitle;
     private TextView jobDescription, salary, expectedSalary;
 
     private CodeScannerView codeScannerView;
     private CodeScanner endWorkScanner;
+
+    private FrameLayout scannerLayout;
 
     private int hoursToWorkInMillis = 0;
 
@@ -52,9 +56,10 @@ public class ActivityWorkInProgress extends AppCompatActivity {
         jobDescription = findViewById(R.id.job_description);
         salary = findViewById(R.id.job_salary);
         expectedSalary = findViewById(R.id.expected_salary);
-        endWithoutScanning = findViewById(R.id.ask_employer_to_end_the_job);
+        callEmployer = findViewById(R.id.call_employer);
         btnEndWork = findViewById(R.id.end_work);
         codeScannerView = findViewById(R.id.scanner_view);
+        scannerLayout = findViewById(R.id.scanner_layout);
         timeView = findViewById(R.id.time);
 
         salary.setText(PreferencesUtil.readString(this, ServiceReachedJob.KEY_JOB_SALARY, ""));
@@ -88,16 +93,19 @@ public class ActivityWorkInProgress extends AppCompatActivity {
         });
 
         if(!isRunning){
-            int workStartTime = PreferencesUtil
-                    .readInt(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
+            long workStartTime = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, KEY_WORK_START_TIME,0);
 
-            int hoursToWork = PreferencesUtil
-                    .readInt(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
+            long hoursToWork = PreferencesUtil
+                    .readLong(ActivityWorkInProgress.this, ServiceReachedJob.KEY_HOURS_TO_WORK,0);
             long expectedEndTime = workStartTime + hoursToWork;
 
-            TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary);
+            TimerUtils.startCount(this, timeView, codeScannerView, expectedEndTime, expectedSalary, endWorkScanner, btnEndWork, scannerLayout);
             isRunning = true;
         }
+
+        ControllerGetEmployerData controllerGetEmployerData = new ControllerGetEmployerData();
+        controllerGetEmployerData.getData(getApplicationContext(), PreferencesUtil.readInt(getApplicationContext(), KEY_USER_ID, 0));
 
     }
 
@@ -158,6 +166,22 @@ public class ActivityWorkInProgress extends AppCompatActivity {
             PreferencesUtil.flushJobProcess(getApplicationContext());
             new Intent(this, ActivityEndWork.class);
         }
+    }
+
+    @Subscribe
+    public void getEmployerData(EventGetEmployerData eventGetEmployerData){
+        callEmployer.setVisibility(View.VISIBLE);
+        this.callEmployer.setText(getResources().getString(R.string.call_employer));
+        this.callEmployer.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + eventGetEmployerData.getResponse().body().getContact()));
+            startActivity(intent);
+        });
+    }
+
+    @Subscribe
+    public void failedToGetEmployerData(EventFailedToGetEmployerData eventGetEmployerData){
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.failed_to_fetch_employer_data), Toast.LENGTH_LONG).show();
     }
 
     @Subscribe

@@ -34,7 +34,7 @@ public class ControllerAddedJobs implements Callback<List<Job>> {
 
         ServiceAddJob serviceAddJob = retrofit.create(ServiceAddJob.class);
 
-        Call<List<Job>> call = serviceAddJob.getUserJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), accountGoogleId);
+        Call<List<Job>> call = serviceAddJob.getUndonePostedJobs(PreferencesUtil.readString(context, PreferencesUtil.KEY_TOKEN, ""), accountGoogleId);
         call.enqueue(this);
     }
 

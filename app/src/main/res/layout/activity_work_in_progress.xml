@@ -115,6 +115,7 @@
 
 
         <FrameLayout
+            android:id="@+id/scanner_layout"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
@@ -131,10 +132,12 @@
             android:id="@+id/end_work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="end work" />
+            android:visibility="gone"
+            android:text="@string/end_work" />
 
         <Button
-            android:id="@+id/ask_employer_to_end_the_job"
+            android:visibility="gone"
+            android:id="@+id/call_employer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ask_employer_to_end_the_job" />

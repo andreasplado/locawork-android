@@ -1,6 +1,9 @@
 package ee.locawork.services;
 
 
+import static ee.locawork.util.PrefConstants.KEY_LOCAWORK_PREFS;
+import static ee.locawork.util.PreferencesUtil.KEY_PUSH_NOTIFICATION_TOKEN;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,6 +20,8 @@ import ee.locawork.R;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -45,6 +50,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         manager.notify(0, builder.build());
         //showNotification(remoteMessage.getData().get("message"));
+    }
+
+    @Override
+    public void onNewToken(@NonNull String s) {
+        android.os.Debug.waitForDebugger();
+        getSharedPreferences(KEY_LOCAWORK_PREFS, MODE_PRIVATE).edit().putString(KEY_PUSH_NOTIFICATION_TOKEN, s).commit();
+        EventBus.getDefault().post(new EventRetrieveToken(s));
+        super.onNewToken(s);
     }
 
 
