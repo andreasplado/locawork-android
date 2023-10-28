@@ -26,6 +26,18 @@
             android:paddingBottom="3dp">
 
             <RadioButton
+                android:id="@+id/undone_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radio_flat_selector"
+                android:button="@android:color/transparent"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/radio_flat_text_selector"
+                android:text="@string/undone_work" />
+            <RadioButton
                 android:id="@+id/done_work"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,19 +50,6 @@
                 android:paddingStart="15dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/undone_work" />
-
-            <RadioButton
-                android:id="@+id/undone_work"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/radio_flat_selector"
-                android:button="@android:color/transparent"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/radio_flat_text_selector"
                 android:text="@string/done_work" />
             <RadioButton
                 android:id="@+id/all_work"
