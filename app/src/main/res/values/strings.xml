@@ -69,9 +69,9 @@
     <string name="you_have_posted_n_jobs">You have posted %1$d jobs</string>
     <string name="km">km</string>
     <string name="licence">Licence</string>
-    <string name="website_link" translatable="false">Visit us in &lt;a href="" title=\"Locawork.ee\" style=color: #8c8987&gt;Locawork&lt;&lt;/a&gt;</string>
-    <string name="privacy_policy_link" translatable="false">Read more about privacy policy &lt;a href=\"" title=\"Privacy policy\" style=color: #8c8987&gt;privacy policy&lt;&lt;/a&gt;</string>
-    <string name="licence_content" translatable="false">Icons made by &lt;a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\" style=color: #8c8987&gt;Freepik&lt;/a&gt; from &lt;a href=\"https://www.flaticon.com/\" title=\"Flaticon\" style=color: #8c8987&gt; www.flaticon.com&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/business\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt;</string>
+    <string name="website_link">Visit us in &lt;a href="" title=\"Locawork.ee\" style=color: #8c8987&gt;Locawork&lt;&lt;/a&gt;</string>
+    <string name="privacy_policy_link">Read more about privacy policy &lt;a href=\"" title=\"Privacy policy\" style=color: #8c8987&gt;privacy policy&lt;&lt;/a&gt;</string>
+    <string name="licence_content">Icons made by &lt;a href=\"https://www.flaticon.com/authors/freepik\" title=\"Freepik\" style=color: #8c8987&gt;Freepik&lt;/a&gt; from &lt;a href=\"https://www.flaticon.com/\" title=\"Flaticon\" style=color: #8c8987&gt; www.flaticon.com&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/business\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt; &lt;/br&gt; &lt;a href=\"https://stories.freepik.com/data\" style=color: #8c8987&gt;Illustration by Freepik Stories&lt;/a&gt;</string>
     <string name="loading_applyer_contact">Loading applyer contact...</string>
     <string name="loading_applyer_email">Loading applyer email…</string>
     <string name="loading_job_candidate">Loading work candidate…</string>
@@ -360,22 +360,22 @@
     <string name="succees">Success</string>
     <string name="failed_to_remove_adds_please_try_again">Failed to remove adds. Please try again!</string>
     <string name="failure">Failure</string>
-    <string name="you_just_posted_a_work_please_check_in_your_added_work_to_see_or_edit_your_posted_work">You just posted a work!\nPlease check your added work to see or edit your posted work.</string>
-    <string name="congratulations_you_just_added_new_work">Congratulations!\nYou just added new work!</string>
+    <string name="you_just_posted_a_work_please_check_in_your_added_work_to_see_or_edit_your_posted_work">You just posted a work! Please check your added work to see or edit your posted work.</string>
+    <string name="congratulations_you_just_added_new_work">Congratulations! You just added new work!</string>
     <string name="your_job_psting_failed_please_check_your_credit_card_details_or_contact_with_support">Your job posting failed! Please check your credit card details or contact with support</string>
-    <string name="you_have_been_logged_out">You have nbeen logged out!</string>
+    <string name="you_have_been_logged_out">You have been logged out!</string>
     <string name="payroll">Payroll</string>
     <string name="monthly">Monthly</string>
     <string name="days">Days</string>
     <string name="hours">Hours</string>
-    <string name="wohooo">Wohoo!</string>
+    <string name="wohooo" translatable="false">Wohoo!</string>
     <string name="you_just_chose_the_candidate">You just chose the candidate</string>
     <string name="you_have_been_applied_to_work_please_please_wait_for_confirmation">You have been applied to work. Please wait for confirmation</string>
     <string name="you_succesfully_applied_to_the_work">You successfully applied to the work!</string>
     <string name="start_work">Start work</string>
     <string name="end_work">End work</string>
     <string name="you_are_going_to_work">You are going to work!</string>
-    <string name="while_you_are_moving_please_be_aware_of_accidents_in_case_anything_happens_please_inform_the_employee">While you are moving please be aware of accidents.\nIn case anything happens, please inform the employee</string>
+    <string name="while_you_are_moving_please_be_aware_of_accidents_in_case_anything_happens_please_inform_the_employee">While you are moving please be aware of accidents. In case anything happens, please inform the employee</string>
     <string name="jobs_was_found">%1$d jobs found</string>
     <string name="allow_permission">Allow location</string>
     <string name="r_work_destination">Te jõudsite töö asukohani! Alusta tööd!</string>
@@ -404,7 +404,7 @@
     <string name="label_payroll">Payroll:</string>
     <string name="label_worked_hours">Worked hours:</string>
     <string name="label_required_working_hours">Required working hours:</string>
-    <string name="per_hour">h</string>
+    <string name="per_hour" translatable="false">h</string>
     <string name="label_reason_of_leaving_earlier">Reason of leaving earlier:</string>
     <string name="company_name">Company name</string>
     <string name="company_registration_number">Company registration number</string>
@@ -455,4 +455,23 @@
     <string name="no_service_provider_available">No service provider available</string>
     <string name="undone_work">Undone work</string>
     <string name="done_work">Done work</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 </resources>

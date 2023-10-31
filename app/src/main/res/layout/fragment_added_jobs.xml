@@ -34,6 +34,7 @@
                 android:paddingEnd="15dp"
                 android:paddingStart="15dp"
                 android:paddingTop="8dp"
+                android:checked="true"
                 android:paddingBottom="8dp"
                 android:textColor="@color/radio_flat_text_selector"
                 android:text="@string/undone_work" />
@@ -42,7 +43,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:freezesText="true"
-                android:checked="true"
                 android:background="@drawable/radio_flat_selector"
                 android:button="@android:color/transparent"
                 android:textColor="@color/radio_flat_text_selector"

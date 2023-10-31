@@ -1,33 +1,12 @@
 package ee.locawork.util;
 
-/**
- * Copyright (c) 2006 Richard Rodgers
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-//package com.monad.homerun.util;
-
 import android.content.Context;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * TimeUtil is a utility class with static methods to convert times in various
- * formats into other formats
- */
+import ee.locawork.R;
 
 public class TimeUtil {
     private static final int MINS_PER_DAY = 60 * 24;
@@ -39,10 +18,6 @@ public class TimeUtil {
     private static final int DAY = HOUR * 24;
     private static final long WEEK = DAY * 7;
     private static final long YEAR = WEEK * 52;
-
-    private static final long[] buckets = { YEAR, WEEK, DAY, HOUR, MIN, SEC };
-    private static final String[] bucketNames = { "year", "week", "day",
-            "hour", "minute", "second" };
 
     private static GregorianCalendar statFmtCal = new GregorianCalendar();
 
@@ -66,46 +41,46 @@ public class TimeUtil {
 
         switch (dow) {
             case Calendar.MONDAY:
-                result = "Monday";
+                result = context.getString(R.string.monday);
             case Calendar.TUESDAY:
-                result = "Tuesday";
+                result = context.getString(R.string.tuesday);;
             case Calendar.WEDNESDAY:
-                result = "Wednesday";
+                result = context.getString(R.string.wednesday);
             case Calendar.THURSDAY:
-                result = "Thursday";
+                result = context.getString(R.string.thursday);
             case Calendar.FRIDAY:
-                result = "Friday";
+                result = context.getString(R.string.friday);
             case Calendar.SATURDAY:
-                result = "Saturday";
+                result = context.getString(R.string.saturday);
             case Calendar.SUNDAY:
-                result = "Sunday";
+                result = context.getString(R.string.sunday);
         }
         result += " ";
         switch (month) {
             case Calendar.JANUARY:
-                result += "January";
+                result += context.getString(R.string.january);
             case Calendar.FEBRUARY:
-                result = "February";
+                result = context.getString(R.string.february);
             case Calendar.MARCH:
-                result = "March";
+                result = context.getString(R.string.march);
             case Calendar.APRIL:
-                result = "April";
+                result = context.getString(R.string.april);
             case Calendar.MAY:
-                result = "May";
+                result = context.getString(R.string.may);
             case Calendar.JUNE:
-                result = "June";
+                result = context.getString(R.string.june);
             case Calendar.JULY:
-                result = "July";
+                result = context.getString(R.string.july);
             case Calendar.AUGUST:
-                result = "August";
+                result = context.getString(R.string.august);
             case Calendar.SEPTEMBER:
-                result = "September";
+                result = context.getString(R.string.september);
             case Calendar.OCTOBER:
-                result = "October";
+                result = context.getString(R.string.october);
             case Calendar.NOVEMBER:
-                result = "November";
+                result = context.getString(R.string.november);
             case Calendar.DECEMBER:
-                result = "December";
+                result = context.getString(R.string.december);
         }
 
         result += " " + day + " " + year + " " + hours + ":" + minutes;

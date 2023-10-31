@@ -77,7 +77,7 @@ public class AlertAddedJob {
             ((TextView) dialogView.findViewById(R.id.work_started)).setText(context.getResources().getString(R.string.user_has_not_started_the_work_yet));
         }
         if(job.getWorkEndTime() != null){
-            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(TimeUtil.dayStringFormat(Long.parseLong(job.getWorkStartTime().toString()), context));
+            ((TextView) dialogView.findViewById(R.id.work_finished)).setText(TimeUtil.dayStringFormat(Long.parseLong(job.getWorkEndTime().toString()), context));
             ((TextView) dialogView.findViewById(R.id.end_user_work)).setVisibility(View.GONE);
         }else{
             ((TextView) dialogView.findViewById(R.id.work_finished)).setText(context.getResources().getString(R.string.user_has_not_finished_the_work_yet));

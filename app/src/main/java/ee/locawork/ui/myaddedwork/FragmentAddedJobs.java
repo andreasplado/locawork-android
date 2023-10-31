@@ -74,12 +74,11 @@ public class FragmentAddedJobs extends Fragment {
         this.doneWork = root.findViewById(R.id.done_work);
         ImageButton imageButton = root.findViewById(R.id.retry);
         this.retry = imageButton;
+        this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         imageButton.setOnClickListener(view -> {
             AnimationUtil.animateBubble(view);
             this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         });
-        this.controllerAddedJobs.getUndonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
-
         this.doneWork.setOnClickListener(view -> {
             this.controllerAddedJobs.getDonePostedJobsData(getContext(), PreferencesUtil.readInt(getContext(), KEY_USER_ID, 0));
         });
